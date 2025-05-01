@@ -1,66 +1,71 @@
 package com.ifbaiano.educacaoinclusiva.model;
 
 public class Usuario {
-	private int id;
-	private String nome;
-	private String email;
-	private String senha;
-	private String bio;
-	private String avaliacao;
 
-	public Usuario(int id, String nome, String email, String senha, String bio) {
-		this.id = id;
-		this.nome = nome;
-		this.email = email;
-		this.senha = senha;
-		this.bio = bio;
-	}
+    private int id;
+    private String nome;
+    private String email;
+    private String senha;
+    private String bio;
+    private String avaliacao;
 
-	public int getId() {
-		return id;
-	}
+    public Usuario(int id, String nome, String email, String senha, String bio) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.bio = bio;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public String getSenha() {
-		return senha;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getBio() {
-		return bio;
-	}
+    public String getSenha() {
+        return senha;
+    }
 
-	public void setBio(String bio) {
-		this.bio = bio;
-	}
-	
-	public void posta(String conteudo) {
-		setAvaliacao(conteudo);
-	}
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
-	public String getAvaliacao() {
-		return avaliacao;
-	}
+    public String getBio() {
+        return bio;
+    }
 
-	public void setAvaliacao(String avaliacao) {
-		this.avaliacao = avaliacao;
-	}
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void posta(String conteudo) {
+        setAvaliacao(conteudo);
+    }
+
+    public String getAvaliacao() {
+        return avaliacao;
+    }
+
+    public void setAvaliacao(String avaliacao) {
+        this.avaliacao = avaliacao;
+    }
 }
