@@ -37,14 +37,15 @@
       <version>4.13.1</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- Conector MySQL -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.33</version> 
+    </dependency>
   </dependencies>
-         <!-- conector mysql -->
-<dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <version>8.0.33</version> 
-</dependency>
-         
+
   <build>
     <finalName>educacaoinclusiva</finalName>
     <pluginManagement>
@@ -80,7 +81,5 @@
       </plugins>
     </pluginManagement>
   </build>
-         
-
 
 </project>
