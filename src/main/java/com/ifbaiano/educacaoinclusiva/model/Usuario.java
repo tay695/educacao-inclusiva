@@ -1,75 +1,111 @@
 package com.ifbaiano.educacaoinclusiva.model;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Base64;
+
 public class Usuario {
 
-    private int id;
-    private String nome;
-    private String email;
-    private String senha;
-    private String bio;
-    private String avaliacao;
-    private String salt;
+	private int id;
+	private String nome;
+	private String email;
+	private String senha;
+	private String bio;
+	private String avaliacao;
+	private String salt;
 
-    public Usuario(int id, String nome, String email, String senha, String bio, String salt) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.bio = bio;
-        this.setSalt(salt);
-    }
+	public Usuario(int id, String nome, String email, String senha, String bio) {
+		this.id = id;
+		this.nome = nome;
+		this.email = email;
+		this.senha = senha;
+		this.bio = bio;
+		this.salt = gerarSalt();
+		this.senha = aplicarHash(senha, this.salt);
 
-    public int getId() {
-        return id;
-    }
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public String gerarSalt() {
+		SecureRandom random = new SecureRandom();
+		byte[] saltBytes = new byte[16];
+		random.nextBytes(saltBytes);
+		return Base64.getEncoder().encodeToString(saltBytes);
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	private String aplicarHash(String senha, String salt) {
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			String texto = senha + salt;
+			byte[] hashBytes = digest.digest(texto.getBytes());
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+			
+			StringBuilder hexString = new StringBuilder();
+			for (byte b : hashBytes) {
+				String hex = Integer.toHexString(0xff & b);
+				if (hex.length() == 1)
+					hexString.append('0');
+				hexString.append(hex);
+			}
 
-    public String getEmail() {
-        return email;
-    }
+			return hexString.toString();
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException("Erro ao aplicar hash: " + e.getMessage());
+		}
+	}
 
-    public String getSenha() {
-        return senha;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getBio() {
-        return bio;
-    }
+	public String getRetornaNome() {
+		return nome;
+	}
 
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public void posta(String conteudo) {
-        setAvaliacao(conteudo);
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getAvaliacao() {
-        return avaliacao;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setAvaliacao(String avaliacao) {
-        this.avaliacao = avaliacao;
-    }
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getBio() {
+		return bio;
+	}
+
+	public void setBio(String bio) {
+		this.bio = bio;
+	}
+
+	public void posta(String conteudo) {
+		setAvaliacao(conteudo);
+	}
+
+	public String getAvaliacao() {
+		return avaliacao;
+	}
+
+	public void setAvaliacao(String avaliacao) {
+		this.avaliacao = avaliacao;
+	}
 
 	public String getSalt() {
 		return salt;
@@ -78,4 +114,9 @@ public class Usuario {
 	public void setSalt(String salt) {
 		this.salt = salt;
 	}
+
+	public void Postar(String conteudo) {
+		System.out.println("Esperando postagem");
+	}
+
 }
