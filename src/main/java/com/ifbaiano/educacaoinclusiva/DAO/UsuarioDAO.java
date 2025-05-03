@@ -16,14 +16,13 @@ public class UsuarioDAO {
 
 	public void inserir(Usuario usuario) throws SQLException {
 
-		    String sql = "INSERT INTO Usuario (nome,email,senha,bio,salt) VALUES (?,?,?,?,?)";
+		    String sql = "INSERT INTO Usuario (nome,email,senha,bio,salt) VALUES (?,?,?,?)";
 
 		    try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-		        stmt.setString(1, usuario.getNome());
+		        stmt.setString(1, usuario.getRetornaNome());
 		        stmt.setString(2, usuario.getEmail());
 		        stmt.setString(3, usuario.getSenha());
 		        stmt.setString(4, usuario.getBio());
-		        stmt.setString(5, usuario.getSalt());
 		        stmt.executeUpdate();
 		    }
 		}
@@ -38,7 +37,7 @@ public class UsuarioDAO {
 
 			if (resul.next()) {
 				return new Usuario(resul.getInt("id"), resul.getString("nome"), resul.getString("email"), resul.getString("senha"),
-						resul.getString("bio"), resul.getString("salt"));
+						resul.getString("bio"));
 			}
 		}
 		return null;
