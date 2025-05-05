@@ -14,19 +14,20 @@ public class Aluno extends Usuario {
 	public void adicionarCurso(Curso curso) {
 		cursosInscritos.add(curso);	
 	}
-	public void listaCurso() {
+	
+	public void listaCurso(Curso curso) {
 		if(cursosInscritos.isEmpty()){
 			System.out.println("Você não está inscrito em nenhum curso!");
 		}else {		
-			System.out.println("Curso que" +  getRetornaNome() + " está inscrito" );
-			// adicionar quando a classe curso estiver completa getNomeCurso;
-			for(Curso curso: cursosInscritos) {
+			System.out.println("Curso que" +  getRetornaNome() + " está inscrito" + curso.getTitulo());
+			
+			for(Curso cr : cursosInscritos) {
 				System.out.println("MEUS CURSOS  ");
-				System.out.println("--"); // adicionar quando a classe curso estiver pronta + getnomeCurso());
+				System.out.println("--" + curso.getTitulo());
 			}
 		}
 	}
-	public void addCursoFavoritou(Curso curso) {
+	public void addCursoFavorito(Curso curso) {
 		favoritos.add(curso);
 	}
 	@Override
