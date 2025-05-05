@@ -61,7 +61,7 @@ public class Postagem{
     public List<String> getComentarios(){
         return comentarios;
     }
-    public void adionarComentario (String comentario){
+    public void adicionarComentario (String comentario){
         comentarios.add(comentario);
     }
 }
