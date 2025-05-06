@@ -11,16 +11,18 @@ public class Postagem{
     private String conteudo;
     private int id;
     private LocalDateTime dataHora;
-    //private Curso curso;  COMENTADA POR CONTA DE A CLASSSE CURSO ESTA VAZIA
+    private Curso curso; 
+    private Modulo modulo;
     private List<String> comentarios = new ArrayList<>();
 
-    public Postagem(String titulo, String autor, String conteudo, int id, LocalDateTime dataHora){ //Curso curso adicioanar
+    public Postagem(String titulo, String autor, String conteudo, int id, LocalDateTime dataHora, Curso curso, Modulo modulo){
         this.titulo = titulo;
         this.autor = autor;
         this.conteudo = conteudo;
         this.id = id;
         this.dataHora = dataHora;
-        //this.curso = curso;
+        this.curso = curso;
+        this.modulo = modulo;
     }   
     public String getTitulo(){
         return titulo;
@@ -52,12 +54,18 @@ public class Postagem{
     public void setDataHora(LocalDateTime dataHora){
         this.dataHora = dataHora;
     }
-    //public Curso getCurso(){
-      //  return curso;
-   // }
-    //public void setCurso(Curso curso){
-     //   this.curso = curso;
-    //}
+    public Curso getCurso(){
+        return curso;
+    }
+    public void setCurso(Curso curso){
+        this.curso = curso;
+    }
+    public Modulo getModulo() {
+         return modulo; 
+    }
+    public void setModulo(Modulo modulo) {
+        this.modulo = modulo; 
+    }
     public List<String> getComentarios(){
         return comentarios;
     }
