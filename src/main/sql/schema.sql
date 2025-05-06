@@ -68,7 +68,6 @@ CREATE TABLE Videoaula (
     id INT PRIMARY KEY AUTO_INCREMENT,
     titulo VARCHAR(100) NOT NULL,
     url TEXT NOT NULL,
-    duracao INT, -- duração em minutos (opcional)
     id_modulo INT NOT NULL,
     FOREIGN KEY (id_modulo) REFERENCES Modulo(id) ON DELETE CASCADE
 );
