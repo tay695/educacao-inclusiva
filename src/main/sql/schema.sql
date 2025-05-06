@@ -63,3 +63,15 @@ CREATE TABLE Modulo (
 ALTER TABLE Usuario ADD COLUMN salt VARCHAR(255) NOT NULL;
 ALTER TABLE Usuario ADD COLUMN bio VARCHAR (200);
 ALTER TABLE Usuario ADD COLUMN avaliacao VARCHAR (200);
+
+CREATE TABLE Videoaula (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    titulo VARCHAR(100) NOT NULL,
+    url TEXT NOT NULL,
+    duracao INT, -- duração em minutos (opcional)
+    id_modulo INT NOT NULL,
+    FOREIGN KEY (id_modulo) REFERENCES Modulo(id) ON DELETE CASCADE
+);
+
+ALTER TABLE Modulo ADD COLUMN id_curso INT NOT NULL;
+ALTER TABLE Modulo ADD FOREIGN KEY (id_curso) REFERENCES Curso(id);
