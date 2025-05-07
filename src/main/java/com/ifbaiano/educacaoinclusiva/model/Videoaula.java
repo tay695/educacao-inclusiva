@@ -12,13 +12,7 @@ public class Videoaula {
         this.url = url;
         this.idModulo = idModulo;
     }
-
-    public Videoaula(String titulo, String url, int idModulo) {
-        this.titulo = titulo;
-        this.url = url;
-        this.idModulo = idModulo;
-    }
-
+    
     public int getId() {
         return id;
     }
