@@ -6,34 +6,14 @@ public class Modulo {
     private int id;
     private String titulo;
     private String descricao;
-    private List<String> videoaulas;
+    private int idCurso;
+    private List<Videoaula> videoaulas;
 
     public Modulo(int id, String titulo, String descricao, List<String> videoaulas){
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.videoaulas = videoaulas;
-    }
-
-    public Modulo(String titulo, String descricao, List<String> videoaulas){
-        this.titulo = titulo;
-        this.descricao = descricao;
-        this.videoaulas = videoaulas;
-    }
- 
-    public void adicionarVideoaula(String videoaula) {
-        videoaulas.add(videoaula);
-    }
-
-    public boolean removerVideoaula(String videoaula) {
-        return videoaulas.remove(videoaula);
-    }
-
-    public void listarVideoaulas() {
-        System.out.println("Videoaulas em \"" + titulo + "\":");
-        for (String v : videoaulas) {
-            System.out.println("- " + v);
-        }
     }
 
     public int getId() {
@@ -54,10 +34,17 @@ public class Modulo {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    public List<String> getVideoaulas() {
+    public List<Videoaula> getVideoaulas() {
         return videoaulas;
     }
-    public void setVideoaulas(List<String> videoaulas) {
+    public void setVideoaulas(List<Videoaula> videoaulas) {
         this.videoaulas = videoaulas;
+    }
+    public int getIdCurso() {
+        return idCurso;
+    }
+
+    public void setIdCurso(int idCurso) {
+        this.idCurso = idCurso;
     }
 }
