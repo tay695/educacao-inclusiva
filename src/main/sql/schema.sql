@@ -41,12 +41,7 @@ CREATE TABLE Aluno (
     FOREIGN KEY (id_usuario) REFERENCES Usuario(id)
 );
 
-CREATE TABLE Administrador (
-    nivel_acesso VARCHAR(45) NOT NULL,
-    id_usuario INT NOT NULL,
-    PRIMARY KEY (id_usuario),
-    FOREIGN KEY (id_usuario) REFERENCES Usuario(id)
-);
+
 
 CREATE TABLE Tutor (
     area_especializacao VARCHAR(100) NOT NULL,
