@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Aluno extends Usuario {
+	private String dataMatricula;
 	private List<Curso> cursosInscritos = new ArrayList<>();
 	private List<Curso> favoritos = new ArrayList<>();
 
@@ -21,17 +22,22 @@ public class Aluno extends Usuario {
 		}else {		
 			System.out.println("Curso que" +  getRetornaNome() + " está inscrito" + curso.getTitulo());
 			
-			for(Curso cr : cursosInscritos) {
+			for(Curso cursos : cursosInscritos) {
 				System.out.println("MEUS CURSOS  ");
-				System.out.println("--" + curso.getTitulo());
+				System.out.println("--" + cursos.getTitulo());
 			}
 		}
 	}
 	public void addCursoFavorito(Curso curso) {
 		favoritos.add(curso);
 	}
+	
 	@Override
 	public void Postar(String conteudo) {
 		System.out.println("Comentário adicionado por " + getRetornaNome() + " ");
+	}
+
+	public String getDataMatricula() {
+		return dataMatricula;
 	}
 }

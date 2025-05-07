@@ -67,7 +67,6 @@ public class Curso {
 		this.postagem = postagem;
 	}
 	public Modulo retornaModulo() {
-		
 		return modulo;
 	}
 }

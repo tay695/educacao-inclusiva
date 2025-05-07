@@ -1,4 +1,4 @@
-package com.ifbaiano.educacaoinclusiva.viewer;
+package com.ifbaiano.educacaoinclusiva.view;
 
 import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 import java.sql.Connection;
@@ -24,7 +24,7 @@ public class Cadastro {
         PreparedStatement stmt = null;
 
         try {
-            conexao = Conectante.createConnectionToMySQL();
+            conexao = DBConfig.criarConexao();
             stmt = conexao.prepareStatement(sql);
 
             stmt.setString(1, nome);
