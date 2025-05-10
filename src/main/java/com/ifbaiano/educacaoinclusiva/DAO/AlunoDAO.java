@@ -49,7 +49,7 @@ public class AlunoDAO {
 			if (rs.next()) {
 				String nome = rs.getString("nome");
 				String emailAluno = rs.getString("email");
-				return new Aluno(0, nome, emailAluno, null, null);
+				return new Aluno(0, nome, emailAluno, null, null,null);
 
 			}
 		}
@@ -64,21 +64,22 @@ public class AlunoDAO {
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				return new Aluno(rs.getInt("id"), rs.getString("nome"), null, null, null);
+				return new Aluno(rs.getInt("id"), rs.getString("nome"), null, null, null,null);
 			}
 		}
 		return null;
 	}
 
 	public void atualizar(Aluno aluno) throws SQLException {
-		String sql = "UPDATE Aluno SET nome = ?, email = ?, senha = ?, bio = ? where id = ? ";
+		String sql = "UPDATE Aluno SET nome = ?, email = ?, senha = ?, bio = ? , dataNascimento = ? where id = ? ";
 
 		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
 			stmt.setString(1, aluno.getRetornaNome());
 			stmt.setString(2, aluno.getEmail());
 			stmt.setString(3, aluno.getSenha());
 			stmt.setString(4, aluno.getBio());
-			stmt.setInt(5, aluno.getId()); 
+			stmt.setDate(5, aluno.getDataNascimento());
+			stmt.setInt(6, aluno.getId()); 
 
 			int linhasAfetadas = stmt.executeUpdate();
 			if (linhasAfetadas > 0) {

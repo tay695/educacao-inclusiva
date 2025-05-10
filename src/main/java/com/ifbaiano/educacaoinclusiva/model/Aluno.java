@@ -1,14 +1,15 @@
 package com.ifbaiano.educacaoinclusiva.model;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Aluno extends Usuario {
-	private String dataMatricula;
+	private Date dataNascimento;
 	private List<Curso> cursosInscritos = new ArrayList<>();
 	private List<Curso> favoritos = new ArrayList<>();
 
-	public Aluno(int id, String nome, String email, String senha, String bio) {
+	public Aluno(int id, String nome, String email, String senha, String bio,Date dataNascimento) {
 		super(id, nome, email, senha, bio);
 	}
 	
@@ -37,7 +38,7 @@ public class Aluno extends Usuario {
 		System.out.println("Comentário adicionado por " + getRetornaNome() + " ");
 	}
 
-	public String getDataMatricula() {
-		return dataMatricula;
+	public Date getDataNascimento() {
+		return dataNascimento;
 	}
 }

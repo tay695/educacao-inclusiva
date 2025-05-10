@@ -45,7 +45,7 @@ public class UsuarioDAO {
 			if (resul.next()) {
 				String nome = resul.getString("nome");
 				String emailAluno = resul.getString("email");
-				return new Aluno(0, nome, emailAluno, null, null);
+				return new Aluno(0, nome, emailAluno, null, null,null);
 
 			}
 		}

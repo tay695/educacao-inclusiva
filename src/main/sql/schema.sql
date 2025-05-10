@@ -35,7 +35,7 @@ CREATE TABLE UsuarioCurso (
 );
 
 CREATE TABLE Aluno (
-    data_matricula DATE NOT NULL,
+    data_nascimento DATE NOT NULL,
     id_usuario INT NOT NULL,
     PRIMARY KEY (id_usuario),
     FOREIGN KEY (id_usuario) REFERENCES Usuario(id)
