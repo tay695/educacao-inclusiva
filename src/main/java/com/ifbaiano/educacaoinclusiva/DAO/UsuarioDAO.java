@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 import com.ifbaiano.educacaoinclusiva.model.Aluno;
+import com.ifbaiano.educacaoinclusiva.model.Tutor;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
 
 public class UsuarioDAO {
@@ -65,4 +66,31 @@ public class UsuarioDAO {
 		}
 		return null;
 	}
+	public void salvar(Usuario usuario) throws SQLException {
+        String sql;
+
+        if (usuario instanceof Aluno) {
+            sql = "INSERT INTO aluno (nome, email, senha, bio, data_nascimento) VALUES (?, ?, ?, ?, ?)";
+            try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+                Aluno aluno = (Aluno) usuario; // CAST para acessar os dados de alunos 
+                stmt.setString(1, aluno.getRetornaNome());
+                stmt.setString(2, aluno.getEmail());
+                stmt.setString(3, aluno.getSenha());
+                stmt.setString(4, aluno.getBio());
+                stmt.setDate(5, aluno.getDataNascimento()); 
+                stmt.executeUpdate();
+            }
+        } else if (usuario instanceof Tutor) {
+            sql = "INSERT INTO tutor (nome, email, senha, bio, area_especializacao) VALUES (?, ?, ?, ?, ?)";
+            try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+                stmt.setString(1, usuario.getRetornaNome());
+                stmt.setString(2, usuario.getEmail());
+                stmt.setString(3, usuario.getSenha());
+                stmt.setString(4, usuario.getBio());
+                stmt.setString(5, ((Tutor) usuario).getAreaEspecializacao());
+                stmt.executeUpdate();
+            }
+        }
+    }
+
 }

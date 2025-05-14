@@ -3,8 +3,6 @@ package com.ifbaiano.educacaoinclusiva.DAO;
 import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 import com.ifbaiano.educacaoinclusiva.model.Tutor;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TutorDAO {
 
