@@ -23,7 +23,10 @@ public class Modulo {
         this.videoaulas = videoaulas;
     }
 
-    public int getId() {
+	public Modulo() {
+	}
+
+	public int getId() {
         return id;
     }
 

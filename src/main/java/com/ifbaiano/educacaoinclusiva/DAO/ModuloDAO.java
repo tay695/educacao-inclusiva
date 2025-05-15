@@ -38,9 +38,7 @@ public class ModuloDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     int idModulo = rs.getInt("id");
-
                     List<Videoaula> videoaulas = listarVideoaulasModulo(idModulo);
-
                     Modulo modulo = new Modulo(
                         idModulo,
                         rs.getString("titulo"),
@@ -91,7 +89,7 @@ public class ModuloDAO {
         return null;
     }
 
-    public List<Videoaula> listarVideoaulasModulo(int idModulo) throws SQLException {
+    private List<Videoaula> listarVideoaulasModulo(int idModulo) throws SQLException {
         List<Videoaula> videoaulas = new ArrayList<>();
         String sql = "SELECT * FROM Videoaula WHERE id_modulo = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
