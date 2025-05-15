@@ -54,6 +54,7 @@ CREATE TABLE Modulo (
     id INT PRIMARY KEY AUTO_INCREMENT,
     titulo VARCHAR(100),
     descricao TEXT
+   FOREIGN KEY (id) REFERENCES Curso(id)
 );
 
 ALTER TABLE Usuario ADD COLUMN salt VARCHAR(255) NOT NULL;
