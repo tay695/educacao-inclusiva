@@ -20,7 +20,12 @@ public class ModuloDAO {
             stmt.setString(1, modulo.getTitulo());
             stmt.setString(2, modulo.getDescricao());
             stmt.setInt(3, idCurso);
-            stmt.executeUpdate();
+            int linhasAfetadas = stmt.executeUpdate();
+            if (linhasAfetadas == 0) {
+                throw new SQLException("O novo módulo não foi inserido");
+            } else {
+            	System.out.println(" Novo módulo inserido com sucesso!");
+            }
 
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
@@ -58,7 +63,10 @@ public class ModuloDAO {
             stmt.setString(1, modulo.getTitulo());
             stmt.setString(2, modulo.getDescricao());
             stmt.setInt(3, modulo.getId());
-            stmt.executeUpdate();
+            int linhasAfetadas = stmt.executeUpdate();
+            if (linhasAfetadas == 0) {
+                throw new SQLException("Houve uma falha na inserção do novo módulo, tente novamente.");
+            }
         }
     }
 
@@ -66,7 +74,10 @@ public class ModuloDAO {
         String sql = "DELETE FROM Modulo WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
-            stmt.executeUpdate();
+            int linhasAfetadas = stmt.executeUpdate();
+            if (linhasAfetadas == 0) {
+                throw new SQLException("O módulo não foi deletado, tente novamente");
+            };
         }
     }
 

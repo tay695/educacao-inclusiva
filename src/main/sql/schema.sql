@@ -12,7 +12,10 @@ CREATE TABLE Usuario (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(150) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    senha VARCHAR(45) NOT NULL
+    senha VARCHAR(45) NOT NULL,
+    salt VARCHAR(255) NOT NULL,
+    bio VARCHAR(200),
+    avaliacao VARCHAR(200)
 );
 
 CREATE TABLE Postagem (
@@ -41,8 +44,6 @@ CREATE TABLE Aluno (
     FOREIGN KEY (id_usuario) REFERENCES Usuario(id)
 );
 
-
-
 CREATE TABLE Tutor (
     area_especializacao VARCHAR(100) NOT NULL,
     id_usuario INT NOT NULL,
@@ -53,20 +54,16 @@ CREATE TABLE Tutor (
 CREATE TABLE Modulo (
     id INT PRIMARY KEY AUTO_INCREMENT,
     titulo VARCHAR(100),
-    descricao TEXT
-   FOREIGN KEY (id) REFERENCES Curso(id)
+    descricao TEXT,
+    id_curso INT NOT NULL,
+    FOREIGN KEY (id_curso) REFERENCES Curso(id)
 );
 
-ALTER TABLE Usuario ADD COLUMN salt VARCHAR(255) NOT NULL;
-ALTER TABLE Usuario ADD COLUMN bio VARCHAR (200);
-ALTER TABLE Usuario ADD COLUMN avaliacao VARCHAR (200);
-
 CREATE TABLE Videoaula (
+    id INT PRIMARY KEY AUTO_INCREMENT,
     titulo VARCHAR(100) NOT NULL,
     url TEXT NOT NULL,
     id_modulo INT NOT NULL,
     FOREIGN KEY (id_modulo) REFERENCES Modulo(id)
 );
 
-ALTER TABLE Modulo ADD COLUMN id_curso INT NOT NULL;
-ALTER TABLE Modulo ADD FOREIGN KEY (id_curso) REFERENCES Curso(id);
