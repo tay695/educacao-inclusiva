@@ -62,11 +62,10 @@ ALTER TABLE Usuario ADD COLUMN bio VARCHAR (200);
 ALTER TABLE Usuario ADD COLUMN avaliacao VARCHAR (200);
 
 CREATE TABLE Videoaula (
-    id INT PRIMARY KEY AUTO_INCREMENT,
     titulo VARCHAR(100) NOT NULL,
     url TEXT NOT NULL,
     id_modulo INT NOT NULL,
-    FOREIGN KEY (id_modulo) REFERENCES Modulo(id) ON DELETE CASCADE
+    FOREIGN KEY (id_modulo) REFERENCES Modulo(id)
 );
 
 ALTER TABLE Modulo ADD COLUMN id_curso INT NOT NULL;
