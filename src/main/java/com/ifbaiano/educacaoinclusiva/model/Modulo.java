@@ -7,7 +7,7 @@ public class Modulo {
     private String titulo;
     private String descricao;
     private int idCurso;
-    private List<Videoaula> videoaulas;
+    private List<VideoAula> videoaulas;
 
     public Modulo(int id, String titulo, String descricao, int idCurso) {
         this.id = id;
@@ -16,7 +16,7 @@ public class Modulo {
         this.idCurso = idCurso;
     }
 
-    public Modulo(int id, String titulo, String descricao, List<Videoaula> videoaulas) {
+    public Modulo(int id, String titulo, String descricao, List<VideoAula> videoaulas) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
@@ -58,11 +58,11 @@ public class Modulo {
         this.idCurso = idCurso;
     }
 
-    public List<Videoaula> getVideoaulas() {
+    public List<VideoAula> getVideoaulas() {
         return videoaulas;
     }
 
-    public void setVideoaulas(List<Videoaula> videoaulas) {
+    public void setVideoaulas(List<VideoAula> videoaulas) {
         this.videoaulas = videoaulas;
     }
 }

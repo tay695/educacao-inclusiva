@@ -1,12 +1,12 @@
 package com.ifbaiano.educacaoinclusiva.model;
 
-public class Videoaula {
+public class VideoAula {
 	private int id;
     private String titulo;
     private String url;
     private int idModulo;
 
-    public Videoaula( int id, String titulo, String url, int idModulo) {
+    public VideoAula( int id, String titulo, String url, int idModulo) {
     	this.setId(id);
         this.titulo = titulo;
         this.url = url;

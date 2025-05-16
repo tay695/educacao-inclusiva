@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ifbaiano.educacaoinclusiva.model.Modulo;
-import com.ifbaiano.educacaoinclusiva.model.Videoaula;
+import com.ifbaiano.educacaoinclusiva.model.VideoAula;
 
 public class ModuloDAO {
     private Connection connection;
@@ -43,7 +43,7 @@ public class ModuloDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     int idModulo = rs.getInt("id");
-                    List<Videoaula> videoaulas = listarVideoaulasModulo(idModulo);
+                    List<VideoAula> videoaulas = listarVideoaulasModulo(idModulo);
                     Modulo modulo = new Modulo(
                         idModulo,
                         rs.getString("titulo"),
@@ -87,7 +87,7 @@ public class ModuloDAO {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    List<Videoaula> videoaulas = listarVideoaulasModulo(id);
+                    List<VideoAula> videoaulas = listarVideoaulasModulo(id);
                     return new Modulo(
                         rs.getInt("id"),
                         rs.getString("titulo"),
@@ -100,14 +100,14 @@ public class ModuloDAO {
         return null;
     }
 
-    private List<Videoaula> listarVideoaulasModulo(int idModulo) throws SQLException {
-        List<Videoaula> videoaulas = new ArrayList<>();
+    private List<VideoAula> listarVideoaulasModulo(int idModulo) throws SQLException {
+        List<VideoAula> videoaulas = new ArrayList<>();
         String sql = "SELECT * FROM Videoaula WHERE id_modulo = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, idModulo);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    Videoaula videoaula = new Videoaula(
+                    VideoAula videoaula = new VideoAula(
                         rs.getInt("id"),
                         rs.getString("titulo"),
                         rs.getString("url"),

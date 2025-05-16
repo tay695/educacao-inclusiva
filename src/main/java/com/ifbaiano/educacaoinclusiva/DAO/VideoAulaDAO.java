@@ -4,16 +4,16 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ifbaiano.educacaoinclusiva.model.Videoaula;
+import com.ifbaiano.educacaoinclusiva.model.VideoAula;
 
-public class VideoaulaDAO {
+public class VideoAulaDAO {
 	private Connection connection;
 
-	public VideoaulaDAO(Connection connection) {
+	public VideoAulaDAO(Connection connection) {
 		this.connection = connection;
 	}
 
-	public void inserirVideoaula(Videoaula videoaula) throws SQLException {
+	public void inserirVideoaula(VideoAula videoaula) throws SQLException {
 		String sql = "INSERT INTO Videoaula (titulo, url, id_modulo) VALUES (?, ?, ?)";
 		try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			stmt.setString(1, videoaula.getTitulo());
@@ -30,14 +30,14 @@ public class VideoaulaDAO {
 	}
 
 	// Pelo ID do Modulo
-	public List<Videoaula> listarVideoaula(int idModulo) throws SQLException {
-		List<Videoaula> videoaulas = new ArrayList<>();
+	public List<VideoAula> listarVideoaula(int idModulo) throws SQLException {
+		List<VideoAula> videoaulas = new ArrayList<>();
 		String sql = "SELECT * FROM Videoaula WHERE id_modulo = ?";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 			stmt.setInt(1, idModulo);
 			try (ResultSet rs = stmt.executeQuery()) {
 				while (rs.next()) {
-					Videoaula videoaula = new Videoaula(rs.getInt("id"), rs.getString("titulo"), rs.getString("url"),
+					VideoAula videoaula = new VideoAula(rs.getInt("id"), rs.getString("titulo"), rs.getString("url"),
 							rs.getInt("id_modulo"));
 					videoaulas.add(videoaula);
 				}
@@ -46,7 +46,7 @@ public class VideoaulaDAO {
 		return videoaulas;
 	}
 
-	public void atualizarVideoaula(Videoaula videoaula) throws SQLException {
+	public void atualizarVideoaula(VideoAula videoaula) throws SQLException {
 		String sql = "UPDATE Videoaula SET titulo = ?, url = ? WHERE id = ?";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 			stmt.setString(1, videoaula.getTitulo());
@@ -64,13 +64,13 @@ public class VideoaulaDAO {
 		}
 	}
 
-	public Videoaula buscarVideoaula(int id) throws SQLException {
+	public VideoAula buscarVideoaula(int id) throws SQLException {
 		String sql = "SELECT * FROM Videoaula WHERE id = ?";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 			stmt.setInt(1, id);
 			try (ResultSet rs = stmt.executeQuery()) {
 				if (rs.next()) {
-					return new Videoaula(rs.getInt("id"), rs.getString("titulo"), rs.getString("url"),
+					return new VideoAula(rs.getInt("id"), rs.getString("titulo"), rs.getString("url"),
 							rs.getInt("id_modulo"));
 				}
 			}

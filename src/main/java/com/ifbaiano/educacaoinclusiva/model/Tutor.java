@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Tutor extends Usuario {
     private String areaEspecializacao;
-    private List<Videoaula> videoaulas;
+    private List<VideoAula> videoaulas;
 
     public Tutor(String areaEspecializacao, int id, String nome, String email, String senha, String bio) {
         super(id, nome, email, senha, bio);
@@ -22,7 +22,7 @@ public class Tutor extends Usuario {
     }
 
     public void postarVideoaula(int id, String titulo, String url, int idModulo) {
-        Videoaula video = new Videoaula(id, titulo, url, idModulo);
+        VideoAula video = new VideoAula(id, titulo, url, idModulo);
         videoaulas.add(video);
         System.out.println("Videoaula postada com sucesso: " + titulo);
     }
