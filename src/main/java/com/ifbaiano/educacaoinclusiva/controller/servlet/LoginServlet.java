@@ -44,7 +44,6 @@ public class LoginServlet extends HttpServlet {
 			List<ErroCampo> erros = loginController.autenticar(email, senha);
 
 			if (!erros.isEmpty()) {
-				// Envia os erros para a página JSP
 				request.setAttribute("erros", erros);
 				request.getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
 				return;
@@ -57,7 +56,7 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("index.jsp");
 
 		} catch (SQLException e) {
-			throw new ServletException("Erro de login ", e);
+			throw new ServletException("Houve um erro de login ", e);
 		}
 	}
 }
