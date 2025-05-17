@@ -20,6 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/videoaula") //define a quem o servlet vai responder
 public class VideoServlet extends HttpServlet {
+	
     private Connection connection;
 
 
