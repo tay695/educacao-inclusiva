@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ifbaiano.educacaoinclusiva.model.Modulo;
-import com.ifbaiano.educacaoinclusiva.model.Videoaula;
+import com.ifbaiano.educacaoinclusiva.model.VideoAula;
 
 public class ModuloDAO {
     private Connection connection;
@@ -20,7 +20,12 @@ public class ModuloDAO {
             stmt.setString(1, modulo.getTitulo());
             stmt.setString(2, modulo.getDescricao());
             stmt.setInt(3, idCurso);
-            stmt.executeUpdate();
+            int linhasAfetadas = stmt.executeUpdate();
+            if (linhasAfetadas == 0) {
+                throw new SQLException("O novo módulo não foi inserido");
+            } else {
+            	System.out.println(" Novo módulo inserido com sucesso!");
+            }
 
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
@@ -38,9 +43,7 @@ public class ModuloDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     int idModulo = rs.getInt("id");
-
-                    List<Videoaula> videoaulas = listarVideoaulasModulo(idModulo);
-
+                    List<VideoAula> videoaulas = listarVideoaulasModulo(idModulo);
                     Modulo modulo = new Modulo(
                         idModulo,
                         rs.getString("titulo"),
@@ -60,7 +63,10 @@ public class ModuloDAO {
             stmt.setString(1, modulo.getTitulo());
             stmt.setString(2, modulo.getDescricao());
             stmt.setInt(3, modulo.getId());
-            stmt.executeUpdate();
+            int linhasAfetadas = stmt.executeUpdate();
+            if (linhasAfetadas == 0) {
+                throw new SQLException("Houve uma falha na inserção do novo módulo, tente novamente.");
+            }
         }
     }
 
@@ -68,7 +74,10 @@ public class ModuloDAO {
         String sql = "DELETE FROM Modulo WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
-            stmt.executeUpdate();
+            int linhasAfetadas = stmt.executeUpdate();
+            if (linhasAfetadas == 0) {
+                throw new SQLException("O módulo não foi deletado, tente novamente");
+            };
         }
     }
 
@@ -78,7 +87,7 @@ public class ModuloDAO {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    List<Videoaula> videoaulas = listarVideoaulasModulo(id);
+                    List<VideoAula> videoaulas = listarVideoaulasModulo(id);
                     return new Modulo(
                         rs.getInt("id"),
                         rs.getString("titulo"),
@@ -91,14 +100,14 @@ public class ModuloDAO {
         return null;
     }
 
-    public List<Videoaula> listarVideoaulasModulo(int idModulo) throws SQLException {
-        List<Videoaula> videoaulas = new ArrayList<>();
+    private List<VideoAula> listarVideoaulasModulo(int idModulo) throws SQLException {
+        List<VideoAula> videoaulas = new ArrayList<>();
         String sql = "SELECT * FROM Videoaula WHERE id_modulo = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, idModulo);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    Videoaula videoaula = new Videoaula(
+                    VideoAula videoaula = new VideoAula(
                         rs.getInt("id"),
                         rs.getString("titulo"),
                         rs.getString("url"),

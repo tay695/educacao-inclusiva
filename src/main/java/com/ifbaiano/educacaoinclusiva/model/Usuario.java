@@ -39,7 +39,6 @@ public class Usuario {
 			String texto = senha + salt;
 			byte[] hashBytes = digest.digest(texto.getBytes());
 
-			
 			StringBuilder hexString = new StringBuilder();
 			for (byte b : hashBytes) {
 				String hex = Integer.toHexString(0xff & b);
@@ -118,5 +117,4 @@ public class Usuario {
 	public void Postar(String conteudo) {
 		System.out.println("Esperando postagem");
 	}
-
 }

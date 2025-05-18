@@ -13,6 +13,7 @@ import com.ifbaino.educacaoinclusiva.utils.validation.Validador;
 public class LoginController {
 
     private final UsuarioDAO usuarioDao;
+    private Usuario usuarioautenticado;
 
     public LoginController(UsuarioDAO usuarioDao) {
         this.usuarioDao = usuarioDao;
@@ -20,28 +21,29 @@ public class LoginController {
 
     public List<ErroCampo> autenticar(String email, String senhaDigitada) throws SQLException {
         List<ErroCampo> erros = new ArrayList<>();
-
-        // validando os campos 
-        
         Validador.notBlank(email, "email", erros);
         Validador.notBlank(senhaDigitada, "senha", erros);
 
         if (!erros.isEmpty()) return erros;
-
-        // fazendo a busca do usuário 
-        
         Usuario usuario = usuarioDao.buscarEmail(email);
-
         if (usuario == null) {
             erros.add(new ErroCampo("email", email, "Email não encontrado"));
             return erros;
         }
 
-        // Verificando a senha
         boolean senhaValida = SenhaUtils.verificarSenha(senhaDigitada, usuario.getSalt(), usuario.getSenha());
         if (!senhaValida) {
             erros.add(new ErroCampo("senha", senhaDigitada, "Senha incorreta"));
         }
+        this.usuarioautenticado = usuario;
         return erros;
     }
+
+	public Usuario getUsuarioautenticado() {
+		return usuarioautenticado;
+	}
+
+	public void setUsuarioautenticado(Usuario usuarioautenticado) {
+		this.usuarioautenticado = usuarioautenticado;
+	}
 }

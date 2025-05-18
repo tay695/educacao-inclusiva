@@ -1,5 +1,6 @@
 package com.ifbaiano.educacaoinclusiva.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Modulo {
@@ -7,7 +8,10 @@ public class Modulo {
     private String titulo;
     private String descricao;
     private int idCurso;
-    private List<Videoaula> videoaulas;
+    private List<VideoAula> videoaulas;
+
+    //lista as postagens relacionadas ao modulo
+    private List<Postagem> postagens = new ArrayList<>();
 
     public Modulo(int id, String titulo, String descricao, int idCurso) {
         this.id = id;
@@ -16,14 +20,17 @@ public class Modulo {
         this.idCurso = idCurso;
     }
 
-    public Modulo(int id, String titulo, String descricao, List<Videoaula> videoaulas) {
+    public Modulo(int id, String titulo, String descricao, List<VideoAula> videoaulas) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.videoaulas = videoaulas;
     }
 
-    public int getId() {
+	public Modulo() {
+	}
+
+	public int getId() {
         return id;
     }
 
@@ -55,11 +62,25 @@ public class Modulo {
         this.idCurso = idCurso;
     }
 
-    public List<Videoaula> getVideoaulas() {
+    public List<VideoAula> getVideoaulas() {
         return videoaulas;
     }
 
-    public void setVideoaulas(List<Videoaula> videoaulas) {
+    public void setVideoaulas(List<VideoAula> videoaulas) {
         this.videoaulas = videoaulas;
     }
+    //adicionando uma postagem ao modulo
+    public void adicionarPostagem(Postagem postagem){
+        postagem.setModulo(this);//associa o modulo a postagem
+        postagens.add(postagem);
+    }
+
+    public List<Postagem> getPostagems(){
+        return postagens;
+    }
+
+    public void setPostagens(List<Postagem> postagens){
+        this.postagens = postagens;
+    }
 }
+

@@ -9,30 +9,31 @@ public class Aluno extends Usuario {
 	private List<Curso> cursosInscritos = new ArrayList<>();
 	private List<Curso> favoritos = new ArrayList<>();
 
-	public Aluno(int id, String nome, String email, String senha, String bio,Date dataNascimento) {
+	public Aluno(int id, String nome, String email, String senha, String bio, Date dataNascimento) {
 		super(id, nome, email, senha, bio);
 	}
-	
+
 	public void adicionarCurso(Curso curso) {
-		cursosInscritos.add(curso);	
+		cursosInscritos.add(curso);
 	}
-	
+
 	public void listaCurso(Curso curso) {
-		if(cursosInscritos.isEmpty()){
+		if (cursosInscritos.isEmpty()) {
 			System.out.println("Você não está inscrito em nenhum curso!");
-		}else {		
-			System.out.println("Curso que" +  getRetornaNome() + " está inscrito" + curso.getTitulo());
-			
-			for(Curso cursos : cursosInscritos) {
+		} else {
+			System.out.println("Curso que" + getRetornaNome() + " está inscrito" + curso.getTitulo());
+
+			for (Curso cursos : cursosInscritos) {
 				System.out.println("MEUS CURSOS  ");
 				System.out.println("--" + cursos.getTitulo());
 			}
 		}
 	}
+
 	public void addCursoFavorito(Curso curso) {
 		favoritos.add(curso);
 	}
-	
+
 	@Override
 	public void Postar(String conteudo) {
 		System.out.println("Comentário adicionado por " + getRetornaNome() + " ");
@@ -41,4 +42,5 @@ public class Aluno extends Usuario {
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
+
 }
