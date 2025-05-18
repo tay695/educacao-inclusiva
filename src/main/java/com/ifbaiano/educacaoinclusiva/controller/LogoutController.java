@@ -1,5 +1,5 @@
 
-package com.ifbaiano.educacaoinclusiva.controller.servlet;
+package com.ifbaiano.educacaoinclusiva.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/logout")
-public class LogoutServlet extends HttpServlet {
+public class LogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
