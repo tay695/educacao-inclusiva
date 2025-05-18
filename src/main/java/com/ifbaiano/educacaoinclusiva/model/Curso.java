@@ -10,6 +10,9 @@ public class Curso {
 	private Modulo modulo;
 	private List<Postagem> postagem;
 
+	public Curso() {
+		
+	}
 	public Curso(int id, String titulo, String descricao, String area, Modulo modulo, List<Postagem> postagem) {
 		this.id = id;
 		this.titulo = titulo;
