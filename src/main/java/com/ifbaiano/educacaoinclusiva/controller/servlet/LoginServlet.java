@@ -4,6 +4,7 @@ package com.ifbaiano.educacaoinclusiva.controller.servlet;
 import com.ifbaiano.educacaoinclusiva.DAO.UsuarioDAO;
 import com.ifbaiano.educacaoinclusiva.controller.LoginController;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
+import com.ifbaiano.educacaoinclusiva.model.dto.LoginDTO;
 import com.ifbaino.educacaoinclusiva.utils.validation.ErroCampo;
 
 import jakarta.servlet.ServletException;
@@ -16,8 +17,9 @@ import java.util.List;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
+
 	// apenas uma boa prática , mecanismo de serialização do java, o eclipse ficando dando um alerta ai adicionei a sugestão
-	private static final long serialVersionUID = 1L; 
+	private static final long serialVersionUID = 1L;
 	private LoginController loginController;
 
 	@Override
@@ -39,19 +41,21 @@ public class LoginServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String senha = request.getParameter("senha");
 
+		LoginDTO loginDTO = new LoginDTO(email, senha);
+
 		try {
 
-			List<ErroCampo> erros = loginController.autenticar(email, senha);
+			List<ErroCampo> erros = loginController.autenticar(loginDTO);
 
 			if (!erros.isEmpty()) {
 				request.setAttribute("erros", erros);
 				request.getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
 				return;
 			}
-
+			// salvando o usuário depois da autenticação e redirecionando-o para a página
+			// principal do site
 			Usuario usuario = loginController.getUsuarioautenticado();
 			HttpSession session = request.getSession();
-			// salvando o usuário depois da autenticação e redirecionando-o para a página principal do site 
 			session.setAttribute("usuarioLogado", usuario);
 			response.sendRedirect("index.jsp");
 

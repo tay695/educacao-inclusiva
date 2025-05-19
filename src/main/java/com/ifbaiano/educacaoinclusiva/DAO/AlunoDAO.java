@@ -40,7 +40,7 @@ public class AlunoDAO {
 
 	public Aluno buscarAlunoPorEmail(String email) throws SQLException {
 
-		String sql = "SELECT nome, email FROM aluno WHERE email = ?";
+		String sql = "SELECT nome, email FROM Aluno WHERE email = ?";
 		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
 
 			stmt.setString(1, email);

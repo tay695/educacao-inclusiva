@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.ifbaiano.educacaoinclusiva.DAO.UsuarioDAO;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
+import com.ifbaiano.educacaoinclusiva.model.dto.LoginDTO;
 import com.ifbaino.educacaoinclusiva.utils.SenhaUtils;
 import com.ifbaino.educacaoinclusiva.utils.validation.ErroCampo;
 import com.ifbaino.educacaoinclusiva.utils.validation.Validador;
@@ -19,12 +20,17 @@ public class LoginController {
         this.usuarioDao = usuarioDao;
     }
 
-    public List<ErroCampo> autenticar(String email, String senhaDigitada) throws SQLException {
+    public List<ErroCampo> autenticar(LoginDTO loginDTO) throws SQLException {
         List<ErroCampo> erros = new ArrayList<>();
+
+        String email = loginDTO.getEmail();
+        String senhaDigitada = loginDTO.getSenha();
+
         Validador.notBlank(email, "email", erros);
         Validador.notBlank(senhaDigitada, "senha", erros);
 
         if (!erros.isEmpty()) return erros;
+
         Usuario usuario = usuarioDao.buscarEmail(email);
         if (usuario == null) {
             erros.add(new ErroCampo("email", email, "Email não encontrado"));
@@ -34,10 +40,12 @@ public class LoginController {
         boolean senhaValida = SenhaUtils.verificarSenha(senhaDigitada, usuario.getSalt(), usuario.getSenha());
         if (!senhaValida) {
             erros.add(new ErroCampo("senha", senhaDigitada, "Senha incorreta"));
-        }
-        this.usuarioautenticado = usuario;
+        } else {
+            this.usuarioautenticado = usuario;         }
+
         return erros;
     }
+
 
 	public Usuario getUsuarioautenticado() {
 		return usuarioautenticado;

@@ -11,6 +11,7 @@ public class Aluno extends Usuario {
 
 	public Aluno(int id, String nome, String email, String senha, String bio, Date dataNascimento) {
 		super(id, nome, email, senha, bio);
+		this.dataNascimento = dataNascimento;
 	}
 
 	public void adicionarCurso(Curso curso) {

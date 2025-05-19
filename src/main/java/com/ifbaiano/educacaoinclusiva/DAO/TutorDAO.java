@@ -17,7 +17,7 @@ public class TutorDAO {
 
 	public void adicionarTutor(Tutor tutor) {
 		try {
-			//Inserir na tabela Usuario
+
 			String sqlUsuario = "INSERT INTO Usuario (nome, email, senha, bio, salt, avaliacao) VALUES (?, ?, ?, ?, ?, ?)";
 			try (PreparedStatement stmtUsuario = conexao.prepareStatement(sqlUsuario,
 					PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -25,8 +25,8 @@ public class TutorDAO {
 				stmtUsuario.setString(2, tutor.getEmail());
 				stmtUsuario.setString(3, tutor.getSenha());
 				stmtUsuario.setString(4, tutor.getBio());
-				stmtUsuario.setString(5, "salt"); // 
-				stmtUsuario.setString(6, ""); // 
+				stmtUsuario.setString(5, "salt"); //
+				stmtUsuario.setString(6, ""); //
 				stmtUsuario.executeUpdate();
 
 				try (ResultSet rs = stmtUsuario.getGeneratedKeys()) {
@@ -34,7 +34,6 @@ public class TutorDAO {
 						int idUsuario = rs.getInt(1);
 						tutor.setId(idUsuario);
 
-						//  Inserir na tabela Tutor com o id do usuário
 						String sqlTutor = "INSERT INTO Tutor (area_especializacao, id_usuario) VALUES (?, ?)";
 						try (PreparedStatement stmtTutor = conexao.prepareStatement(sqlTutor)) {
 							stmtTutor.setString(1, tutor.getAreaEspecializacao());
@@ -52,7 +51,6 @@ public class TutorDAO {
 
 	public void atualizarTutor(Tutor tutor) {
 		try {
-			// Atualiza a tabela Usuario
 			String sqlUsuario = "UPDATE Usuario SET nome = ?, email = ?, senha = ?, bio = ? WHERE id = ?";
 			try (PreparedStatement stmt = conexao.prepareStatement(sqlUsuario)) {
 				stmt.setString(1, tutor.getRetornaNome());
@@ -63,7 +61,6 @@ public class TutorDAO {
 				stmt.executeUpdate();
 			}
 
-			// Atualiza a tabela Tutor
 			String sqlTutor = "UPDATE Tutor SET area_especializacao = ? WHERE id_usuario = ?";
 			try (PreparedStatement stmt = conexao.prepareStatement(sqlTutor)) {
 				stmt.setString(1, tutor.getAreaEspecializacao());
@@ -79,14 +76,12 @@ public class TutorDAO {
 
 	public void excluirTutor(int idUsuario) {
 		try {
-			//  exclui da tabela Tutor
 			String sqlTutor = "DELETE FROM Tutor WHERE id_usuario = ?";
 			try (PreparedStatement stmt = conexao.prepareStatement(sqlTutor)) {
 				stmt.setInt(1, idUsuario);
 				stmt.executeUpdate();
 			}
 
-			//  exclui da tabela Usuario
 			String sqlUsuario = "DELETE FROM Usuario WHERE id = ?";
 			try (PreparedStatement stmt = conexao.prepareStatement(sqlUsuario)) {
 				stmt.setInt(1, idUsuario);
@@ -97,5 +92,23 @@ public class TutorDAO {
 		} catch (SQLException e) {
 			System.out.println("Erro ao excluir tutor: " + e.getMessage());
 		}
+	}
+
+	public Tutor buscarTutorPorEmail(String email) throws SQLException {
+
+		String sql = "SELECT nome, email FROM Tutor WHERE email = ?";
+		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+
+			stmt.setString(1, email);
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				String nome = rs.getString("nome");
+				String emailTutor = rs.getString("email");
+				return new Tutor(null, 0, nome, null, null, null);
+
+			}
+		}
+		return null;
 	}
 }
