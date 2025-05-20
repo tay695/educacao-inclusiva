@@ -23,8 +23,7 @@ public class CadastroUsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String tipoUsuario = request.getParameter("tipoUsuario");
 		String nome = request.getParameter("nome");
@@ -33,7 +32,6 @@ public class CadastroUsuarioServlet extends HttpServlet {
 		String bio = request.getParameter("bio");
 		String dataNascimentoStr = request.getParameter("dataNascimento");
 		String areaEspecializacao = request.getParameter("areaEspecializacao");
-
 		java.sql.Date dataNascimento = null;
 
 		try {
