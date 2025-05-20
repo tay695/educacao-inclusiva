@@ -3,7 +3,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Login - Capacita+</title>
+    <title>Login </title>
 </head>
 <body>
     <h2>Capacita+</h2>

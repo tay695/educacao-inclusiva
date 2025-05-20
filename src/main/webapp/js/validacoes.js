@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	senhaInput.addEventListener("blur", () => {
 		removeError(senhaInput);
-		if (senhaInput.value.length < 6) {
+		if (senhaInput.value.length < 8 ) {
 			showError(senhaInput, "A senha deve ter pelo menos 6 caracteres.");
 		}
 	});

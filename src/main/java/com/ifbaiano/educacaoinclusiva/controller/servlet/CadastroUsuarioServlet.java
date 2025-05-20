@@ -18,58 +18,111 @@ import jakarta.servlet.http.HttpServletResponse;
 // Cadastro do usuário
 @WebServlet("/CadastroUsuario")
 public class CadastroUsuarioServlet extends HttpServlet {
-	// apenas uma boa prática , mecanismo de serialização do java, o eclipse ficando
-	// dando um alerta ai adicionei a sugestão
+	// apenas uma boa prática , mecanismo de serialização do java, o eclipse ficando dando um alerta ai adicionei a sugestão
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-		String tipoUsuario = request.getParameter("tipoUsuario");
 		String nome = request.getParameter("nome");
+		if (nome == null) {
+			request.setAttribute("erro", "O campo nome é obrigatório");
+			request.getRequestDispatcher("pages/cadastro.jsp").forward(request, response);
+			return;
+		}
+
 		String email = request.getParameter("email");
-		String senhaDigitada = request.getParameter("senha");
-		String bio = request.getParameter("bio");
-		String dataNascimentoStr = request.getParameter("dataNascimento");
+		if (email == null) {
+			request.setAttribute("erro", "este campo não pode estar vázio");
+			request.getRequestDispatcher("pages/cadastro.jsp").forward(request, response);
+		}
+		
+		if (!email.matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")) {
+			request.setAttribute("erro", "O e-mail informado é inválido.");
+			request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
+			return;
+		}
+		
+		String tipoUsuario = request.getParameter("tipoUsuario");
 		String areaEspecializacao = request.getParameter("areaEspecializacao");
-		java.sql.Date dataNascimento = null;
+		if ("tutor".equalsIgnoreCase(tipoUsuario)) {
+			if (areaEspecializacao == null) {
+				request.setAttribute("erro", "este campo é obrugatório");
+				request.getRequestDispatcher("pages/cadastro.jsp").forward(request, response);
+				if (areaEspecializacao.trim().isEmpty()) {
+					request.setAttribute("erro", "Área de especialização não pode estar vazia.");
+					request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
+					return;
+				}
+			}
+			String dataNascimentoStr = request.getParameter("dataNascimento");
+			if (dataNascimentoStr == null) {
+				request.setAttribute("erro", "A data de nascimento é obrigatória.");
+				request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
+				return;
+			}
 
-		try {
-			SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-			java.util.Date utilDate = formato.parse(dataNascimentoStr);
-			dataNascimento = new java.sql.Date(utilDate.getTime());
+			if (dataNascimentoStr.trim().isEmpty()) {
+				request.setAttribute("erro", "Preencha a data de nascimento.");
+				request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
+				return;
+			}
 
-		} catch (java.text.ParseException e) {
-			request.setAttribute("erro", "Esta data de nascimento não é válida.");
-			request.getRequestDispatcher("/formularioCadastro.jsp").forward(request, response);
-			return;
-		}
-		// Gerar salt e hash da senha
-		String salt = SenhaUtils.gerarSalt();
-		String senha = SenhaUtils.gerarHashSenha(senhaDigitada, salt);
+			String senhaDigitada = request.getParameter("senha");
+			if (senhaDigitada == null) {
+				request.setAttribute("erro", "A senha é obrigatória.");
+				request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
+				return;
+			}
 
-		Usuario usuario = null;
-		if ("aluno".equalsIgnoreCase(tipoUsuario)) {
-			usuario = new Aluno(0, nome, email, senha, bio, dataNascimento);
-		}
-		if  ("tutor".equalsIgnoreCase(tipoUsuario)) {
-			usuario = new Tutor(areaEspecializacao, 0, nome, email, senha, bio);
-		} else {
-			request.setAttribute("erro", "Tipo de usuário inválido");
-			request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
-			return;
-		}
+			if (senhaDigitada.length() < 8) {
+				request.setAttribute("erro", "A senha deve ter pelo menos 6 caracteres.");
+				request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
+				return;
+			}
 
-		usuario.setSalt(salt);
+			String bio = request.getParameter("bio");
 
-		try {
-			UsuarioDAO usuarioDAO = new UsuarioDAO();
-			usuarioDAO.salvar(usuario);
-			response.sendRedirect("login.jsp");
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("erro", "Erro ao salvar usuário no banco de dados." + e);
-			request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
+			java.sql.Date dataNascimento = null;
+
+			try {
+				SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+				java.util.Date utilDate = formato.parse(dataNascimentoStr);
+				dataNascimento = new java.sql.Date(utilDate.getTime());
+
+			} catch (java.text.ParseException e) {
+				request.setAttribute("erro", "Esta data de nascimento não é válida.");
+				request.getRequestDispatcher("/formularioCadastro.jsp").forward(request, response);
+				return;
+			}
+			// Gerar salt e hash da senha
+			String salt = SenhaUtils.gerarSalt();
+			String senha = SenhaUtils.gerarHashSenha(senhaDigitada, salt);
+
+			Usuario usuario = null;
+			if ("aluno".equalsIgnoreCase(tipoUsuario)) {
+				usuario = new Aluno(0, nome, email, senha, bio, dataNascimento);
+			}
+			if ("tutor".equalsIgnoreCase(tipoUsuario)) {
+				usuario = new Tutor(areaEspecializacao, 0, nome, email, senha, bio);
+			} else {
+				request.setAttribute("erro", "Tipo de usuário inválido");
+				request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
+				return;
+			}
+
+			usuario.setSalt(salt);
+
+			try {
+				UsuarioDAO usuarioDAO = new UsuarioDAO();
+				usuarioDAO.salvar(usuario);
+				response.sendRedirect("login.jsp");
+			} catch (Exception e) {
+				e.printStackTrace();
+				request.setAttribute("erro", "Erro ao cadastrar, tente novamente." + e);
+				request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
+			}
 		}
 	}
 }
