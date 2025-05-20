@@ -24,14 +24,18 @@ public class CadastroUsuarioServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		String nome = request.getParameter("nome");
+		
 		if (nome == null) {
 			request.setAttribute("erro", "O campo nome é obrigatório");
 			request.getRequestDispatcher("pages/cadastro.jsp").forward(request, response);
 			return;
+		} 
+		if (!nome.trim().isEmpty()) {
+			request.setAttribute("erro", " este campo não pode estar vazio");
+			request.getRequestDispatcher("pages/cadastro.jsp").forward(request, response);
 		}
-
+		
 		String email = request.getParameter("email");
 		if (email == null) {
 			request.setAttribute("erro", "este campo não pode estar vázio");
@@ -46,6 +50,7 @@ public class CadastroUsuarioServlet extends HttpServlet {
 		
 		String tipoUsuario = request.getParameter("tipoUsuario");
 		String areaEspecializacao = request.getParameter("areaEspecializacao");
+		
 		if ("tutor".equalsIgnoreCase(tipoUsuario)) {
 			if (areaEspecializacao == null) {
 				request.setAttribute("erro", "este campo é obrugatório");
