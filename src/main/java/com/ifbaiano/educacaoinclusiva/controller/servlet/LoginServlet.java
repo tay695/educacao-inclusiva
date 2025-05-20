@@ -36,8 +36,7 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String senha = request.getParameter("senha");
 
@@ -52,8 +51,7 @@ public class LoginServlet extends HttpServlet {
 				request.getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
 				return;
 			}
-			// salvando o usuário depois da autenticação e redirecionando-o para a página
-			// principal do site
+			// salvando o usuário depois da autenticação e redirecionando-o para a página principal do site
 			Usuario usuario = loginController.getUsuarioautenticado();
 			HttpSession session = request.getSession();
 			session.setAttribute("usuarioLogado", usuario);

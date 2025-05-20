@@ -40,6 +40,7 @@ public class CadastroUsuarioServlet extends HttpServlet {
 			SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 			java.util.Date utilDate = formato.parse(dataNascimentoStr);
 			dataNascimento = new java.sql.Date(utilDate.getTime());
+
 		} catch (java.text.ParseException e) {
 			request.setAttribute("erro", "Esta data de nascimento não é válida.");
 			request.getRequestDispatcher("/formularioCadastro.jsp").forward(request, response);
@@ -52,7 +53,8 @@ public class CadastroUsuarioServlet extends HttpServlet {
 		Usuario usuario = null;
 		if ("aluno".equalsIgnoreCase(tipoUsuario)) {
 			usuario = new Aluno(0, nome, email, senha, bio, dataNascimento);
-		} else if ("tutor".equalsIgnoreCase(tipoUsuario)) {
+		}
+		if  ("tutor".equalsIgnoreCase(tipoUsuario)) {
 			usuario = new Tutor(areaEspecializacao, 0, nome, email, senha, bio);
 		} else {
 			request.setAttribute("erro", "Tipo de usuário inválido");
@@ -68,7 +70,7 @@ public class CadastroUsuarioServlet extends HttpServlet {
 			response.sendRedirect("login.jsp");
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute( "erro", "Erro ao salvar usuário no banco de dados." + e);
+			request.setAttribute("erro", "Erro ao salvar usuário no banco de dados." + e);
 			request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
 		}
 	}
