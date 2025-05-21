@@ -37,6 +37,14 @@ public class InscricaoServlet extends HttpServlet {
             return;
         }
 
+	HttpSession session = request.getSession(false);
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+	    
+        if (usuario == null) {
+            response.sendRedirect("pages/login.jsp");
+            return;
+        }
+
         try (Connection con = DBConfig.criarConexao()) {
             String sql = "INSERT INTO UsuarioCurso (data_inscricao, estado, nota_final, id_usuario, id_curso) VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -57,6 +65,6 @@ public class InscricaoServlet extends HttpServlet {
             return;
         }
 
-        response.sendRedirect("cursos.jsp");
+        response.sendRedirect("pages/cursos.jsp");
     }
 }
