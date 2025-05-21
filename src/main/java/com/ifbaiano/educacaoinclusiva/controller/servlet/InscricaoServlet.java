@@ -43,7 +43,8 @@ public class InscricaoServlet extends HttpServlet {
                 stmt.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
                 stmt.setString(2, "ativo");
                 stmt.setNull(3, java.sql.Types.DECIMAL); // nota_final começa null
-                stmt.setInt(4, usuario.getId());
+             
+				stmt.setInt(4, usuario.getId());
                 stmt.setInt(5, idCurso);
 
                 stmt.executeUpdate();
