@@ -22,8 +22,7 @@ public class CadastroUsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String nome = request.getParameter("nome");
 		
 		if (nome == null) {
@@ -73,7 +72,9 @@ public class CadastroUsuarioServlet extends HttpServlet {
 				request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
 				return;
 			}
-
+			
+			String bio = request.getParameter("bio");
+			
 			String senhaDigitada = request.getParameter("senha");
 			if (senhaDigitada == null) {
 				request.setAttribute("erro", "A senha é obrigatória.");
@@ -87,7 +88,6 @@ public class CadastroUsuarioServlet extends HttpServlet {
 				return;
 			}
 
-			String bio = request.getParameter("bio");
 
 			java.sql.Date dataNascimento = null;
 
@@ -122,12 +122,13 @@ public class CadastroUsuarioServlet extends HttpServlet {
 			try {
 				UsuarioDAO usuarioDAO = new UsuarioDAO();
 				usuarioDAO.salvar(usuario);
-				response.sendRedirect("login.jsp");
+				response.sendRedirect("pages/login.jsp");
 			} catch (Exception e) {
 				e.printStackTrace();
 				request.setAttribute("erro", "Erro ao cadastrar, tente novamente." + e);
 				request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
 			}
 		}
+
 	}
 }

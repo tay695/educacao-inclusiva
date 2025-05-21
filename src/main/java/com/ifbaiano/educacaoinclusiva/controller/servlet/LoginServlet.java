@@ -3,6 +3,8 @@ package com.ifbaiano.educacaoinclusiva.controller.servlet;
 
 import com.ifbaiano.educacaoinclusiva.DAO.UsuarioDAO;
 import com.ifbaiano.educacaoinclusiva.controller.LoginController;
+import com.ifbaiano.educacaoinclusiva.model.Aluno;
+import com.ifbaiano.educacaoinclusiva.model.Tutor;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
 import com.ifbaiano.educacaoinclusiva.model.dto.LoginDTO;
 import com.ifbaino.educacaoinclusiva.utils.validation.ErroCampo;
@@ -47,18 +49,37 @@ public class LoginServlet extends HttpServlet {
 			List<ErroCampo> erros = loginController.autenticar(loginDTO);
 
 			if (!erros.isEmpty()) {
-				request.setAttribute("erros", erros);
-				request.getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
+				request.setAttribute("erro, tente novemente ", erros);
+				request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 				return;
 			}
-			// salvando o usuário depois da autenticação e redirecionando-o para a página principal do site
+
 			Usuario usuario = loginController.getUsuarioautenticado();
+
+			if (usuario == null) {
+				request.setAttribute("erro", "Usuário não encontrado.");
+				request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
+				return;
+			}
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("usuarioLogado", usuario);
-			response.sendRedirect("index.jsp");
-
+			if(usuario instanceof Tutor) {
+				response.sendRedirect("pages/perfiltutor.jsp");
+			}
+			
+			if (usuario instanceof Aluno) {
+				response.sendRedirect("pages/perfilaluno");
+			} else {
+				System.out.println("Houve um erro");
+				request.setAttribute(" error ", " Usuário não identificado");
+				request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
+				
+			}
 		} catch (SQLException e) {
-			throw new ServletException("Houve um erro de login ", e);
+		    System.out.println("Erro ao realizar login: " + e.getMessage());
+			request.getRequestDispatcher("pages/login.jsp").forward(request, response);
+
 		}
 	}
 }

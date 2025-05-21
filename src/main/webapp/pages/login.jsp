@@ -3,16 +3,14 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Login </title>
+    <title> Login </title>
 </head>
 <body>
-    <h2>Capacita+</h2>
-    <form action="/login" method="post">
+    <form action="${pageContext.request.contextPath}/login" method="post">
         <input type="text" name="email" placeholder="Email" required />
         <input type="password" name="senha" placeholder="Senha" required />
-        <button type="submit">Entrar</button>
+        <button type="submit"> Entrar </button>
 
-        <%-- Exibe erro se houver --%>
         <%
             String erro = (String) request.getAttribute("erro");
             if (erro != null) {
@@ -21,3 +19,4 @@
         <% } %>
     </form>
 </body>
+</html>
