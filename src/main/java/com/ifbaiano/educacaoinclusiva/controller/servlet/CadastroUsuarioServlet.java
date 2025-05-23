@@ -83,7 +83,7 @@ public class CadastroUsuarioServlet extends HttpServlet {
 			}
 
 			if (senhaDigitada.length() < 8) {
-				request.setAttribute("erro", "A senha deve ter pelo menos 6 caracteres.");
+				request.setAttribute("erro", "A senha deve ter pelo menos 8 caracteres.");
 				request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
 				return;
 			}
