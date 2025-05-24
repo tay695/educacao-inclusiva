@@ -1,0 +1,7 @@
+.navbar {
+    background-color: #3465a4!important; /* está assim pq tem que forçar a sobreescrever o bootstrap */
+}
+
+.navbar * {
+    color: white !important; 
+}
