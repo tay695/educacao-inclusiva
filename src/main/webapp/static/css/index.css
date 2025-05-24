@@ -3,29 +3,37 @@ body, html {
     margin: 0;
     padding: 0;
 }
+/*cabeçalhos do botões de iniciar e cadastrar */
+.top-nav {
+    width: 100%;
+    height: 60px;
+    background-color: #3465a4; 
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.top-nav .nav-buttons a {
+    color: white;
+    font-weight: 500;
+}
+
+
+.hero-text {
+    text-align: center;
+    color: black; 
+}
 
 .hero {
-    background: linear-gradient(to bottom #ffffff 60%);
+    background: linear-gradient(to bottom, #ffffff 60%);
     height: 100vh;
     position: relative;
     overflow: hidden;
-    padding-top: 60px;
+    padding-top: 90px;
 }
 
-.hero::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 20%;
-    height: 100px;
-    background: rgb(0, 0, 0);
-    border-top-left-radius: 100% 50px;
-    border-top-right-radius: 100% 50px;
-    z-index: 0;
-}
 
-.container {
-    position: relative;
-    z-index: 1;
-}
+
+
+
+

@@ -3,16 +3,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <meta charset="UTF-8">
     <title>Cadastro de Usuário</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/cadastro.css">
     <!-- link com o css  -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/cadastro.css">
+<link rel="stylesheet" href="/static/css/header.css">
 </head>
 </head>
 <body class="bg-light">
