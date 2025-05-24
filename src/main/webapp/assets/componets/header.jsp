@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" isELIgnored="false" %>
 <%@ page import="com.ifbaiano.educacaoinclusiva.model.enums.TipoDeUsuario" %>
-
+<head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+</head>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="{pageContext.request.contextPath}/index.jsp"> Capacita ++</a>
@@ -10,10 +12,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{pageContext.request.contextPath}/index.jsp">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Sobre os cursos</a>
+          <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/pages/home.jsp"> Home</a>
         </li>
       </ul>
       <form class="d-flex" role="search">
