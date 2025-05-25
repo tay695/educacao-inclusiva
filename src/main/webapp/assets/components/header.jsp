@@ -5,8 +5,7 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
 	<div class="container-fluid">
-		<a 
-		href="${pageContext.request.contextPath}/index.jsp"> 
+		<a href="${pageContext.request.contextPath}../pages/home.jsp"> 
 		<img src="${pageContext.request.contextPath}/static/images/logo.png" alt="logo" height="55">
 		</a>
 
@@ -17,7 +16,7 @@
 		</button>
 		<div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				<li class="nav-item"><a class="nav-link active" 	aria-current="page"	href="${pageContext.request.contextPath}/pages/home.jsp">Home</a></li>
+				<li class="nav-item"><a class="nav-link active" aria-current="page"	href="${pageContext.request.contextPath}/pages/home.jsp">Home</a></li>
 			</ul>
 
 			<form class="d-flex me-3" role="search"> 
