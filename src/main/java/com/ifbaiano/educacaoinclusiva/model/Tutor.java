@@ -26,4 +26,7 @@ public class Tutor extends Usuario {
         videoaulas.add(video);
         System.out.println("Videoaula postada com sucesso: " + titulo);
     }
+    public List<VideoAula> getVideoAulas(){
+        return this.videoaulas;
+    }
 }
