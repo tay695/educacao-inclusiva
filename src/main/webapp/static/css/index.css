@@ -1,108 +1,117 @@
 body, html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: #3465a4;
-    font-family:'Segoe UI';
-    
-    
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: #3465a4;
+	font-family: 'Segoe UI';
 }
 /*cabeçalhos do botões de iniciar e cadastrar */
 .top-nav {
-    width: 100%;
-    height: 60px;
-    background-color: #3465a4; 
-    top: 0;
-    left: 0;
-    z-index: 999;
-    display: flex;
-    justify-content: flex-end;
-    padding: 0 20 px;
+	width: 100%;
+	height: 60px;
+	background-color: #3465a4;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	display: flex;
+	justify-content: flex-end;
+	padding: 0 20 px;
 }
 
 .top-nav .nav-buttons a {
-    color: white;
-    font-weight: 500;
-    margin-left: 15px;
-    text-decoration:none; 
+	color: white;
+	font-weight: 500;
+	margin-left: 15px;
+	text-decoration: none;
 }
 
 .bg-custom {
-    background-color: #3465a4;
+	background-color: #3465a4;
 }
-	
 
 .hero-text {
-    text-align: center;
-    color: white; 
+	text-align: center;
+	color: white;
+	padding-bottom: 200px
 }
 
 .hero {
-    background: linear-gradient;
-    background-color: #3465a4;;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-    padding: 100px 20px;
-    padding-top:0px;
-    color:white;
-    min-height: 100vh;
-    
+	background: linear-gradient;
+	background-color: #3465a4;;
+	height: 100vh;
+	position: relative;
+	overflow: hidden;
+	padding: 80px 0px;
+	padding-top: 0px;
+	color: white;
+	min-height: 100vh;
 }
+
 .hero h1 {
-	padding-top:-10px;
-    font-size: 2.5rem; 
-    font-weight: bold;
+	padding-top: 0;
+	font-size: 2.5rem;
+	font-weight: bold;
+	white-space: nowrap;
 }
-.hero p{
+
+.hero p {
 	font-size: 2rem;
-    margin: 5px auto 15px;
-    max-width:900px;
-    	
+	margin: 5px auto 5px;
+	max-width: 900px;	
+   white-space: nowrap;	
 }
 
 
 .hero::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 20%;
-    height: 10px;
-    background: rgb(0, 0, 0);
-    border-top-left-radius: 50% 50px;
-    border-top-right-radius: 100% 50px;
-    z-index: 0;
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 20%;
+	height: 10px;
+	background: rgb(0, 0, 0);
+	border-top-left-radius: 50% 50px;
+	border-top-right-radius: 100% 50px;
+	z-index: 0;
 }
+
 .hero-have {
-    position: absolute;
-    bottom: 0;
-    left: 6 0px;
-    width: 100%;
-    overflow: hidden; 
-    line-height: 0; 
+	position: absolute;
+	bottom: 0;
+	left: 6 0px;
+	width: 100%;
+	overflow: hidden;
+	line-height: 0;
 }
 
 .hero-have svg {
-    display: block;
-    width: 100%; 
-    height: 270px; 
+	display: block;
+	width: 100%;
+	height: 250px;
 }
-
 
 .hero .btn-resg {
-    background-color: white;
-    color:  black;
-    font-weight: bold;
-    border: none;
-    padding: 20px 80px;
-    border-radius: 8px; 
+	background-color: white;
+	color: black;
+	font-weight: bold;
+	border: none;
+	padding: 25px 80px;
+	border-radius: 8px;
 }
+
 .hero-img {
- margin-top: 200px ;
-  max-width: 700px;
-  height: auto;
-  width: 100%
+	margin-top: 200px;
+	max-width: 850px;
+	height: auto;
+	width: 100%;
+	margin-left: 270px
+	
 }
 
-
+.img-central {
+	max-width: 998px;
+	width: 100%;
+	height: auto;
+	margin-top: 120px;
+	margin-left: 655px
+}
