@@ -18,6 +18,10 @@ body, html {
     font-weight: 500;
 }
 
+.bg-custom {
+    background-color: #3465a4;
+}
+	
 
 .hero-text {
     text-align: center;
@@ -31,6 +35,7 @@ body, html {
     overflow: hidden;
     padding-top: 90px;
 }
+
 
 
 

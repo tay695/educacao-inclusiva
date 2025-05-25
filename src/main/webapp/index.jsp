@@ -10,13 +10,17 @@
 </head>
 <body class="m-0 p-0">
 
-<header class="top-nav d-flex justify-content-end align-items-center px-4">
-<nav class = "navbar navbar-expand-lg navbar-dark bg-custom px-4 py-2"></nav>
-    <div class="nav-buttons">
-        <a href="${pageContext.request.contextPath}../pages/cadastro.jsp" class="btn btn-light me-2 text-dark">Registrar</a>
-        <a href="${pageContext.request.contextPath}../pages/login.jsp" class="btn btn-light text-dark">Iniciar Sessão</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-custom px-4 py-2">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <a class="navbar-brand d-flex align-items-center" href="${pageContext.request.contextPath}/index.jsp">
+            <img src="${pageContext.request.contextPath}/static/images/logo.png" alt="Logo Capacita++" height="55">
+        </a>
+        <div class="nav-buttons">
+            <a href="${pageContext.request.contextPath}/webapp/pages/cadastro.jsp" class="btn btn-outline-light me-2">Registrar</a>
+            <a href="${pageContext.request.contextPath}/webapp/pages/login.jsp" class="btn btn-outline-light">Iniciar Sessão</a>
+        </div>
     </div>
-</header>
+</nav>
 
 <section class="hero d-flex align-items-center justify-content-center text-white text-center">
     <div class="container hero-text">
