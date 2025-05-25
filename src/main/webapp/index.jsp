@@ -26,14 +26,14 @@
     <div class="container hero-text">
         <h1>Capacite-se para transformar realidades</h1>
         <p>Inclusão começa com conhecimento</p>
-        <p>O Capacita+ oferece cursos e ferramentas para preparar profissionais que promovem a diversidade e a inclusão no ambiente de trabalho e na sociedade.</p>
+        <p>A nossa política é oferecer capacitação para preparar profissionais que promovem a diversidade e a inclusão no ambiente de trabalho e na sociedade.</p>
 
         <div class="mt-4 d-flex justify-content-center">
-            <a href="${pageContext.request.contextPath}../pages/cadastro.jsp" class="btn btn-resg">REGISTRE-SE GRATUITAMENTE</a>
+            <a href="${pageContext.request.contextPath}/pages/cadastro.jsp" class="btn btn-resg">REGISTRE-SE GRATUITAMENTE</a>
         </div>
     </div>
-     <div class="col-md-6 mt-4 mt-md-0 d-flex justify-content-center">
-                <img src="${pageContext.request.contextPath}/static/images/menina.png" alt="Inclusão digital" class="img-fluid hero-img">
+     <div class="col-md-6 d-flex justify-content-center align-items-center">
+                <img src="${pageContext.request.contextPath}/static/images/menina.png" alt="Inclusão digital" class="hero-img img-fluid ">
             </div>
    <div class="hero-have">
     <svg viewBox="0 0 500 150" preserveAspectRatio="none" class="wave-svg">

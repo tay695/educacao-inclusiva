@@ -47,6 +47,7 @@ body, html {
     padding-top:0px;
     color:white;
     min-height: 100vh;
+    
 }
 .hero h1 {
 	padding-top:-10px;
@@ -55,7 +56,7 @@ body, html {
 }
 .hero p{
 	font-size: 2rem;
-    margin: 0 auto 15px;
+    margin: 5px auto 15px;
     max-width:900px;
     	
 }
@@ -97,8 +98,11 @@ body, html {
     padding: 20px 80px;
     border-radius: 8px; 
 }
-.hero.img{
-	max-width: 100%																															;
-	padding-top:10px;
+.hero-img {
+ margin-top: 70px ;
+  max-width: 400px;
+  height: auto;
+  width: 100%
 }
+
 
