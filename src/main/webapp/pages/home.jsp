@@ -2,12 +2,12 @@
 <%@ include file="/assets/components/header.jsp" %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title img src="${pageContext.request.contextPath}/static/images/logo.png" alt="logo" height="55">CAPACITA++</title >
-
 </head>
 <body>
+<a class="navbar-brand d-flex align-items-center gap-2" href="${pageContext.request.contextPath}/index.jsp">
+    <img src="${pageContext.request.contextPath}/static/images/logo.png" alt="Logo Capacita++" height="45">
+    <span class="fw-bold text-white fs-4">CAPACITA++</span>
+</a>
 
 </body>
 </html>
