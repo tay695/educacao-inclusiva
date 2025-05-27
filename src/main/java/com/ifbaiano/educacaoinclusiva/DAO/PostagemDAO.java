@@ -25,7 +25,7 @@ public class PostagemDAO {
 		conexao = DBConfig.criarConexao();
 	}
 		//insere uma nova postagem no banco de dados (tanto para curso quanto para modulo)
-	public void inserir(Postagem postagem) throws SQLException{
+	public void inserirPostagem(Postagem postagem) throws SQLException{
 		String sql = "INSERT INTO Postagem (titulo, autor, conteudo, dataHora, curso_id, modulo_id) VALUES (?, ?, ?, ?, ?, ?)";
 
 		try (PreparedStatement stmt = conexao.prepareStatement(sql)){

@@ -14,7 +14,7 @@ public class ModuloDAO {
         this.connection = connection;
     }
 
-    public void inserir(Modulo modulo, int idCurso) throws SQLException {
+    public void inserirModulo(Modulo modulo, int idCurso) throws SQLException {
         String sql = "INSERT INTO Modulo (titulo, descricao, id_curso) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, modulo.getTitulo());
@@ -22,9 +22,7 @@ public class ModuloDAO {
             stmt.setInt(3, idCurso);
             int linhasAfetadas = stmt.executeUpdate();
             if (linhasAfetadas == 0) {
-                throw new SQLException("O novo módulo não foi inserido");
-            } else {
-            	System.out.println(" Novo módulo inserido com sucesso!");
+                throw new SQLException("Falha ao inserir o módulo.");
             }
 
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
@@ -76,8 +74,8 @@ public class ModuloDAO {
             stmt.setInt(1, id);
             int linhasAfetadas = stmt.executeUpdate();
             if (linhasAfetadas == 0) {
-                throw new SQLException("O módulo não foi deletado, tente novamente");
-            };
+                throw new SQLException("Falha ao deletar o módulo.");
+            }
         }
     }
 

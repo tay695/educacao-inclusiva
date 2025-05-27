@@ -4,6 +4,7 @@ import com.ifbaiano.educacaoinclusiva.DAO.CursoDAO;
 import com.ifbaiano.educacaoinclusiva.model.Curso;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -32,22 +33,27 @@ public class CursoServlet extends HttpServlet {
 	    curso.setDescricao(descricao);
 	    curso.setArea(area);
 
-	
 	    CursoDAO cursoDAO = new CursoDAO();
-	    cursoDAO.addCurso(curso);
 
-	    
-	    response.sendRedirect("curso"); 
+        try {
+            cursoDAO.addCurso(curso);
+            response.sendRedirect("curso"); 
+        } catch (SQLException e) {
+            throw new ServletException("Erro ao inserir curso", e);
+        }
+    }
+	  @Override
+	    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException {
+
+	        CursoDAO cursoDAO = new CursoDAO();
+
+	        try {
+	            List<Curso> cursos = cursoDAO.getCursos(); 
+	            request.setAttribute("cursos", cursos);
+	            request.getRequestDispatcher("/pages/listaCursos.jsp").forward(request, response);
+	        } catch (SQLException e) {
+	            throw new ServletException("Erro ao buscar cursos", e);
+	        }
+	    }
 	}
-	
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	        throws ServletException, IOException {
-
-	    List<Curso> cursos = CursoDAO.getCursso();
-	    request.setAttribute("cursos", cursos);
-	    request.getRequestDispatcher("/pages/listaCursos.jsp").forward(request, response);
-	}
-
-	
-}

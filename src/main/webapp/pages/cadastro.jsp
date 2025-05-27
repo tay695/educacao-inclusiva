@@ -50,10 +50,10 @@
 <body class="d-flex align-items-center justify-content-center">
     
     <div class="background-overlay"></div>
-
+	<h1>${erro }</h1>
    
     <div class="container form-container">
-        <form action="CadastroUsuario" method="post" id="cadastroForm"  class="p-4 rounded-4 shadow-lg text-white"  style="background-color: #3465a4;">
+        <form action="${pageContext.request.contextPath}/CadastroUsuario" method="post" id="cadastroForm"  class="p-4 rounded-4 shadow-lg text-white"  style="background-color: #3465a4;">
             <h2 class="text-center mb-4">Cadastro</h2>
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome:</label>

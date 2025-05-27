@@ -10,9 +10,11 @@ import java.sql.SQLException;
 
 public class TutorDAO {
 	private Connection conexao;
-
-	public TutorDAO() {
-		this.conexao = DBConfig.criarConexao();
+     private UsuarioDAO usuarioDAO;
+     
+	public TutorDAO(Connection conexao) {
+		this.conexao = conexao;
+		this.usuarioDAO = new UsuarioDAO(conexao);
 	}
 
 	public void adicionarTutor(Tutor tutor) {

@@ -1,10 +1,12 @@
 package com.ifbaiano.educacaoinclusiva.controller.servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import com.ifbaiano.educacaoinclusiva.DAO.AlunoDAO;
 import com.ifbaiano.educacaoinclusiva.DAO.TutorDAO;
+import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 import com.ifbaiano.educacaoinclusiva.model.Aluno;
 import com.ifbaiano.educacaoinclusiva.model.Tutor;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
@@ -23,11 +25,18 @@ public class PerfilUsuarioServlet extends HttpServlet {
 	private AlunoDAO alunoDAO;
     private TutorDAO tutorDAO;
 
-    @Override
-    public void init() {
-        alunoDAO = new AlunoDAO();
-        tutorDAO = new TutorDAO();
+
+@Override
+public void init() throws ServletException {
+    super.init();
+    try {
+        Connection conexao = DBConfig.criarConexao();
+        alunoDAO = new AlunoDAO(conexao);
+        tutorDAO = new TutorDAO(conexao);
+    } catch (Exception e) {
+        throw new ServletException("Erro ao iniciar DAOs no PerfilUsuarioServlet", e);
     }
+}
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 

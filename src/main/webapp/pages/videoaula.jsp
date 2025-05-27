@@ -88,7 +88,9 @@
     %>
 <% } else { %>
     <p>Usuário não autenticado ou sessão expirada.</p>
-<% } %>
+	<%
+	}
+	%>
 
 
 </body>

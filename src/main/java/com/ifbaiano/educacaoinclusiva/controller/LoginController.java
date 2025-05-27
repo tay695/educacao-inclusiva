@@ -7,17 +7,18 @@ import java.util.List;
 import com.ifbaiano.educacaoinclusiva.DAO.UsuarioDAO;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
 import com.ifbaiano.educacaoinclusiva.model.dto.LoginDTO;
-import com.ifbaino.educacaoinclusiva.utils.SenhaUtils;
+import com.ifbaiano.educacaoinclusiva.utils.SenhaUtils;
 import com.ifbaino.educacaoinclusiva.utils.validation.ErroCampo;
 import com.ifbaino.educacaoinclusiva.utils.validation.Validador;
 
 public class LoginController {
 
     private final UsuarioDAO usuarioDao;
-    private Usuario usuarioautenticado;
+    private Usuario usuarioAutenticado;
 
     public LoginController(UsuarioDAO usuarioDao) {
         this.usuarioDao = usuarioDao;
+        this.usuarioAutenticado = null;
     }
 
     public List<ErroCampo> autenticar(LoginDTO loginDTO) throws SQLException {
@@ -29,7 +30,9 @@ public class LoginController {
         Validador.notBlank(email, "email", erros);
         Validador.notBlank(senhaDigitada, "senha", erros);
 
-        if (!erros.isEmpty()) return erros;
+        if (!erros.isEmpty()) {
+            return erros;
+        }
 
         Usuario usuario = usuarioDao.buscarEmail(email);
         if (usuario == null) {
@@ -41,17 +44,13 @@ public class LoginController {
         if (!senhaValida) {
             erros.add(new ErroCampo("senha", senhaDigitada, "Senha incorreta"));
         } else {
-            this.usuarioautenticado = usuario;         }
+            this.usuarioAutenticado = usuario;
+        }
 
         return erros;
     }
 
-
-	public Usuario getUsuarioautenticado() {
-		return usuarioautenticado;
-	}
-
-	public void setUsuarioautenticado(Usuario usuarioautenticado) {
-		this.usuarioautenticado = usuarioautenticado;
-	}
+    public Usuario getUsuarioAutenticado() {
+        return usuarioAutenticado;
+    }
 }

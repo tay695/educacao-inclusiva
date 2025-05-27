@@ -17,6 +17,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/modulo")
 public class ModuloServlet extends HttpServlet {
+	
+	
+	
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -52,7 +55,7 @@ public class ModuloServlet extends HttpServlet {
                 modulo.setTitulo(titulo);
                 modulo.setDescricao(descricao);
 
-                moduloDAO.inserir(modulo, idCurso);
+                moduloDAO.inserirModulo(modulo, idCurso);
                 response.sendRedirect("moduloListar?idCurso=" + idCurso);
 
             } else if ("atualizar".equalsIgnoreCase(acao)) {

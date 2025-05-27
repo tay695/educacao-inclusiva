@@ -12,7 +12,7 @@ import com.ifbaiano.educacaoinclusiva.model.Usuario;
 public class UsuarioDAO {
 	private Connection conexao;
 
-	public UsuarioDAO() {
+	public UsuarioDAO(Connection connection) {
 		this.conexao = DBConfig.criarConexao();
 	}
 

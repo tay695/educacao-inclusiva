@@ -14,12 +14,7 @@
     <input type="password" name="senha" placeholder="Senha" required class="form-control mb-3" style="height: 45px; font-size: 1.2rem;" />
     <button type="submit" class="btn btn-primary w-100 btn-lg">Entrar</button>
 
-        <%
-            String erro = (String) request.getAttribute("erro");
-            if (erro != null) {
-        %>
-            <p class="text-danger mt-3"><%= erro %></p>
-        <% } %>
+	
         
 </form>
 </body>

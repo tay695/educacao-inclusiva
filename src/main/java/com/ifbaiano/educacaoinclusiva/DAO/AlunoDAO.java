@@ -12,9 +12,9 @@ public class AlunoDAO {
 	private Connection conexao;
 	private UsuarioDAO usuarioDAO;
 
-	public AlunoDAO() {
+	public AlunoDAO(Connection connection) {
 		this.conexao = DBConfig.criarConexao();
-		this.usuarioDAO = new UsuarioDAO();
+		this.usuarioDAO = new UsuarioDAO(connection);
 	}
 
 	public void inserirAluno(Aluno aluno) throws SQLException {
