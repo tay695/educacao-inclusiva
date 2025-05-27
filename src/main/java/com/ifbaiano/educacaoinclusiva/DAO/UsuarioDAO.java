@@ -46,7 +46,7 @@ public class UsuarioDAO {
 			if (resul.next()) {
 				String nome = resul.getString("nome");
 				String emailAluno = resul.getString("email");
-				return new Aluno(0, nome, emailAluno, null, null,null);
+				return new Aluno(0, nome, emailAluno, null, null);
 
 			}
 		}
@@ -77,7 +77,6 @@ public class UsuarioDAO {
                 stmt.setString(2, aluno.getEmail());
                 stmt.setString(3, aluno.getSenha());
                 stmt.setString(4, aluno.getBio());
-                stmt.setDate(5, aluno.getDataNascimento()); 
                 stmt.executeUpdate();
             }
         } else if (usuario instanceof Tutor) {

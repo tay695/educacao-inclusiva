@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Aluno extends Usuario {
-	private Date dataNascimento;
 	private List<Curso> cursosInscritos = new ArrayList<>();
 	private List<Curso> favoritos = new ArrayList<>();
 
-	public Aluno(int id, String nome, String email, String senha, String bio, Date dataNascimento) {
+	public Aluno(int id, String nome, String email, String senha, String bio) {
 		super(id, nome, email, senha, bio);
-		this.dataNascimento = dataNascimento;
 	}
 
 	public void adicionarCurso(Curso curso) {
@@ -40,8 +38,6 @@ public class Aluno extends Usuario {
 		System.out.println("Comentário adicionado por " + getRetornaNome() + " ");
 	}
 
-	public Date getDataNascimento() {
-		return dataNascimento;
-	}
+	
 
 }

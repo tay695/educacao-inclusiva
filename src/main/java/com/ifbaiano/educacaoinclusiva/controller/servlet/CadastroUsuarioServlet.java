@@ -3,13 +3,10 @@ package com.ifbaiano.educacaoinclusiva.controller.servlet;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 
 import com.ifbaiano.educacaoinclusiva.DAO.AlunoDAO;
-import com.ifbaiano.educacaoinclusiva.DAO.UsuarioDAO;
 import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 import com.ifbaiano.educacaoinclusiva.model.Aluno;
-import com.ifbaiano.educacaoinclusiva.model.Usuario;
 import com.ifbaiano.educacaoinclusiva.utils.SenhaUtils;
 import com.ifbaiano.educacaoinclusiva.model.Tutor;
 
@@ -32,63 +29,40 @@ public class CadastroUsuarioServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String nome = request.getParameter("nome");
-
 		String email = request.getParameter("email");
-
 		String tipoUsuario = request.getParameter("tipoUsuario");
 		String areaEspecializacao = request.getParameter("areaEspecializacao");
-
-		String dataNascimentoStr = request.getParameter("dataNascimento");
-
 		String bio = request.getParameter("bio");
-
-		String senhaDigitada = request.getParameter("senha");
-
-		java.sql.Date dataNascimento = null;
-		try {
-			if (dataNascimentoStr != null && !dataNascimentoStr.isEmpty()) {
-				java.util.Date utilDate = new SimpleDateFormat("yyyy-MM-dd").parse(dataNascimentoStr);
-				dataNascimento = new java.sql.Date(utilDate.getTime());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("erro", "Data de nascimento inválida.");
-			request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
-			return;
-		}
+		String senhaDigitada = request.getParameter("dataNascimento");
+		
 
 		String salt = SenhaUtils.gerarSalt();
 		String senha = SenhaUtils.gerarHashSenha(senhaDigitada, salt);
 
-		Usuario usuario = null;
 		try {
 			Connection conexao = DBConfig.criarConexao();
 
 			if ("aluno".equalsIgnoreCase(tipoUsuario)) {
-				Aluno aluno = new Aluno(0, nome, email, senha, bio, dataNascimento);
+				Aluno aluno = new Aluno(0, nome, email, senha, bio);
 				aluno.setSalt(salt);
-				usuario = aluno; 
+
 				AlunoDAO alunoDAO = new AlunoDAO(conexao);
 				alunoDAO.inserirAluno(aluno);
+				response.sendRedirect("pages/login.jsp");
 
 			} else if ("tutor".equalsIgnoreCase(tipoUsuario)) {
 				Tutor tutor = new Tutor(areaEspecializacao, 0, nome, email, senha, bio);
 				tutor.setSalt(salt);
-				usuario = tutor;
+
+				response.sendRedirect("pages/login.jsp");
 			} else {
 				request.setAttribute("erro", "Tipo de usuário inválido");
 				request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
 				return;
 			}
-
-			UsuarioDAO usuarioDAO = new UsuarioDAO(conexao);
-			usuarioDAO.salvar(usuario);
-
-			response.sendRedirect("pages/login.jsp");
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("erro", "Erro ao cadastrar usuário.");

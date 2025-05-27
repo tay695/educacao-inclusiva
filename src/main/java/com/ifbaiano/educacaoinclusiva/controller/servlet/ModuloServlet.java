@@ -18,9 +18,6 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/modulo")
 public class ModuloServlet extends HttpServlet {
 	
-	
-	
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

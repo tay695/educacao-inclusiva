@@ -49,7 +49,7 @@ public class AlunoDAO {
 			if (rs.next()) {
 				String nome = rs.getString("nome");
 				String emailAluno = rs.getString("email");
-				return new Aluno(0, nome, emailAluno, null, null,null);
+				return new Aluno(0, nome, emailAluno, null, null);
 
 			}
 		}
@@ -64,7 +64,7 @@ public class AlunoDAO {
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				return new Aluno(rs.getInt("id"), rs.getString("nome"), null, null, null,null);
+				return new Aluno(rs.getInt("id"), rs.getString("nome"), null, null, null);
 			}
 		}
 		return null;
@@ -78,7 +78,6 @@ public class AlunoDAO {
 			stmt.setString(2, aluno.getEmail());
 			stmt.setString(3, aluno.getSenha());
 			stmt.setString(4, aluno.getBio());
-			stmt.setDate(5, aluno.getDataNascimento());
 			stmt.setInt(6, aluno.getId()); 
 
 			int linhasAfetadas = stmt.executeUpdate();

@@ -81,12 +81,6 @@
                 <label for="areaEspecializacao" class="form-label">Área de Especialização:</label>
                 <input type="text" class="form-control" name="areaEspecializacao">
             </div>
-
-            <div class="mb-3">
-                <label for="dataNascimento" class="form-label">Data de Nascimento:</label>
-                <input type="date" class="form-control" name="dataNascimento" required>
-            </div>
-
             <div class="mb-3">
                 <label for="bio" class="form-label">Biografia:</label>
                 <textarea name="bio" class="form-control" rows="4"></textarea>
