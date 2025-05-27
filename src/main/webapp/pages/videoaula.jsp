@@ -29,7 +29,7 @@
 %>
 
 <%
-    // =====================
+   
     // BLOCO DE TESTE TEMPORÁRIO
     // Remover quando for usar autenticação real
     Tutor tutor = new Tutor("Área de Teste", 1, "Usuário Teste", "teste@exemplo.com", "123456", "Bio de Teste");
@@ -42,7 +42,7 @@
 
     // Guardando na sessão para simular login
     session.setAttribute("usuarioLogado", tutor);
-    // =====================
+   
 %>
 
 <h1>Seja Bem-vindo, <%= tutor.getRetornaNome() %>!</h1>
