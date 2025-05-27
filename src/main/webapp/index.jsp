@@ -22,19 +22,38 @@
     </div>
 </nav>
 
-<section class="hero d-flex align-items-center justify-content-center text-white text-center">
-    <div class="container hero-text">
-        <h1>Capacite-se para transformar realidades</h1>
-        <p>Inclusão começa com conhecimento</p>
-        <p>O Capacita+ oferece cursos e ferramentas para preparar profissionais que promovem a diversidade e a inclusão no ambiente de trabalho e na sociedade.</p>
+<section class="hero text-white">
+    <div class="container d-flex justify-content-between align-items-center flex-wrap">
 
-        <div class="mt-4 d-flex justify-content-center">
-            <a href="${pageContext.request.contextPath}../pages/cadastro.jsp" class="btn btn-resg">REGISTRE-SE GRATUITAMENTE</a>
+        <!-- Texto à esquerda -->
+        <div class="hero-text col-md-4">
+            <h1>Capacite-se para transformar realidades</h1>
+            <p>Inclusão começa com conhecimento</p>
+            <p>A nossa política é oferecer capacitação para preparar profissionais para <br>
+             a diversidade e a inclusão no ambiente de trabalho e na sociedade.</p>
+            <div class="mt-4">
+                <a href="${pageContext.request.contextPath}/pages/cadastro.jsp" class="btn btn-resg">REGISTRE-SE GRATUITAMENTE</a>
+            </div>
+        </div>
+
+        <!-- Imagem no centro (homem) -->
+        <div class="col-md-2 d-flex justify-content-center">
+            <img src="${pageContext.request.contextPath}/static/images/homem.png" alt="Imagem homem" class="img-central img-fluid">
+        </div>
+
+        <div class="col-md-4 d-flex justify-content-center align-items-center">
+            <img src="${pageContext.request.contextPath}/static/images/menina.png" alt="Inclusão digital" class="hero-img img-fluid">
         </div>
     </div>
-     <div class="col-md-6 mt-4 mt-md-0 d-flex justify-content-center">
-                <img src="${pageContext.request.contextPath}/static/images/menina.png" alt="Inclusão digital" class="img-fluid hero-img">
-            </div>
+
+    <div class="hero-have">
+        <svg viewBox="0 0 500 150" preserveAspectRatio="none" class="wave-svg">
+            <path d="M0.x0,49.98 C150.00,150.00 350.00,-50.00 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
+                  style="stroke: none; fill: #ffffff;"></path>
+        </svg>
+    </div>
+</section>
+
    <div class="hero-have">
     <svg viewBox="0 0 500 150" preserveAspectRatio="none" class="wave-svg">
         <path d="M0.20,49.98 C150.00,150.00 350.00,-50.00 500.00,49.98 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: #ffffff;"></path>

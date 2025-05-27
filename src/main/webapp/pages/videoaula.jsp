@@ -31,7 +31,7 @@
 <%
     // =====================
     // BLOCO DE TESTE TEMPORÁRIO
-    // Remova ou comente quando for usar autenticação real
+    // Remover quando for usar autenticação real
     Tutor tutor = new Tutor("Área de Teste", 1, "Usuário Teste", "teste@exemplo.com", "123456", "Bio de Teste");
 
     // Criando uma videoaula falsa
@@ -54,7 +54,6 @@
     <li><a href="listarVideoAulas.jsp">Visualizar todas as video aulas</a></li>
     <li><a href="logout.jsp">Sair</a></li>
 </ul>
-
 
 </body>
 </html>
