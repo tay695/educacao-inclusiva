@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// Encaminha o usuário para a página de login
-		request.getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
+		request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 	}
 
 	@Override
