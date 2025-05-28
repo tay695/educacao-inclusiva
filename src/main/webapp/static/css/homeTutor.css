@@ -1,0 +1,10 @@
+.card{
+	margin-top: 80px;
+	margin-left: 90px;
+	padding: 25px 20px;
+	background-color:#729fcf;
+	border-radius: 20px;
+}
+.btn-custom-width {
+    width: 95%;
+}

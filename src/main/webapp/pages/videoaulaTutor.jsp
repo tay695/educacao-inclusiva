@@ -3,26 +3,10 @@
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 
 <%
-
-    //BLOCO DE TESTE (REMOVER)
-    HttpSession sessao = request.getSession();
-
-    // Limpa usuário antigo
-    sessao.removeAttribute("usuarioLogado");
-    
-    if(sessao.getAttribute("usuarioLogado") == null){
-        com.ifbaiano.educacaoinclusiva.model.Tutor usuarioTeste = new com.ifbaiano.educacaoinclusiva.model.Tutor(
-            "Matemática", 1, "Teste Tutor", "tutor@teste.com", "123456", "Biografia de Teste"
-        );
-
-        sessao.setAttribute("usuarioLogado", usuarioTeste);
+    Tutor tutor = (Tutor) session.getAttribute("usuarioLogado");
+    if (tutor == null) {
+        return;
     }
-    //FIM DO BLOCO DE TESTE
-
-%>
-
-<%
-    Tutor tutor = (Tutor) sessao.getAttribute("usuarioLogado");
 %>
 
 

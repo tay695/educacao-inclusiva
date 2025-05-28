@@ -64,9 +64,9 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("usuarioLogado", usuario);
 
 			if (usuario instanceof Tutor) {
-				response.sendRedirect("pages/perfiltutor.jsp");
+				response.sendRedirect("pages/HomeTutor.jsp");
 			} else if (usuario instanceof Aluno) {
-				response.sendRedirect("pages/perfilaluno.jsp");
+				response.sendRedirect("pages/homeAluno.jsp");
 			} else {
 				request.setAttribute("erro", "Tipo de usuário não reconhecido.");
 				request.getRequestDispatcher("/pages/login.jsp").forward(request, response);

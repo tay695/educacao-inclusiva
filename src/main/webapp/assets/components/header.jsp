@@ -4,27 +4,30 @@
 <link rel="stylesheet"  href="${pageContext.request.contextPath}/static/css/header.css">
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-	<div class="container-fluid">
-		<a href="${pageContext.request.contextPath}../pages/home.jsp"> 
-		<img src="${pageContext.request.contextPath}/static/images/logo.png" alt="logo" height="55">
-		</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"	aria-label="Toggle navigation">
-			<span
-			 class="navbar-toggler-icon">
-			</span>
-		</button>
-		<div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				<li class="nav-item"><a class="nav-link active" aria-current="page"	href="${pageContext.request.contextPath}/pages/home.jsp">Home</a></li>
-			</ul>
+    <div class="container-fluid">
+        <a href="${pageContext.request.contextPath}/pages/home.jsp">
+            <img src="${pageContext.request.contextPath}/static/images/logo.png" alt="logo" height="55">
+        </a>
 
-			<form class="d-flex me-3" role="search"> 
-			<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-				<button class="btn btn-outline-success" type="submit">Search</button>
-			</form>
-			
-			<i class="bi bi-people-fill fs-4 text-primary ms-3"></i>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-		</div>
-	</div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            
+            <ul class="navbar-nav ms-3 me-auto mb-2 mb-lg-0">
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Cursos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Nossa política </a>
+                </li>
+                
+            </ul>
+            <i class="icon bi-people-fill fs-4 text-white ms-4"></i>
+        </div>
+    </div>
 </nav>

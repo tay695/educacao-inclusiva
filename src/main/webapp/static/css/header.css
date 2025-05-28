@@ -1,7 +1,21 @@
 .navbar {
-    background-color: #3465a4!important; /* está assim pq tem que forçar a sobreescrever o bootstrap */
+    background-color: #3465a4 !important;
 }
 
 .navbar * {
-    color: white !important; 
+    color: white !important;
 }
+
+.navbar .form-control {
+    border-radius: 20px;
+}
+
+.navbar .btn-outline-light {
+    border-radius: 20px;
+    border-color: white;
+    color: white;
+}
+.icon{
+	margin-right: 30px;
+}
+
