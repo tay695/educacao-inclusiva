@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 import com.ifbaiano.educacaoinclusiva.model.Aluno;
 
 public class AlunoDAO {
@@ -13,7 +12,7 @@ public class AlunoDAO {
 	private UsuarioDAO usuarioDAO;
 
 	public AlunoDAO(Connection connection) {
-		this.conexao = DBConfig.criarConexao();
+		this.conexao = connection;
 		this.usuarioDAO = new UsuarioDAO(connection);
 	}
 
@@ -40,7 +39,7 @@ public class AlunoDAO {
 
 	public Aluno buscarAlunoPorEmail(String email) throws SQLException {
 
-		String sql = "SELECT nome, email FROM Aluno WHERE email = ?";
+		String sql = "SELECT u.nome, u.email FROM Aluno a JOIN Usuario u ON a.id_usuario = u.id WHERE u.email = ?";
 		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
 
 			stmt.setString(1, email);
@@ -68,27 +67,6 @@ public class AlunoDAO {
 			}
 		}
 		return null;
-	}
-
-	public void atualizar(Aluno aluno) throws SQLException {
-		String sql = "UPDATE Aluno SET nome = ?, email = ?, senha = ?, bio = ? , dataNascimento = ? where id = ? ";
-
-		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-			stmt.setString(1, aluno.getRetornaNome());
-			stmt.setString(2, aluno.getEmail());
-			stmt.setString(3, aluno.getSenha());
-			stmt.setString(4, aluno.getBio());
-			stmt.setInt(6, aluno.getId()); 
-
-			int linhasAfetadas = stmt.executeUpdate();
-			if (linhasAfetadas > 0) {
-				System.out.println("Atualização realizada com sucesso.");
-				
-			} else {
-				System.out.println("ID não encontrado para atualização.");
-			}
-		}
-
 	}
 
 }

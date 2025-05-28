@@ -1,5 +1,4 @@
 package com.ifbaiano.educacaoinclusiva.utils;
-
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -16,6 +15,15 @@ public final class SenhaUtils {
 	private SenhaUtils() {
 	}
 
+	public static boolean verificarSenha(String senhaDigitada, String saltArmazenado, String hashArmazenado) {
+		if (senhaDigitada == null || saltArmazenado == null || hashArmazenado == null) {
+			return false;
+		}
+		String hashCalculado = gerarHashSenha(senhaDigitada, saltArmazenado);
+		return hashCalculado.equals(hashArmazenado);
+	}
+	
+
 	public static String gerarSalt() {
 		SecureRandom sr = new SecureRandom();
 		byte[] salt = new byte[16];
@@ -23,6 +31,7 @@ public final class SenhaUtils {
 		return Base64.getEncoder().encodeToString(salt);
 	}
 
+	
 	public static String gerarHashSenha(String senha, String salt) {
 		if (senha == null || salt == null) {
 			throw new IllegalArgumentException("Senha e salt não podem ser nulos");
@@ -38,11 +47,4 @@ public final class SenhaUtils {
 		}
 	}
 
-	public static boolean verificarSenha(String senhaDigitada, String saltArmazenado, String hashArmazenado) {
-		if (senhaDigitada == null || saltArmazenado == null || hashArmazenado == null) {
-			return false;
-		}
-		String hashCalculado = gerarHashSenha(senhaDigitada, saltArmazenado);
-		return hashCalculado.equals(hashArmazenado);
-	}
 }

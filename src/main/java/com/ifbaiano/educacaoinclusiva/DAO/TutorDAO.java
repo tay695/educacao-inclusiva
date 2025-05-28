@@ -27,8 +27,8 @@ public class TutorDAO {
 				stmtUsuario.setString(2, tutor.getEmail());
 				stmtUsuario.setString(3, tutor.getSenha());
 				stmtUsuario.setString(4, tutor.getBio());
-				stmtUsuario.setString(5, "salt"); //
-				stmtUsuario.setString(6, ""); //
+				stmtUsuario.setString(5, tutor.getSalt());
+				stmtUsuario.setString(6, tutor.getAvaliacao() != null ? tutor.getAvaliacao() : "");
 				stmtUsuario.executeUpdate();
 
 				try (ResultSet rs = stmtUsuario.getGeneratedKeys()) {

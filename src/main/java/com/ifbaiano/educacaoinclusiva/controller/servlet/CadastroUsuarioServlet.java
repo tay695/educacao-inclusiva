@@ -24,8 +24,7 @@ public class CadastroUsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.sendRedirect("/pages/login.jsp");
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { resp.sendRedirect("/pages/login.jsp");
 	}
 
 	@Override
@@ -36,9 +35,13 @@ public class CadastroUsuarioServlet extends HttpServlet {
 		String tipoUsuario = request.getParameter("tipoUsuario");
 		String areaEspecializacao = request.getParameter("areaEspecializacao");
 		String bio = request.getParameter("bio");
-		String senhaDigitada = request.getParameter("dataNascimento");
+		String senhaDigitada = request.getParameter("senha");
 		
-
+	    if (senhaDigitada == null || senhaDigitada.isEmpty()) {
+	        request.setAttribute("erro", "A senha não pode estar vazia.");
+	        request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
+	        return;
+	    }
 		String salt = SenhaUtils.gerarSalt();
 		String senha = SenhaUtils.gerarHashSenha(senhaDigitada, salt);
 
