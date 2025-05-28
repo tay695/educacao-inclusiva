@@ -11,14 +11,26 @@
     <h1>Cadastrar nova vídeo aula</h1>
 
     <form action="videoaula" method="post">
-        <label for="titulo">Título:</label>
-        <input type="text" name="titulo" id="titulo" required><br>
-
-        <label for="url"> Link da vídeo aula: </label><br>
-        <input type="number" name="IdModulo" id="IdModulo" required>
-
+        <div>
+            <label for="titulo">Título:</label>
+            <input type="text" name="titulo" id="titulo" required><br>
+        </div>
+        <br>
+        <div> 
+            <label for="url"> Link da vídeo aula: </label><br>
+            <input type="url" name="url" id="url" placeholder="htttps://..." required>
+        </div>
+        <br>
+        <div> 
+            <label for="idModulo">ID do Módulo:</label><br>
+            <input type="number" name="idModulo" id="idModulo" min="1" required>
+        </div>
+        <br>
+        <div> 
         <input type="submit" value="Cadastrar">
+        </div>
     </form>
-    <br><a href="videoaula.jsp">Voltar ao Painel de Video Aula</a>
+
+    <br><a href="videoaulaTutor.jsp">Voltar ao Painel de Video Aula</a>
 </body>
 </html>
