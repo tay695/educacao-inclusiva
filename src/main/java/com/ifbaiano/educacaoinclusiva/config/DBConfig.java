@@ -12,7 +12,7 @@ public class DBConfig {
 	public static Connection criarConexao() {
 		Properties properties = new Properties();
 
-				try (InputStream input = DBConfig.class.getClassLoader().getResourceAsStream("config.properties")) {
+			try (InputStream input = DBConfig.class.getClassLoader().getResourceAsStream("dbconfig.properties")) {
 			if (input == null) {
 				throw new RuntimeException("Arquivo config.properties não encontrado no classpath");
 			}
@@ -23,15 +23,16 @@ public class DBConfig {
 			throw new RuntimeException("Erro ao carregar arquivo de configuração", e);
 		}
 
-				String user = properties.getProperty("db.username");
+		String user = properties.getProperty("db.username");
 		String password = properties.getProperty("db.password");
 		String url = properties.getProperty("db.url");
 
 		try {
-			return DriverManager.getConnection(url, user, password);
-		} catch (SQLException e) {
-			throw new RuntimeException("Erro ao criar conexão com o banco de dados", e);
-		}
+	        Class.forName("com.mysql.cj.jdbc.Driver"); 
+	        return DriverManager.getConnection(url, user, password);
+	    } catch (SQLException | ClassNotFoundException e) {
+	        throw new RuntimeException("Erro ao criar conexão com o banco de dados", e);
+	    }
 	}
 
 	private DBConfig() {
