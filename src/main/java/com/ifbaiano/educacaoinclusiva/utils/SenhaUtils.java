@@ -15,14 +15,7 @@ public final class SenhaUtils {
 	private SenhaUtils() {
 	}
 
-	public static boolean verificarSenha(String senhaDigitada, String saltArmazenado, String hashArmazenado) {
-		if (senhaDigitada == null || saltArmazenado == null || hashArmazenado == null) {
-			return false;
-		}
-		String hashCalculado = gerarHashSenha(senhaDigitada, saltArmazenado);
-		return hashCalculado.equals(hashArmazenado);
-	}
-	
+
 
 	public static String gerarSalt() {
 		SecureRandom sr = new SecureRandom();
@@ -31,6 +24,13 @@ public final class SenhaUtils {
 		return Base64.getEncoder().encodeToString(salt);
 	}
 
+	public static boolean verificarSenha(String senhaDigitada, String saltArmazenado, String hashArmazenado) {
+		if (senhaDigitada == null || saltArmazenado == null || hashArmazenado == null) {
+			return false;
+		}
+		String hashCalculado = gerarHashSenha(senhaDigitada, saltArmazenado);
+		return hashCalculado.equals(hashArmazenado);
+	}
 	
 	public static String gerarHashSenha(String senha, String salt) {
 		if (senha == null || salt == null) {

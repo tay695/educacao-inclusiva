@@ -54,22 +54,19 @@ public class CadastroUsuarioServlet extends HttpServlet {
 
 				AlunoDAO alunoDAO = new AlunoDAO(conexao);
 				alunoDAO.inserirAluno(aluno);
-				response.sendRedirect("pages/login.jsp");
+				response.sendRedirect("pages/homeAluno.jsp");
 
 			} else if ("tutor".equalsIgnoreCase(tipoUsuario)) {
 				Tutor tutor = new Tutor(areaEspecializacao, 0, nome, email, senha, bio);
 				tutor.setSalt(salt);
-
-				response.sendRedirect("pages/login.jsp");
-			} else {
-				request.setAttribute("erro", "Tipo de usuário inválido");
-				request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
-				return;
-			}
+				response.sendRedirect("pages/homeTutor.jsp");
+			} 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("erro", "Erro ao cadastrar usuário.");
 			request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
 		}
+		
 	}
+	
 }
