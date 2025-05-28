@@ -2,40 +2,39 @@ body {
 	margin: 0;
 	padding: 0;
 	min-height: 100vh;
-	background:
-		url('${pageContext.request.contextPath}/static/images/fundo.png')
-		no-repeat center center fixed;
-	position: relative;
-	overflow: hidden;
+	background: linear-gradient(to right, #6a11cb, #2575fc);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: Arial, sans-serif;
 }
 
-.background-overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
+.login-card {
+	background: #fff;
+	padding: 2rem;
+	border-radius: 12px;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 	width: 100%;
-	height: 100%;
-	background: url('images/fundo.jpg') center center/cover no-repeat;
-	filter: blur(5px);
-	opacity: 0.6;
-	z-index: 0;
+	max-width: 400px;
 }
 
-/* sobreado*/
-body::before {
-	content: "";
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.3);
-	z-index: 0;
+.login-card h2 {
+	margin-bottom: 1.5rem;
+	text-align: center;
+	color: #333;
 }
 
-.form-container {
-	position: relative;
-	z-index: 1;
-	max-width: 500px;
-	max-width: 600px; 
+.form-control {
+	height: 45px;
+	font-size: 1.1rem;
+}
+
+.btn-primary {
+	background-color: #2575fc;
+	border-color: #2575fc;
+}
+
+.btn-primary:hover {
+	background-color: #1a5fd4;
+	border-color: #1a5fd4;
 }

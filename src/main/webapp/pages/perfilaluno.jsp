@@ -4,13 +4,14 @@
 <%
 Aluno aluno = (Aluno) request.getAttribute("aluno");
 %>
+
 <html lang="pt-br">
 <head>
 <title>Perfil do Aluno</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<link rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 <body>
+<a class="navbar-brand d-flex align-items-center gap-2" href="${pageContext.request.contextPath} assets/components/header.jsp">
+
 	<h2>
 		Bem-vindo,
 		<%=aluno.getRetornaNome()%>

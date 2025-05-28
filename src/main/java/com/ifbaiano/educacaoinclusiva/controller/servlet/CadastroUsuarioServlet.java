@@ -59,7 +59,7 @@ public class CadastroUsuarioServlet extends HttpServlet {
 			} else if ("tutor".equalsIgnoreCase(tipoUsuario)) {
 				Tutor tutor = new Tutor(areaEspecializacao, 0, nome, email, senha, bio);
 				tutor.setSalt(salt);
-				response.sendRedirect("pages/login.jsp");
+				response.sendRedirect("pages/homeTutor.jsp");
 			} 
 		} catch (SQLException e) {
 			e.printStackTrace();

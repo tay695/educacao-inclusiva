@@ -12,6 +12,8 @@ Tutor tutor = (Tutor) request.getAttribute("tutor");
 
 </head>
 <body>
+<a class="navbar-brand d-flex align-items-center gap-2" href="${pageContext.request.contextPath} assets/components/header.jsp">
+
 	<h2>
 		Bem-vindo,
 		<%=tutor.getRetornaNome()%>
