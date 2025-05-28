@@ -32,7 +32,7 @@
             <p>A nossa política é oferecer capacitação para preparar profissionais para <br>
              a diversidade e a inclusão no ambiente de trabalho e na sociedade.</p>
             <div class="mt-4">
-                <a href="${pageContext.request.contextPath}/pages/cadastro.jsp" class="btn btn-resg">REGISTRE-SE GRATUITAMENTE</a>
+                <a href="${pageContext.request.contextPath}/pages/homeTutor.jsp" class="btn btn-resg">REGISTRE-SE GRATUITAMENTE</a>
             </div>
         </div>
 

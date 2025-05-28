@@ -8,23 +8,23 @@
 <%
 
     //BLOCO DE TESTE (REMOVER)
-    HttpSession sessao = request.getSession();
+//    HttpSession sessao = request.getSession();
 
-    sessao.removeAttribute("usuarioLogado"); // Forçar remoção de qualquer "usuarioLogado" antigo para evitar conflito Tutor x Aluno
-    if(sessao.getAttribute("usuarioLogado") == null){
+  //  sessao.removeAttribute("usuarioLogado"); // Forçar remoção de qualquer "usuarioLogado" antigo para evitar conflito Tutor x Aluno
+    //if(sessao.getAttribute("usuarioLogado") == null){
 
-    Calendar cal = Calendar.getInstance();
-    cal.set(2003, Calendar.JANUARY, 1);
-    java.util.Date utilDate = cal.getTime();
-    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+    //Calendar cal = Calendar.getInstance();
+    //cal.set(2003, Calendar.JANUARY, 1);
+    //java.util.Date utilDate = cal.getTime();
+    //ja/va.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
-    com.ifbaiano.educacaoinclusiva.model.Aluno usuarioTeste = 
-    new com.ifbaiano.educacaoinclusiva.model.Aluno(
-        1, "Aluno Teste", "alunoteste@gmail.com", "987654", "Biografia teste para aluno teste", sqlDate
-    );
+    //com.ifbaiano.educacaoinclusiva.model.Aluno usuarioTeste = 
+   // new com.ifbaiano.educacaoinclusiva.model.Aluno(
+     //   1, "Aluno Teste", "alunoteste@gmail.com", "987654", "Biografia teste para aluno teste", sqlDate
+    //);
 
-        sessao.setAttribute("usuarioLogado", usuarioTeste);
-    }
+       // sessao.setAttribute("usuarioLogado", usuarioTeste);
+   // }
     //FIM DO BLOCO DE TESTE
 
 %>

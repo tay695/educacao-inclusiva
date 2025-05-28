@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="/educacao-inclusiva/src/main/webapp/static/css/dashboardAluno.css">
 </head>
 <body>
+	<a class="navbar-brand d-flex align-items-center gap-2" href="${pageContext.request.contextPath} assets/components/header.jsp">
+    
     <h1>Olá, <%= aluno.getRetornaNome() %>!</h1>
     
 
