@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+<a class="navbar-brand d-flex align-items-center gap-2" href="${pageContext.request.contextPath} assets/components/header.jsp">
+
 
 </body>
 </html>
