@@ -12,7 +12,7 @@ public class DBConfig {
 	public static Connection criarConexao() {
 		Properties properties = new Properties();
 
-				try (InputStream input = DBConfig.class.getClassLoader().getResourceAsStream("dbConfig.properties\"")) {
+				try (InputStream input = DBConfig.class.getClassLoader().getResourceAsStream("config.properties")) {
 			if (input == null) {
 				throw new RuntimeException("Arquivo config.properties não encontrado no classpath");
 			}

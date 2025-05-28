@@ -54,12 +54,12 @@ public class CadastroUsuarioServlet extends HttpServlet {
 
 				AlunoDAO alunoDAO = new AlunoDAO(conexao);
 				alunoDAO.inserirAluno(aluno);
-				response.sendRedirect("pages/homeAluno.jsp");
+				response.sendRedirect("pages/login.jsp");
 
 			} else if ("tutor".equalsIgnoreCase(tipoUsuario)) {
 				Tutor tutor = new Tutor(areaEspecializacao, 0, nome, email, senha, bio);
 				tutor.setSalt(salt);
-				response.sendRedirect("pages/homeTutor.jsp");
+				response.sendRedirect("pages/login.jsp");
 			} 
 		} catch (SQLException e) {
 			e.printStackTrace();
