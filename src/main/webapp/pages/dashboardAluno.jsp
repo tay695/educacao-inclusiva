@@ -10,6 +10,8 @@
 <head>
     <meta charset="UTF-8">
     <title> Portal estudante </title>
+    
+    <link rel="stylesheet" href="/educacao-inclusiva/src/main/webapp/static/css/dashboardAluno.css">
 </head>
 <body>
     <h1>Olá, <%= aluno.getRetornaNome() %>!</h1>
