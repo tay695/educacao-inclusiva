@@ -7,6 +7,8 @@
     <title>Cadastrar nova vídeo aula</title>
 </head>
 <body>
+<a class="navbar-brand d-flex align-items-center gap-2" href="${pageContext.request.contextPath} assets/components/header.jsp">
+
 
     <h1>Cadastrar nova vídeo aula</h1>
 
