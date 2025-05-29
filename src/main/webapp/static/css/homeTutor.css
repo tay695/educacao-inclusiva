@@ -3,8 +3,12 @@ body {
 }
 
 .btn-outline-secondary {
-	border-color: #ffffff;
-	color: #ffffff;
+	border-color: #e9ecef;
+	color: #e9ecef;
+}
+.custom-navbar {
+	background-color: #084673 !important;
+	color: white !important; 
 }
 
 .btn-custom-width {
@@ -12,6 +16,5 @@ body {
 }
 
 .offcanvas {
-   color: white;
-   
+   color:#3465a4 ;
 }

@@ -1,17 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <title>Painel do Tutor</title>
+
+    <title>Página inicial - Tutor</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-    
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/header.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/homeTutor.css">
 </head>
 <body>
 <!-- cabeçalho -->
-    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+    <nav class="navbar navbar-expand-lg  custom-navbar">
         <div class="container-fluid">
             <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="menuLateral" aria-label="Abrir menu lateral">
                 <i class="bi bi-list fs-3"></i>
@@ -46,7 +47,7 @@
                 </li>
                 <li><hr></li>
                 <li class="nav-item">
-                    <a class="nav-link text-danger" href="${pageContext.request.contextPath}/servlet/LogoutServlet.java">
+                    <a class="nav-link text-danger" href="${pageContext.request.contextPath}/controller/Logout">
                         <i class="bi bi-box-arrow-right me-2"></i>Sair
                     </a>
                 </li>
