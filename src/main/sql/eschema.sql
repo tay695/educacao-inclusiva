@@ -1,5 +1,6 @@
 CREATE DATABASE Capacita;
 USE Capacita;
+ALTER TABLE Aluno DROP COLUMN data_nascimento;
 
 CREATE TABLE Curso (
     id INT PRIMARY KEY AUTO_INCREMENT,

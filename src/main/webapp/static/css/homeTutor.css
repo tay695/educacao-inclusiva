@@ -1,10 +1,17 @@
-.card{
-	margin-top: 80px;
-	margin-left: 90px;
-	padding: 25px 20px;
-	background-color:#729fcf;
-	border-radius: 20px;
+body {
+	color: #3465a4;
 }
+
+.btn-outline-secondary {
+	border-color: #ffffff;
+	color: #ffffff;
+}
+
 .btn-custom-width {
-    width: 95%;
+	width: 95%;
+}
+
+.offcanvas {
+   color: white;
+   
 }

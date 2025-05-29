@@ -1,5 +1,5 @@
 .navbar {
-    background-color: #3465a4 !important;
+    background-color: #3465a4 ;
 }
 
 .navbar * {
@@ -18,4 +18,5 @@
 .icon{
 	margin-right: 30px;
 }
+
 
