@@ -113,4 +113,20 @@ public class TutorDAO {
 		}
 		return null;
 	}
+	
+	public void atualizarCampo(int idUsuario, String campo, String valor) throws SQLException {
+	    String sql;
+	    if (campo.equals("area")) {
+	        sql = "UPDATE Tutor SET area_especializacao = ? WHERE id_usuario = ?";
+	    } else {
+	        sql = "UPDATE Usuario SET " + campo + " = ? WHERE id = ?";
+	    }
+
+	    try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+	        stmt.setString(1, valor);
+	        stmt.setInt(2, idUsuario);
+	        stmt.executeUpdate();
+	    }
+	}
+
 }
