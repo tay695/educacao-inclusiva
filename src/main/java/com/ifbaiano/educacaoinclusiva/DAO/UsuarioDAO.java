@@ -48,19 +48,24 @@ public class UsuarioDAO {
 	public Usuario buscarEmail(String email) throws SQLException {
 		String sql = "SELECT * from Usuario  WHERE email = ?";
 
-		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+		try (PreparedStatement stmt = conexao.prepareStatement(sql)) { 
 			stmt.setString(1, email);
 			ResultSet resul = stmt.executeQuery();
-
 			if (resul.next()) {
-				String nome = resul.getString("nome");
-				String emailAluno = resul.getString("email");
-				return new Aluno(0, nome, emailAluno, null, null);
+	            Usuario usuario = new Usuario(
+	                    resul.getInt("id"),
+	                    resul.getString("nome"),
+	                    resul.getString("email"),
+	                    resul.getString("senha"),
+	                    resul.getString("bio")
+	                );
+	                usuario.setSalt(resul.getString("salt"));
+	                return usuario;
+	            }
+	        }
+	        return null;
+	    }
 
-			}
-		}
-		return null;
-	}
 
 	public Usuario buscarId(int id) throws SQLException {
 		String sql = "SELECT nome,id from Usuario  WHERE id = ?";

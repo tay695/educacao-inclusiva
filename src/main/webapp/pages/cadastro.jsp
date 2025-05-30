@@ -12,9 +12,10 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            background: url('${pageContext.request.contextPath}/static/images/fundo.png') no-repeat center center fixed;
             position: relative;
             overflow: hidden;
+            background: url('${pageContext.request.contextPath}/static/images/fundo.png') no-repeat center center fixed;
+            
         }
 
         .background-overlay {
@@ -114,7 +115,6 @@
             }
         }
 
-        // Chama ao carregar a página
         window.addEventListener("DOMContentLoaded", atualizarFormulario);
     </script>
 
