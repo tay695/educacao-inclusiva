@@ -14,7 +14,7 @@ import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 import com.ifbaiano.educacaoinclusiva.model.Aluno;
 import com.ifbaiano.educacaoinclusiva.utils.SenhaUtils;
 
-@WebServlet("/CadastroAlunoServlet")
+@WebServlet("/CadastroAluno")
 public class CadastroAlunoServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
