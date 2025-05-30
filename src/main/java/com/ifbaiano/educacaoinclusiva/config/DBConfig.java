@@ -37,4 +37,8 @@ public class DBConfig {
 
 	private DBConfig() {
 	}
+
+	public static Connection getConnection() {
+		return criarConexao();
+	}
 }

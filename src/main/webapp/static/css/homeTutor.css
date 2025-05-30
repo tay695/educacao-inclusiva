@@ -14,6 +14,15 @@ body {
 .btn-custom-width {
 	width: 95%;
 }
+.bnt-card{
+	color: #084673;
+	border-radius:25px;
+}
+
+.img-card {
+    height: 140px;
+    object-fit: cover;
+}
 
 .offcanvas {
    color:#3465a4 ;
