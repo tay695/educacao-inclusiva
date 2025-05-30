@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 <html>
-<head >
+<head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <meta charset="UTF-8">
     <title>Cadastro</title>
@@ -17,7 +17,6 @@
             overflow: hidden;
         }
 
-
         .background-overlay {
             position: fixed;
             top: 0;
@@ -30,7 +29,6 @@
             z-index: 0;
         }
 
-        /* sobreado*/
         body::before {
             content: "";
             position: fixed;
@@ -48,13 +46,16 @@
 </head>
 
 <body class="d-flex align-items-center justify-content-center">
-    
+
     <div class="background-overlay"></div>
-	<h1>${erro }</h1>
-   
+
     <div class="container form-container">
-        <form action="${pageContext.request.contextPath}/CadastroUsuario" method="post" id="cadastroForm"  class="p-4 rounded-4 shadow-lg text-white"  style="background-color: #3465a4;">
+        <form method="post" id="cadastroForm"
+              class="p-4 rounded-4 shadow-lg text-white"
+              style="background-color: #3465a4;">
             <h2 class="text-center mb-4">Cadastro</h2>
+
+           
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome:</label>
                 <input type="text" class="form-control" name="nome" required>
@@ -68,11 +69,11 @@
             <div class="mb-3">
                 <label class="form-label">Tipo de Usuário:</label><br>
                 <div class="form-check form-check-inline">
-                    <input type="radio" class="form-check-input" name="tipoUsuario" value="aluno" checked onclick="mostrarCampoEspecializacao(false)">
+                    <input type="radio" class="form-check-input" name="tipoUsuario" value="aluno" checked onchange="atualizarFormulario()">
                     <label class="form-check-label">Aluno</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input type="radio" class="form-check-input" name="tipoUsuario" value="tutor" onclick="mostrarCampoEspecializacao(true)">
+                    <input type="radio" class="form-check-input" name="tipoUsuario" value="tutor" onchange="atualizarFormulario()">
                     <label class="form-check-label">Tutor</label>
                 </div>
             </div>
@@ -81,6 +82,7 @@
                 <label for="areaEspecializacao" class="form-label">Área de Especialização:</label>
                 <input type="text" class="form-control" name="areaEspecializacao">
             </div>
+
             <div class="mb-3">
                 <label for="bio" class="form-label">Biografia:</label>
                 <textarea name="bio" class="form-control" rows="4"></textarea>
@@ -98,15 +100,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
     <script>
-        function mostrarCampoEspecializacao(mostrar) {
-            const campo = document.getElementById("campoEspecializacao");
-            campo.style.display = mostrar ? "block" : "none";
+        function atualizarFormulario() {
+            const tipo = document.querySelector("input[name='tipoUsuario']:checked").value;
+            const form = document.getElementById("cadastroForm");
+
+            // Define o action de acordo com o tipo
+            if (tipo === "tutor") {
+                form.action = "${pageContext.request.contextPath}/CadastroTutor";
+                document.getElementById("campoEspecializacao").style.display = "block";
+            } else {
+                form.action = "${pageContext.request.contextPath}/CadastroAluno";
+                document.getElementById("campoEspecializacao").style.display = "none";
+            }
         }
 
-        window.addEventListener("DOMContentLoaded", function () {
-            const tipo = document.querySelector("input[name='tipoUsuario']:checked").value;
-            mostrarCampoEspecializacao(tipo === "tutor");
-        });
+        // Chama ao carregar a página
+        window.addEventListener("DOMContentLoaded", atualizarFormulario);
     </script>
+
 </body>
 </html>

@@ -16,9 +16,10 @@ import com.ifbaiano.educacaoinclusiva.utils.SenhaUtils;
 
 @WebServlet("/CadastroAlunoServlet")
 public class CadastroAlunoServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		String nome = request.getParameter("nome");
 		String email = request.getParameter("email");
 		String senhaDigitada = request.getParameter("senha");
