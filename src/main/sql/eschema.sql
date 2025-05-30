@@ -1,6 +1,33 @@
-CREATE DATABASE Capacita;
+
 USE Capacita;
-ALTER TABLE Aluno DROP COLUMN data_nascimento;
+
+
+CREATE TABLE Usuario (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(150) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL, -- Corrigido para armazenar hash seguro
+    salt VARCHAR(255) NOT NULL,
+    bio VARCHAR(200),
+    avaliacao VARCHAR(200)
+);
+
+
+CREATE TABLE Aluno (
+    data_nascimento DATE NOT NULL,
+    id_usuario INT NOT NULL,
+    PRIMARY KEY (id_usuario),
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id)
+);
+
+
+CREATE TABLE Tutor (
+    area_especializacao VARCHAR(100) NOT NULL,
+    id_usuario INT NOT NULL,
+    PRIMARY KEY (id_usuario),
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id)
+);
+
 
 CREATE TABLE Curso (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -9,15 +36,18 @@ CREATE TABLE Curso (
     area VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE Usuario (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(150) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    senha VARCHAR(45) NOT NULL,
-    salt VARCHAR(255) NOT NULL,
-    bio VARCHAR(200),
-    avaliacao VARCHAR(200)
+
+CREATE TABLE UsuarioCurso (
+    data_inscricao DATE,
+    estado ENUM ('ativo', 'inativo', 'cancelado'),
+    nota_final DECIMAL(5,2),
+    id_usuario INT NOT NULL,
+    id_curso INT NOT NULL,
+    PRIMARY KEY (id_usuario, id_curso),
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id),
+    FOREIGN KEY (id_curso) REFERENCES Curso(id)
 );
+
 
 CREATE TABLE Postagem (
     id INT PRIMARY KEY AUTO_INCREMENT, 
@@ -27,29 +57,6 @@ CREATE TABLE Postagem (
     FOREIGN KEY (id_curso) REFERENCES Curso(id)
 );
 
-CREATE TABLE UsuarioCurso (
-    data_inscricao DATE,
-    estado ENUM ('ativo', 'inativo', 'cancelado'),
-    nota_final DECIMAL (5,2),
-    id_usuario INT NOT NULL,
-    id_curso INT NOT NULL,
-    PRIMARY KEY (id_usuario, id_curso),
-    FOREIGN KEY (id_usuario) REFERENCES Usuario(id),
-    FOREIGN KEY (id_curso) REFERENCES Curso(id)
-);
-
-CREATE TABLE Aluno (
-    id_usuario INT NOT NULL,
-    PRIMARY KEY (id_usuario),
-    FOREIGN KEY (id_usuario) REFERENCES Usuario(id)
-);
-
-CREATE TABLE Tutor (
-    area_especializacao VARCHAR(100) NOT NULL,
-    id_usuario INT NOT NULL,
-    PRIMARY KEY (id_usuario),
-    FOREIGN KEY (id_usuario) REFERENCES Usuario(id)
-);
 
 CREATE TABLE Modulo (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -59,6 +66,7 @@ CREATE TABLE Modulo (
     FOREIGN KEY (id_curso) REFERENCES Curso(id)
 );
 
+
 CREATE TABLE Videoaula (
     id INT PRIMARY KEY AUTO_INCREMENT,
     titulo VARCHAR(100) NOT NULL,
@@ -67,3 +75,13 @@ CREATE TABLE Videoaula (
     FOREIGN KEY (id_modulo) REFERENCES Modulo(id)
 );
 
+
+CREATE TABLE Comentario (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_Usuario INT,
+    id_videoaula INT,
+    texto TEXT,
+    data_postagem TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_Usuario) REFERENCES Aluno(id_usuario),
+    FOREIGN KEY (id_videoaula) REFERENCES Videoaula(id)
+);
