@@ -16,8 +16,8 @@
             <img src="${pageContext.request.contextPath}/static/images/logo.png" alt="Logo Capacita++" height="55">
         </a>
         <div class="nav-buttons">
-            <a href="${pageContext.request.contextPath}/pages/cadastro.jsp" class="btn btn-outline-light me-2">Entre como estudante</a>
-            <a href="${pageContext.request.contextPath}/pages/login.jsp" class="btn btn-outline-light">Entre como Tutor</a>
+            <a href="${pageContext.request.contextPath}/pages/cadastroAluno.jsp" class="btn btn-outline-light me-2">Entre como estudante</a>
+            <a href="${pageContext.request.contextPath}/pages/cadastroTutor.jsp" class="btn btn-outline-light">Entre como Tutor</a>
             <a href="${pageContext.request.contextPath}/pages/login.jsp" class="btn btn-outline-light">Entrar</a>
             
         </div>
@@ -33,21 +33,40 @@
             <p>Inclusão começa com conhecimento</p>
             <p>A nossa política é oferecer capacitação para preparar profissionais para <br>
              a diversidade e a inclusão no ambiente de trabalho e na sociedade.</p>
-            <div class="mt-4">
-                <a href="${pageContext.request.contextPath}/pages/homeTutor.jsp" class="btn btn-resg">REGISTRE-SE GRATUITAMENTE</a>
-            </div>
-        </div>
-
-        <!-- Imagem no centro (homem) -->
-        <div class="col-md-2 d-flex justify-content-center">
-            <img src="${pageContext.request.contextPath}/static/images/homem.png" alt="Imagem homem" class="img-central img-fluid">
-        </div>
-
+              </div>
         <div class="col-md-4 d-flex justify-content-center align-items-center">
             <img src="${pageContext.request.contextPath}/static/images/menina.png" alt="Inclusão digital" class="hero-img img-fluid">
         </div>
     </div>
  </section>
+ <section class="how-it-works">
+    <div class="container">
+        <h2>Como funciona a plataforma?</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-3 how-step">
+                <div class="how-icon">🎓</div>
+                <div class="how-title">Cadastre-se</div>
+                <div class="how-desc">Crie uma conta como estudante ou tutor para começar a aprender ou ensinar.</div>
+            </div>
+            <div class="col-md-3 how-step">
+                <div class="how-icon">📚</div>
+                <div class="how-title">Escolha um curso</div>
+                <div class="how-desc">Navegue pelos cursos disponíveis e escolha aquele que mais se adequa aos seus interesses.</div>
+            </div>
+            <div class="col-md-3 how-step">
+                <div class="how-icon">🎥</div>
+                <div class="how-title">Assista às videoaulas</div>
+                <div class="how-desc">Aprenda no seu ritmo com aulas em vídeo preparadas por especialistas.</div>
+            </div>
+            <div class="col-md-3 how-step">
+                <div class="how-icon">💬</div>
+                <div class="how-title">Comente e interaja</div>
+                <div class="how-desc">Participe com perguntas, comentários e sugestões para enriquecer sua aprendizagem.</div>
+            </div>
+        </div>
+    </div>
+</section>
+ 
 <script src="${pageContext.request.contextPath}/webjars/bootstrap/5.3.5/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

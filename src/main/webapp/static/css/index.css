@@ -94,11 +94,39 @@ body, html {
 	margin-left: 270px
 	
 }
-
-.img-central {
-	max-width: 998px;
-	width: 100%;
-	height: auto;
-	margin-top: 120px;
-	margin-left: 655px
+.how-it-works {
+    background-color: #f8f9fa;
+    padding: 60px 20px;
+    text-align: center;
 }
+
+.how-it-works h2 {
+    color: #3465a4;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.how-step {
+    margin-bottom: 30px;
+}
+
+.how-icon {
+    font-size: 50px;
+    color: #3465a4;
+    margin-bottom: 15px;
+}
+
+.how-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.how-desc {
+    color: #555;
+    font-size: 1rem;
+    max-width: 280px;
+    margin: 0 auto;
+}
+	
+
