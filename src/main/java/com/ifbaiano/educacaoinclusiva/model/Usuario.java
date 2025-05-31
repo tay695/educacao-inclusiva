@@ -70,8 +70,6 @@ public class Usuario {
 		this.bio = bio;
 	}
 
-	
-
 	public String getAvaliacao() {
 		return avaliacao;
 	}

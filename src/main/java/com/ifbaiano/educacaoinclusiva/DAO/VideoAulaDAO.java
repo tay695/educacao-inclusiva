@@ -12,7 +12,8 @@ public class VideoAulaDAO {
 	public VideoAulaDAO(Connection connection) {
 		this.connection = connection;
 	}
-
+	public VideoAulaDAO() {
+    }
 	public void inserirVideoaula(VideoAula videoaula) throws SQLException {
 		String sql = "INSERT INTO Videoaula (titulo, url, id_modulo) VALUES (?, ?, ?)";
 		try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -28,22 +29,36 @@ public class VideoAulaDAO {
 			}
 		}
 	}
-
+	
 	// Pelo ID do Modulo
-	public List<VideoAula> listarVideoaula(int idModulo) throws SQLException {
-		List<VideoAula> videoaulas = new ArrayList<>();
-		String sql = "SELECT * FROM Videoaula WHERE id_modulo = ?";
-		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-			stmt.setInt(1, idModulo);
-			try (ResultSet rs = stmt.executeQuery()) {
-				while (rs.next()) {
-					VideoAula videoaula = new VideoAula(rs.getInt("id"), rs.getString("titulo"), rs.getString("url"),
-							rs.getInt("id_modulo"));
-					videoaulas.add(videoaula);
-				}
-			}
-		}
-		return videoaulas;
+			public List<VideoAula> listarPorTutor(int idTutor) throws SQLException {
+	    List<VideoAula> lista = new ArrayList<>();
+
+	    String sql = """
+	        SELECT v.id, v.titulo, v.url, v.id_modulo
+	        FROM Videoaula v
+	        JOIN Modulo m ON v.id_modulo = m.id
+	        JOIN Curso c ON m.id_curso = c.id
+	        WHERE c.id_tutor = ?
+	    """;
+
+	    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+	        stmt.setInt(1, idTutor);
+	        ResultSet rs = stmt.executeQuery();
+
+	        while (rs.next()) {
+	            VideoAula v = new VideoAula(
+	                rs.getInt("id"),
+	                rs.getString("titulo"),
+	                rs.getString("url"),
+	                rs.getInt("id_modulo")
+	            );
+	            lista.add(v);
+	        }
+	    }
+
+	    return lista;
 	}
 
 	public void atualizarVideoaula(VideoAula videoaula) throws SQLException {

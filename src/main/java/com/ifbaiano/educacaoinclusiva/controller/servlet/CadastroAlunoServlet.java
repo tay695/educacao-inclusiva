@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.ifbaiano.educacaoinclusiva.DAO.AlunoDAO;
 import com.ifbaiano.educacaoinclusiva.config.DBConfig;
@@ -19,14 +21,23 @@ public class CadastroAlunoServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String nome = request.getParameter("nome");
 		String email = request.getParameter("email");
 		String senhaDigitada = request.getParameter("senha");
 		String bio = request.getParameter("bio");
 
-		if (senhaDigitada == null || senhaDigitada.isEmpty()) {
-			request.setAttribute("erro", "A senha não pode estar vazia.");
+		List<String> erros = new ArrayList<>();
+		if (nome == null || nome.isBlank())
+			erros.add("Nome é obrigatório.");
+		if (email == null || email.isBlank())
+			erros.add("Email é obrigatório.");
+		if (senhaDigitada == null || senhaDigitada.isBlank())
+			erros.add("Senha é obrigatória.");
+
+		if (!erros.isEmpty()) {
+			request.setAttribute("erros", erros);
 			request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
 			return;
 		}

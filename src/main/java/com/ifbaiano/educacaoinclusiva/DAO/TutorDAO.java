@@ -131,5 +131,13 @@ public class TutorDAO {
 			stmt.executeUpdate();
 		}
 	}
+	public boolean emailJaExiste(String email) throws SQLException {
+	    String sql = "SELECT 1 FROM Usuario WHERE email = ?";
+	    try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+	        stmt.setString(1, email);
+	        ResultSet rs = stmt.executeQuery();
+	        return rs.next();
+	    }
+	}
 
 }
