@@ -1,17 +1,18 @@
 package com.ifbaiano.educacaoinclusiva.controller.servlet;
 
+import com.ifbaiano.educacaoinclusiva.DAO.ModuloDAO;
 import com.ifbaiano.educacaoinclusiva.DAO.VideoAulaDAO;
 import com.ifbaiano.educacaoinclusiva.config.DBConfig;
+import com.ifbaiano.educacaoinclusiva.model.Modulo;
 import com.ifbaiano.educacaoinclusiva.model.VideoAula;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/videoaula")
 public class VideoServlet extends HttpServlet {
@@ -23,59 +24,91 @@ public class VideoServlet extends HttpServlet {
 		this.connection = DBConfig.criarConexao();
 	}
 
-	@Override // tratando requisições http post(normalmente usada para salvar dados)
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException{
+
+	VideoAulaDAO dao = new VideoAulaDAO(connection);
+	ModuloDAO moduloDAO = new ModuloDAO(connection);
+
+	String action = request.getParameter("action");
+	String idStr = request.getParameter("id");
+
+	//recupera o idCurso (pode ser passado como parametro ou armazenado na sessão)
+	String idCursoStr = request.getParameter("idCurso");
+	int idCurso = 0;
+
+	if(idCursoStr != null){
+		idCurso = Integer.parseInt(idCursoStr);
+	}
+	
+	else if(request.getSession().getAttribute("idCurso") != null){
+		idCurso = (int) request.getSession().getAttribute("idCurso");
+	}
+
+	try{
+		List<Modulo> modulos = moduloDAO.listarTodosPorCurso(idCurso);
+		request.setAttribute("modulos", modulos);
+	}
+	
+	catch(Exception e){
+		e.printStackTrace();
+	}
+
+	if("delete".equals(action) && idStr != null){
+		//deletando video aula
+		dao.deletarVideoaula(Integer.parseInt(idStr));
+		response.sendRedirect(request.getContextPath() + "/pages/listarvideoAulaTutor.jsp");
+		return;
+	}
+
+	if("edit".equals(action) && idStr != null){
+		try{
+			dao.deletarVideoaula(Integer.parseInt(idStr));
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro ao excluir vídeo auls.");
+			return;
+		}
+		response.sendRedirect(request.getContextPath() + "/pages/listarvideoaulaTutor.jsp");
+		return;
+	}
+		
+}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException{
+
+		VideoAulaDAO dao = new VideoAulaDAO(connection);
+
+		String action = request.getParameter("action");
+		String idStr = request.getParameter("id");
 		String titulo = request.getParameter("titulo");
 		String url = request.getParameter("url");
 		String idModuloStr = request.getParameter("idModulo");
-		if (titulo == null || url == null || idModuloStr == null) {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parametros obrigatórios ausentes!");
+
+		if(titulo == null || url == null ||idModuloStr == null){
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parâmetros obrigatorios ausentes");
 			return;
-		}
-
-		try {
-			int idModulo = Integer.parseInt(idModuloStr);
-			VideoAula videoaula = new VideoAula(0, titulo, url, idModulo);
-			VideoAulaDAO dao = new VideoAulaDAO(connection);
-			dao.inserirVideoaula(videoaula);
-
-			response.sendRedirect("sucesso.jsp");
 
 		}
 
-		catch (Exception e) {
-			e.printStackTrace();
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro ao salvar vídeo");
+		int idModulo = Integer.parseInt(idModuloStr);
+
+		if("update".equals(action) && idStr != null){
+			//atualizando
+			int id = Integer.parseInt(idStr);
+			VideoAula video = new VideoAula(id, titulo, url, idModulo);
+			dao.atualizarVideoaula(video);
 		}
+		else{
+			//criação
+			VideoAula video = new VideoAula(0, titulo, url, idModulo);
+			dao.inserirVideoaula(video);
+		}
+
+		//volatando a lista de video aulas
+		response.sendRedirect(request.getContextPath() + "/pages/listarvideoaulaTutor.jsp");
+
 	}
-
-	@Override //
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		String idModuloStr = request.getParameter("idModulo"); //
-		if (idModuloStr == null) {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "id do modulo é obrigatório");
-			return;
-		}
-
-		try {
-			int idModulo = Integer.parseInt(idModuloStr);
-
-			VideoAulaDAO dao = new VideoAulaDAO(connection);// usando o DAO para buscar as video aula do modulo
-			List<VideoAula> videoaulas = dao.listarVideoaula(idModulo);
-			request.setAttribute("videoaulas", videoaulas); // envia a lista de video aulas, como atributo, para o jsp
-			request.getRequestDispatcher("/pages/listarVideos.jsp").forward(request, response); // encaminha a
-																								// requisiçaõ para a
-																								// página jsp que vai
-																								// exibir os vídeos
-		}
-
-		catch (Exception e) {
-			e.printStackTrace();
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro ao listar vídeos");
-
-		}
-	}
-
 }
