@@ -1,6 +1,7 @@
 package com.ifbaiano.educacaoinclusiva.DAO;
 
 import com.ifbaiano.educacaoinclusiva.config.DBConfig;
+import com.ifbaiano.educacaoinclusiva.model.Aluno;
 import com.ifbaiano.educacaoinclusiva.model.Tutor;
 
 import java.sql.Connection;
@@ -10,8 +11,8 @@ import java.sql.SQLException;
 
 public class TutorDAO {
 	private Connection conexao;
-     private UsuarioDAO usuarioDAO;
-     
+	private UsuarioDAO usuarioDAO;
+
 	public TutorDAO(Connection conexao) {
 		this.conexao = conexao;
 		this.usuarioDAO = new UsuarioDAO(conexao);
@@ -98,35 +99,37 @@ public class TutorDAO {
 
 	public Tutor buscarTutorPorEmail(String email) throws SQLException {
 
-		String sql = "SELECT nome, email FROM Tutor WHERE email = ?";
+	    String sql = "SELECT u.id, u.nome, u.email, u.senha, u.bio, u.salt FROM Tutor t JOIN Usuario u ON t.id_usuario = u.id WHERE u.email = ?";
 		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-
 			stmt.setString(1, email);
 			ResultSet rs = stmt.executeQuery();
-
-			if (rs.next()) {
-				String nome = rs.getString("nome");
-				String emailTutor = rs.getString("email");
-				return new Tutor(null, 0, nome, null, null, null);
-
-			}
+            if(rs.next()) {
+            	Tutor tutor = new Tutor( 
+                        rs.getString("area_especializacao"),
+            			rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("senha"),
+                        rs.getString("bio"));
+            	tutor.setSalt(rs.getString("salt"));
+            	return tutor;
+            }
 		}
 		return null;
 	}
-	
 	public void atualizarCampo(int idUsuario, String campo, String valor) throws SQLException {
-	    String sql;
-	    if (campo.equals("area")) {
-	        sql = "UPDATE Tutor SET area_especializacao = ? WHERE id_usuario = ?";
-	    } else {
-	        sql = "UPDATE Usuario SET " + campo + " = ? WHERE id = ?";
-	    }
+		String sql;
+		if (campo.equals("area")) {
+			sql = "UPDATE Tutor SET area_especializacao = ? WHERE id_usuario = ?";
+		} else {
+			sql = "UPDATE Usuario SET " + campo + " = ? WHERE id = ?";
+		}
 
-	    try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-	        stmt.setString(1, valor);
-	        stmt.setInt(2, idUsuario);
-	        stmt.executeUpdate();
-	    }
+		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+			stmt.setString(1, valor);
+			stmt.setInt(2, idUsuario);
+			stmt.executeUpdate();
+		}
 	}
 
 }

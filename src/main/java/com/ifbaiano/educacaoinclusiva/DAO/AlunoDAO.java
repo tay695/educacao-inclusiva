@@ -17,15 +17,9 @@ public class AlunoDAO {
 	}
 
 	public void inserirAluno(Aluno aluno) throws SQLException {
-
-		// primeiro vai inseir na tabela do usuário
-
 		int idGerado = usuarioDAO.inserir(aluno);
 		if (idGerado != -1) {
-			aluno.setId(idGerado); // fonerce o id ao aluno
-
-			// inserindo o aluno na tabela aluno
-
+			aluno.setId(idGerado);
 			String sql = "INSERT INTO Aluno (id_usuario) VALUES (?)";
 			try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
 				stmt.setInt(1, idGerado);
@@ -38,19 +32,20 @@ public class AlunoDAO {
 	}
 
 	public Aluno buscarAlunoPorEmail(String email) throws SQLException {
-
-		String sql = "SELECT u.nome, u.email FROM Aluno a JOIN Usuario u ON a.id_usuario = u.id WHERE u.email = ?";
+	    String sql = "SELECT u.id, u.nome, u.email, u.senha, u.bio, u.salt FROM Aluno a JOIN Usuario u ON a.id_usuario = u.id WHERE u.email = ?";
 		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
 
 			stmt.setString(1, email);
 			ResultSet rs = stmt.executeQuery();
-
-			if (rs.next()) {
-				String nome = rs.getString("nome");
-				String emailAluno = rs.getString("email");
-				return new Aluno(0, nome, emailAluno, null, null);
-
-			}
+            if(rs.next()) {
+            	Aluno aluno = new Aluno(  rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("senha"),
+                        rs.getString("bio"));
+            	aluno.setSalt(rs.getString("salt"));
+            	return aluno;
+            }
 		}
 		return null;
 	}
