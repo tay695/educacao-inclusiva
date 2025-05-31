@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List, java.util.ArrayList" %>
-<%@ page import="com.ifbaiano.educacaoinclusiva.model.VideoAula" %>
-<%@ page import="jakarta.servlet.http.HttpSession" %>
+<%@ page import="java.util.List,com.ifbaiano.educacaoinclusiva.model.VideoAula" %>
+<%@ page import="java.util.ArrayList, java.util.ArrayList, com.ifbaiano.educacaoinclusiva.model.VideoAula" %>
+
 
 <%
     HttpSession sessao = request.getSession();
@@ -16,8 +16,12 @@
     }
     //FIM DO BLOCO DE TESTE
 
+   
+%>
+<%
     @SuppressWarnings("unchecked")
     List<VideoAula> videoAulas = (List<VideoAula>) request.getAttribute("videoAulas");
+    String ctx = request.getContextPath();
 %>
 
 <!DOCTYPE html> 
@@ -29,7 +33,7 @@
 <body>
 
     <h1>Gerenciamento de Vídeo Aulas</h1>
-    <p><a href="formularioCadastroVideoAula.jsp">+Cadastrar nova video aula</a></p>
+    <p><a href="<%= ctx %>/pages/formularioCadastroVideoAula.jsp">Cadastrar nova video aula</a></p>
 
     <% if (videoAulas == null || videoAulas.isEmpty()){ %>
         <p>Você ainda não cadastrou nenhuma vídeo aula.</p>
@@ -45,8 +49,12 @@
                     <td><a href="<%= va.getUrl() %>" target="_blank">ver</a></td>
                     <td><%= va.getIdModulo() %></td>
                     <td>
-                        <a href="edutarVideoAula.jsp?id=<%= va.getId() %>">Editar</a> |
-                        <a href="excluirVideoAula?id=<%= va.getId() %>">Excluir</a>
+                        
+                    <a href="<%= ctx %>/pages/formularioCadastroVideoAula.jsp?id=<%= va.getId()%>">Editar</a> |
+                    <a href="<%= ctx %>/videoaula?action=delete&id=<%= va.getId() %>"
+                        onclick="return confirm('Tem certeza que deseja excluir?');">
+                        Excluir</a>
+
                     </td>
                 </tr>
            <% } %>
@@ -54,7 +62,7 @@
    <% } %>
 
    <p><a href="videoaulaTutor.jsp">Voltar ao painel de Vídeo Aula</a></p>
-   <p><a href="videoaulaTutor.jsp">Voltar ao painel de Tutor</a></p>
+   <p><a href="perfiltutor.jsp">Voltar ao perfil de Tutor</a></p>
 
 </body>
 </html>
