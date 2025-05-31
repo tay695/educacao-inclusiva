@@ -57,5 +57,8 @@ public class CadastroTutorServlet extends HttpServlet {
 				request.setAttribute("erro", "Erro ao cadastrar tutor.");
 				request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
 			}
+			System.out.println("Cadastro realizado para: " + email);
+
 		}
+		
 }

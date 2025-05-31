@@ -18,6 +18,8 @@
         <div class="nav-buttons">
             <a href="${pageContext.request.contextPath}/pages/cadastro.jsp" class="btn btn-outline-light me-2">Entre como estudante</a>
             <a href="${pageContext.request.contextPath}/pages/login.jsp" class="btn btn-outline-light">Entre como Tutor</a>
+            <a href="${pageContext.request.contextPath}/pages/login.jsp" class="btn btn-outline-light">Entrar</a>
+            
         </div>
     </div>
 </nav>
@@ -25,7 +27,7 @@
 <section class="hero text-white">
     <div class="container d-flex justify-content-between align-items-center flex-wrap">
 
-        <!-- Texto à esquerda -->
+        
         <div class="hero-text col-md-4">
             <h1>Capacite-se para transformar realidades</h1>
             <p>Inclusão começa com conhecimento</p>

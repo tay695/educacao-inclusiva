@@ -58,5 +58,8 @@ public class CadastroAlunoServlet extends HttpServlet {
 			request.setAttribute("erro", "Erro ao cadastrar aluno.");
 			request.getRequestDispatcher("/pages/cadastro.jsp").forward(request, response);
 		}
+		System.out.println("Cadastro realizado para: " + email);
+
 	}
+
 }
