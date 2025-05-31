@@ -52,30 +52,27 @@ public class LoginServlet extends HttpServlet {
 				return;
 			}
 
-			Usuario usuario = loginController.getUsuarioAutenticado();
+			Usuario usuarioLogado = loginController.getUsuarioAutenticado();
 
-			if (usuario == null) {
+			if (usuarioLogado == null) {
 				request.setAttribute("erro", "Usuário não encontrado.");
 				request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 				return;
 			}
 
 			HttpSession session = request.getSession();
-			session.setAttribute("usuarioLogado", usuario);
-
-			if (usuario instanceof Tutor) {
-				response.sendRedirect("pages/HomeTutor.jsp");
-			} else if (usuario instanceof Aluno) {
-				response.sendRedirect("pages/homeAluno.jsp");
+			session.setAttribute("usuarioLogado", usuarioLogado);
+			if (usuarioLogado instanceof Tutor) {
+				response.sendRedirect(request.getContextPath() + "/pages/HomeTutor.jsp");
+			} else if (usuarioLogado instanceof Aluno) {
+				response.sendRedirect(request.getContextPath() + "/pages/homeAluno.jsp");
 			} else {
-				request.setAttribute("erro", "Tipo de usuário não reconhecido.");
-				request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
+				response.sendRedirect(request.getContextPath() + "/login?erro=1");
 			}
 
 		} catch (SQLException e) {
-			System.err.println("Erro ao realizar login: " + e.getMessage());
-			request.setAttribute("erro", "Erro ao realizar login. Tente novamente.");
-			request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
+			e.printStackTrace();
+			response.sendRedirect(request.getContextPath() + "/login?erro=1");
 		}
 	}
 }

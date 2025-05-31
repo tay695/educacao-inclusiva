@@ -37,7 +37,4 @@ public class Aluno extends Usuario {
 	public void Postar(String conteudo) {
 		System.out.println("Comentário adicionado por " + getRetornaNome() + " ");
 	}
-
-	
-
 }

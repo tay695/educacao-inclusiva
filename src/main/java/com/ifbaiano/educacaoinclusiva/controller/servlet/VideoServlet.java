@@ -57,7 +57,15 @@ public class VideoServlet extends HttpServlet {
 
 	if("delete".equals(action) && idStr != null){
 		//deletando video aula
-		dao.deletarVideoaula(Integer.parseInt(idStr));
+		try {
+			dao.deletarVideoaula(Integer.parseInt(idStr));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		response.sendRedirect(request.getContextPath() + "/pages/listarvideoAulaTutor.jsp");
 		return;
 	}
@@ -99,12 +107,22 @@ public class VideoServlet extends HttpServlet {
 			//atualizando
 			int id = Integer.parseInt(idStr);
 			VideoAula video = new VideoAula(id, titulo, url, idModulo);
-			dao.atualizarVideoaula(video);
+			try {
+				dao.atualizarVideoaula(video);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else{
 			//criação
 			VideoAula video = new VideoAula(0, titulo, url, idModulo);
-			dao.inserirVideoaula(video);
+			try {
+				dao.inserirVideoaula(video);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		//volatando a lista de video aulas

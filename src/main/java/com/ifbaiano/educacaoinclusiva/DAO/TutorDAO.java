@@ -20,7 +20,6 @@ public class TutorDAO {
 
 	public void adicionarTutor(Tutor tutor) {
 		try {
-
 			String sqlUsuario = "INSERT INTO Usuario (nome, email, senha, bio, salt, avaliacao) VALUES (?, ?, ?, ?, ?, ?)";
 			try (PreparedStatement stmtUsuario = conexao.prepareStatement(sqlUsuario,
 					PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -99,13 +98,14 @@ public class TutorDAO {
 
 	public Tutor buscarTutorPorEmail(String email) throws SQLException {
 
-	    String sql = "SELECT u.id, u.nome, u.email, u.senha, u.bio, u.salt FROM Tutor t JOIN Usuario u ON t.id_usuario = u.id WHERE u.email = ?";
+		String sql = "SELECT t.area_especializacao, u.id, u.nome, u.email, u.senha, u.bio, u.salt FROM Tutor t JOIN Usuario u ON t.id_usuario = u.id WHERE u.email = ?";
 		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
 			stmt.setString(1, email);
 			ResultSet rs = stmt.executeQuery();
             if(rs.next()) {
             	Tutor tutor = new Tutor( 
                         rs.getString("area_especializacao"),
+
             			rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getString("email"),

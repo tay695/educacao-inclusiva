@@ -15,8 +15,6 @@ public final class SenhaUtils {
 	private SenhaUtils() {
 	}
 
-
-
 	public static String gerarSalt() {
 		SecureRandom sr = new SecureRandom();
 		byte[] salt = new byte[16];
@@ -48,3 +46,4 @@ public final class SenhaUtils {
 	}
 
 }
+

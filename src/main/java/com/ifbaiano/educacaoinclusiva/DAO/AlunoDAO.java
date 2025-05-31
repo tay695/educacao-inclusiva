@@ -38,7 +38,8 @@ public class AlunoDAO {
 			stmt.setString(1, email);
 			ResultSet rs = stmt.executeQuery();
             if(rs.next()) {
-            	Aluno aluno = new Aluno(  rs.getInt("id"),
+            	Aluno aluno = new Aluno( 
+            			rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getString("email"),
                         rs.getString("senha"),
@@ -51,8 +52,7 @@ public class AlunoDAO {
 	}
 
 	public Aluno buscarId(int id) throws SQLException {
-		String sql = "SELECT nome,id from Aluno  WHERE id = ?";
-
+		String sql = "SELECT u.id, u.nome FROM Usuario u JOIN Aluno a ON u.id = a.id_usuario WHERE u.id = ?";
 		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();

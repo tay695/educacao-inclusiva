@@ -3,16 +3,15 @@
 <html lang="pt-br">
 
 <head>
-%@ page session="true" %>
 <%
-    Usuario usuario = (model.Usuario) session.getAttribute("usuarioLogado");
+    Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
     if (usuario == null) {
         response.sendRedirect("login.jsp");
         return;
     }
 %>
+
 <h2>Bem-vindo, <%= usuario.getNome() %>!</h2>
-<a href="logout.jsp">Sair</a>
 
 <title>Página inicial - Tutor</title>
 

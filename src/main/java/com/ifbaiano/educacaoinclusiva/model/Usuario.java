@@ -1,9 +1,6 @@
 package com.ifbaiano.educacaoinclusiva.model;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.Base64;
+import com.ifbaiano.educacaoinclusiva.utils.SenhaUtils;
 
 public class Usuario {
 
@@ -21,37 +18,16 @@ public class Usuario {
 		this.email = email;
 		this.senha = senha;
 		this.bio = bio;
-		this.salt = gerarSalt();
-		this.senha = aplicarHash(senha, this.salt);
+		
 
 	}
 
 	public String gerarSalt() {
-		SecureRandom random = new SecureRandom();
-		byte[] saltBytes = new byte[16];
-		random.nextBytes(saltBytes);
-		return Base64.getEncoder().encodeToString(saltBytes);
+	    return SenhaUtils.gerarSalt();
 	}
 
 	private String aplicarHash(String senha, String salt) {
-		try {
-			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-			String texto = senha + salt;
-			byte[] hashBytes = digest.digest(texto.getBytes());
-
-			StringBuilder hexString = new StringBuilder();
-			for (byte b : hashBytes) {
-				String hex = Integer.toHexString(0xff & b);
-				if (hex.length() == 1)
-					hexString.append('0');
-				hexString.append(hex);
-			}
-
-			return hexString.toString();
-
-		} catch (NoSuchAlgorithmException e) {
-			throw new RuntimeException("Erro ao aplicar hash: " + e.getMessage());
-		}
+	    return SenhaUtils.gerarHashSenha(senha, salt);
 	}
 
 	public int getId() {
@@ -94,9 +70,7 @@ public class Usuario {
 		this.bio = bio;
 	}
 
-	public void posta(String conteudo) {
-		setAvaliacao(conteudo);
-	}
+	
 
 	public String getAvaliacao() {
 		return avaliacao;
@@ -113,7 +87,6 @@ public class Usuario {
 	public void setSalt(String salt) {
 		this.salt = salt;
 	}
-
 	public void Postar(String conteudo) {
 		System.out.println("Esperando postagem");
 	}

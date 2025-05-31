@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.ifbaiano.educacaoinclusiva.model.Aluno;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
 import com.ifbaiano.educacaoinclusiva.utils.SenhaUtils;
 
@@ -65,21 +64,30 @@ public class UsuarioDAO {
 	        }
 	        return null;
 	    }
-
-
-	public Usuario buscarId(int id) throws SQLException {
-		String sql = "SELECT nome,id from Usuario  WHERE id = ?";
-
-		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-			stmt.setInt(1, id);
-			ResultSet resul = stmt.executeQuery();
-
-			if (resul.next()) {
-				return new Usuario(resul.getInt("id"), resul.getString("nome"), null, null, null);
-			}
-		}
-		return null;
-	}
 	
+	public Usuario buscarId(int id) throws SQLException {
+	    String sql = "SELECT * FROM Usuario WHERE id = ?";
+	    try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+	        stmt.setInt(1, id);
+	        ResultSet resul = stmt.executeQuery();
+	        if (resul.next()) {
+	            Usuario usuario = new Usuario(
+	                resul.getInt("id"),
+	                resul.getString("nome"),
+	                resul.getString("email"),
+	                resul.getString("senha"),
+	                resul.getString("bio")
+	            );
+	            usuario.setSalt(resul.getString("salt"));
+	            return usuario;
+	        }
+	    }
+	    return null;
+	}
+
+	
+	public Connection getConexao() {
+		return this.conexao;
+	}
 
 }
