@@ -25,18 +25,19 @@
 </nav>
 
 <section class="hero text-white">
-    <div class="container d-flex justify-content-between align-items-center flex-wrap">
-
-        
-        <div class="hero-text col-md-4">
+    <div class="container row align-items-center">
+        <div class="col-md-6">
             <h1>Capacite-se para transformar realidades</h1>
-            <p>Inclusão começa com conhecimento</p>
-            <p>A nossa política é oferecer capacitação para preparar profissionais para <br>
-             a diversidade e a inclusão no ambiente de trabalho e na sociedade.</p>
-              </div>
-        <div class="col-md-4 d-flex justify-content-center align-items-center">
+            <p>Inclusão começa com conhecimento
+            <p>A nossa política é oferecer capacitação para preparar </p>
+         <p>    profissionais para a diversidade e a inclusão no ambiente de trabalho e na sociedade.
+        </div>
+        <div class="col-md-6 text-center">
             <img src="${pageContext.request.contextPath}/static/images/menina.png" alt="Inclusão digital" class="hero-img img-fluid">
         </div>
+    </div>
+</section>
+
     </div>
  </section>
  <section class="how-it-works">
@@ -44,21 +45,22 @@
         <h2>Como funciona a plataforma?</h2>
         <div class="row justify-content-center">
             <div class="col-md-3 how-step">
-                <div class="how-icon">🎓</div>
+                <div class="how-icon"></div>
                 <div class="how-title">Cadastre-se</div>
                 <div class="how-desc">Crie uma conta como estudante ou tutor para começar a aprender ou ensinar.</div>
             </div>
-            <div class="col-md-3 how-step">
-                <div class="how-icon">📚</div>
-                <div class="how-title">Escolha um curso</div>
-                <div class="how-desc">Navegue pelos cursos disponíveis e escolha aquele que mais se adequa aos seus interesses.</div>
+            <div class="col-12 md-3 description-how">
+                <div class="description-icon"></div>
+                <div class="description-title">Escolha um curso</div>
+                <div class="description-desc">Navegue pelos cursos disponíveis e escolha aquele que mais se adequa aos seus interesses.</div>
             </div>
-            <div class="col-md-3 how-step">
-                <div class="how-icon">🎥</div>
-                <div class="how-title">Assista às videoaulas</div>
-                <div class="how-desc">Aprenda no seu ritmo com aulas em vídeo preparadas por especialistas.</div>
-            </div>
-            <div class="col-md-3 how-step">
+           <div class="col-12 md-3 how-step">
+              <img src="${pageContext.request.contextPath}/static/images/libras.png" alt="Inclusão digital" class="description-img img-fluid">
+              <div class="how-title">Assista às videoaulas</div>
+               <div class="how-desc">Aprenda no seu ritmo com aulas em vídeo preparadas por especialistas.</div>
+          </div>
+
+            <div class="col-12 md-3 how-step">
                 <div class="how-icon">💬</div>
                 <div class="how-title">Comente e interaja</div>
                 <div class="how-desc">Participe com perguntas, comentários e sugestões para enriquecer sua aprendizagem.</div>
