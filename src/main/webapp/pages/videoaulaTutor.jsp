@@ -9,16 +9,19 @@
     }
 %>
 
+<%@ include file="../assets/components/header.jsp" %>
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Painel de Vídeo Aulas</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/videoaulaTutor.css">
+
 </head>
 <body>
 
-<h1>Seja Bem-vindo, <%= tutor.getRetornaNome() %>!</h1>
+<br><h1>Seja Bem-vindo, <%= tutor.getRetornaNome() %>!</h1>
 <p>Área de especialização: <%= tutor.getAreaEspecializacao() %></p>
 
 <h2>Menu de Gerenciamento de Vídeo Aulas</h2>
