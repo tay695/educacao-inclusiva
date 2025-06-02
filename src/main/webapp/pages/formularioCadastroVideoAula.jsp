@@ -14,6 +14,10 @@
 <head>
     <meta charset="UTF-8">
     <title><%= video==null?"Cadastrar":"Editar" %> Video Aula</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/videoaulaTutor.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/formStyles.css">
+
+
 </head>
 <body>
 
