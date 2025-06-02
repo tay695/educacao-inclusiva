@@ -24,15 +24,21 @@
     String ctx = request.getContextPath();
 %>
 
+<%@ include file="../assets/components/header.jsp" %>
+
+
 <!DOCTYPE html> 
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Gerenciamento de Vídeo Aulas (Tutor)</title>
+
+        <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/listarvideoaulaTutor.css">
+
 </head>
 <body>
 
-    <h1>Gerenciamento de Vídeo Aulas</h1>
+    <h1>Listando vídeo aulas</h1>
     <p><a href="<%= ctx %>/pages/formularioCadastroVideoAula.jsp">Cadastrar nova video aula</a></p>
 
     <% if (videoAulas == null || videoAulas.isEmpty()){ %>
