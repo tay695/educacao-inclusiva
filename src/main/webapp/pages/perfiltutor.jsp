@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.ifbaiano.educacaoinclusiva.model.Tutor" %>
-<%@ include file="/assets/components/header.jsp" %>
-<%
+
 Tutor tutor = (Tutor) request.getAttribute("tutor");
 %>
 <html lang="pt-br">
