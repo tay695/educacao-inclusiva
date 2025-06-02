@@ -1,0 +1,68 @@
+/* Estilo para a navbar */
+.custom-navbar {
+    background-color: #003366 !important; /* azul escuro */
+}
+
+.custom-navbar .navbar-brand,
+.custom-navbar .nav-link,
+.custom-navbar .btn {
+    color: #ffffff !important;
+}
+
+.custom-navbar .nav-link:hover {
+    background-color: #002244 !important; /* hover mais escuro */
+    color: #ffffff !important;
+}
+
+/* Estilo para o offcanvas */
+.offcanvas-header {
+    background-color: #003366 !important;
+    color: #ffffff !important;
+}
+
+.offcanvas-title {
+    color: #ffffff !important;
+}
+
+.offcanvas-body .nav-link {
+    color: #003366 !important; /* links azul escuro */
+}
+
+.offcanvas-body .nav-link:hover {
+    background-color: #e9ecef !important; /* leve cinza ao passar o mouse */
+}
+
+/* Botão de sair */
+.nav-link.text-danger {
+    color: #dc3545 !important; /* vermelho padrão Bootstrap */
+}
+
+.nav-link.text-danger:hover {
+    background-color: #f8d7da !important; /* vermelho claro ao passar o mouse */
+}
+
+/* Estilo geral */
+.container h1, .container h2, .container p {
+    color: #003366;
+}
+
+.container h1,
+.container p,
+.container h2 {
+    text-align: center;   /* centraliza */
+}
+
+/* Mantém as cores originais dessas partes */
+.container h1 {
+    color: #084673; /* cor original do header, azul mais forte */
+    font-weight: bold;
+}
+
+.container p {
+    color: #333333; /* cor padrão do texto, um cinza escuro */
+    font-size: 1.1rem;
+}
+
+.container h2 {
+    color: #198754; /* cor verde que estava para o Menu de Vídeo Aulas */
+}

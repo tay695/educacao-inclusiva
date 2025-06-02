@@ -4,52 +4,86 @@
 <%@ page import="java.sql.Date" %>
 <%@ page import="java.util.Calendar" %>
 
-
 <%
-
-    //BLOCO DE TESTE (REMOVER)
-//    HttpSession sessao = request.getSession();
-
-  //  sessao.removeAttribute("usuarioLogado"); // Forçar remoção de qualquer "usuarioLogado" antigo para evitar conflito Tutor x Aluno
-    //if(sessao.getAttribute("usuarioLogado") == null){
-
-    //Calendar cal = Calendar.getInstance();
-    //cal.set(2003, Calendar.JANUARY, 1);
-    //java.util.Date utilDate = cal.getTime();
-    //ja/va.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-
-    //com.ifbaiano.educacaoinclusiva.model.Aluno usuarioTeste = 
-   // new com.ifbaiano.educacaoinclusiva.model.Aluno(
-     //   1, "Aluno Teste", "alunoteste@gmail.com", "987654", "Biografia teste para aluno teste", sqlDate
-    //);
-
-       // sessao.setAttribute("usuarioLogado", usuarioTeste);
-   // }
-    //FIM DO BLOCO DE TESTE
-
+    Aluno aluno = (Aluno) session.getAttribute("usuarioLogado");
+    if (aluno == null) {
+        response.sendRedirect(request.getContextPath() + "/pages/login.jsp");
+        return;
+    }
 %>
-
-<%
-    Aluno aluno = (Aluno) sessao.getAttribute("usuarioLogado");
-%>
-
 
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Painel de Vídeo Aulas</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/videoaulaAluno.css">
+
 </head>
+
 <body>
 
-<h1>Seja Bem-vindo, <%= aluno.getRetornaNome() %>!</h1>
-<p>Email: <%= aluno.getEmail() %></p>
+<nav class="navbar navbar-expand-lg custom-navbar bg-primary">
+    <div class="container-fluid">
+        <button class="btn btn-outline-light me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="menuLateral" aria-label="Abrir menu lateral">
+            <i class="bi bi-list fs-3"></i>
+        </button>
+        <a href="<%= request.getContextPath() %>/pages/homeAluno.jsp" class="navbar-brand text-white">
+            <img src="<%= request.getContextPath() %>/static/images/logo.png" alt="Logo da Educação Inclusiva" height="65">
+        </a>
+    </div>
+</nav>
 
-<h2>Menu de Vídeo Aulas</h2>
-<ul>
-    <li><a href="listarvideoaulaAluno.jsp">Visualizar todas as video aulas</a></li>
-    <li><a href="logout.jsp">Sair</a></li>
-</ul>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="menuLateral" aria-labelledby="menuLateralLabel">
+    <div class="offcanvas-header bg-primary text-white">
+        <h5 class="offcanvas-title" id="menuLateralLabel">Menu do Aluno</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fechar menu"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="perfilaluno.jsp">
+                    <i class="bi bi-person-circle me-2"></i> Meu Perfil
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="listarvideoaulaAluno.jsp">
+                    <i class="bi bi-camera-video me-2"></i> Ver Vídeo Aulas
+                </a>
+            </li>
+            <li><hr></li>
+            <li class="nav-item">
+                <a class="nav-link text-danger" href="<%= request.getContextPath() %>/controller/Logout">
+                    <i class="bi bi-box-arrow-right me-2"></i> Sair
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
 
+<div class="container mt-5">
+
+    <h1 class="mt-4">Menu de visualização de vídeo aulas</h1>
+
+    <h2>Seja Bem-vindo, <%= aluno.getRetornaNome() %>!</h2>
+    <p>Email: <%= aluno.getEmail() %></p>
+
+    <div class="d-grid gap-3 mt-3">
+        <a href="listarvideoaulaAluno.jsp" class="btn btn-primary btn-lg">
+            <i class="bi bi-camera-video"></i> Visualizar todas as vídeo aulas
+        </a>
+        <a href="<%= request.getContextPath() %>/controller/Logout" class="btn btn-outline-danger btn-lg">
+            <i class="bi bi-box-arrow-right"></i> Sair
+        </a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
