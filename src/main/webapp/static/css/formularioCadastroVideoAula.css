@@ -1,214 +1,68 @@
-/* === Importações de fontes e ícones === */
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
-
-/* === Estilo da Navbar (exceto header) === */
-.bg-light {
-    --bs-bg-opacity: 1;
-    background-color: #084673 !important;
-    color: white !important;
+/* Estilo para a navbar */
+.custom-navbar {
+    background-color: #003366 !important; /* azul escuro */
 }
 
-.custom-navbar i.bi-list {
-    color: white !important;
+.custom-navbar .navbar-brand,
+.custom-navbar .nav-link,
+.custom-navbar .btn {
+    color: #ffffff !important;
 }
 
-/* === Estilo geral dos elementos do conteúdo principal === */
-body > h1:first-of-type,
-body > form,
-body > p:first-of-type,
-body > br + a {
-    font-family: 'Open Sans', Arial, sans-serif !important;
-    max-width: 900px !important;
-    margin: 0 auto !important;
-    padding: 0 20px !important;
-    color: #333 !important;
+.custom-navbar .nav-link:hover {
+    background-color: #002244 !important; /* hover mais escuro */
+    color: #ffffff !important;
 }
 
-/* === Título principal === */
-body > h1:first-of-type {
-    font-size: 2.8em !important;
-    color: #084673 !important;
-    text-align: center !important;
-    margin: 50px auto 30px !important;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05) !important;
+/* Estilo para o offcanvas */
+.offcanvas-header {
+    background-color: #003366 !important;
+    color: #ffffff !important;
 }
 
-/* === Estilo do formulário === */
-body > form {
-    background: linear-gradient(to bottom right, #ffffff, #fdfdfd) !important;
-    padding: 40px !important;
-    border-radius: 10px !important;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15) !important;
-    max-width: 700px !important;
-    margin: 40px auto !important;
-    position: relative !important;
-    overflow: hidden !important;
+.offcanvas-title {
+    color: #ffffff !important;
 }
 
-/* Faixa decorativa superior do formulário */
-body > form::before {
-    content: '' !important;
-    position: absolute !important;
-    top: 0; left: 0;
-    width: 100%; height: 10px;
-    background: linear-gradient(to right, #007bff, #3465a4) !important;
-    border-top-left-radius: 10px !important;
-    border-top-right-radius: 10px !important;
+.offcanvas-body .nav-link {
+    color: #003366 !important; /* links azul escuro */
 }
 
-/* Labels do formulário */
-body > form label {
-    display: block !important;
-    margin: 15px 0 8px !important;
-    font-weight: 600 !important;
-    color: #333 !important;
-    font-size: 1.1em !important;
+.offcanvas-body .nav-link:hover {
+    background-color: #e9ecef !important; /* leve cinza ao passar o mouse */
 }
 
-/* Inputs e selects */
-body > form input[type="text"],
-body > form input[type="url"],
-body > form select {
-    width: 100% !important;
-    padding: 12px !important;
-    border: 1px solid #ced4da !important;
-    border-radius: 6px !important;
-    font-size: 1em !important;
-    color: #495057 !important;
-    background: #fff !important;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease !important;
-    box-sizing: border-box !important;
+/* Botão de sair */
+.nav-link.text-danger {
+    color: #dc3545 !important; /* vermelho padrão Bootstrap */
 }
 
-/* Estilo de foco para inputs e selects */
-body > form input[type="text"]:focus,
-body > form input[type="url"]:focus,
-body > form select:focus {
-    border-color: #007bff !important;
-    box-shadow: 0 0 0 0.3rem rgba(0, 123, 255, 0.35) !important;
-    outline: none !important;
-    transform: translateY(-1px) !important;
+.nav-link.text-danger:hover {
+    background-color: #f8d7da !important; /* vermelho claro ao passar o mouse */
 }
 
-/* Placeholder estilizado */
-body > form input::placeholder {
-    color: #a0a0a0 !important;
-    font-style: italic !important;
-    opacity: 0.8 !important;
+/* Estilo geral */
+.container h1, .container h2, .container p {
+    color: #003366;
 }
 
-/* Remove <br> desnecessários dentro do formulário */
-body > form br {
-    display: none !important;
+.container h1,
+.container p,
+.container h2 {
+    text-align: center;   /* centraliza */
 }
 
-/* Botão de envio */
-body > form button[type="submit"] {
-    background: #28a745 !important;
-    color: #fff !important;
-    border: none !important;
-    padding: 15px 30px !important;
-    border-radius: 8px !important;
-    font-size: 1.2em !important;
-    font-weight: 700 !important;
-    cursor: pointer !important;
-    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3) !important;
-    transition: all 0.3s ease !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    margin-top: 30px !important;
-    float: right !important;
+/* Mantém as cores originais dessas partes */
+.container h1 {
+    color: #084673; /* cor original do header, azul mais forte */
+    font-weight: bold;
 }
 
-body > form button[type="submit"]:hover {
-    background: #218838 !important;
-    box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4) !important;
-    transform: translateY(-3px) !important;
+.container p {
+    color: #333333; /* cor padrão do texto, um cinza escuro */
+    font-size: 1.1rem;
 }
 
-body > form button[type="submit"]:active {
-    transform: translateY(0) !important;
-    box-shadow: 0 2px 5px rgba(40, 167, 69, 0.2) !important;
-    background: #1e7e34 !important;
-}
-
-/* Clearfix para o form */
-body > form::after {
-    content: '' !important;
-    display: table !important;
-    clear: both !important;
-}
-
-/* === Estilo dos links de navegação === */
-body > p:first-of-type > a,
-body > br + a {
-    display: block !important;
-    text-align: center !important;
-    margin-top: 25px !important;
-    color: #007bff !important;
-    text-decoration: none !important;
-    font-weight: 600 !important;
-    transition: color 0.3s ease, text-decoration 0.3s ease !important;
-}
-
-body > p:first-of-type > a:hover,
-body > br + a:hover {
-    color: #0056b3 !important;
-    text-decoration: underline !important;
-}
-
-body > p:first-of-type > a:focus,
-body > br + a:focus {
-    outline: 4px solid rgba(0, 123, 255, 0.5) !important;
-    outline-offset: 3px !important;
-    text-decoration: underline !important;
-}
-
-/* === Responsividade === */
-@media (max-width: 768px) {
-    body > h1:first-of-type,
-    body > form,
-    body > p:first-of-type,
-    body > br + a {
-        padding: 0 15px !important;
-    }
-
-    body > h1:first-of-type {
-        font-size: 2.2em !important;
-        margin: 30px auto 20px !important;
-    }
-
-    body > form {
-        margin: 20px auto !important;
-        padding: 25px !important;
-        max-width: 95% !important;
-    }
-
-    body > form label {
-        font-size: 1em !important;
-        margin-top: 10px !important;
-    }
-
-    body > form input[type="text"],
-    body > form input[type="url"],
-    body > form select {
-        padding: 10px !important;
-        font-size: 0.95em !important;
-    }
-
-    body > form button[type="submit"] {
-        width: 100% !important;
-        padding: 12px 20px !important;
-        font-size: 1.1em !important;
-        float: none !important;
-        margin-top: 20px !important;
-    }
-
-    body > p:first-of-type > a,
-    body > br + a {
-        margin-top: 15px !important;
-        font-size: 0.95em !important;
-    }
+.container h2 {
+    color: #198754; /* cor verde que estava para o Menu de Vídeo Aulas */
 }
