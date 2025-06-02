@@ -1,4 +1,4 @@
-package com.ifbaiano.educacaoinclusiva.controller.servlet;
+package com.ifbaiano.educacaoinclusiva.config.controller.servlet;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
