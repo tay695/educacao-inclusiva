@@ -1,0 +1,201 @@
+body{
+    font-family:  'Open Sans', Arial, sans-serif;
+    color: #333333;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 20px;
+}
+
+/*conteiner principal(para centralizar o conteúdo e limitar a largura */
+.main-content-wrapper{
+    max-width: 1200px; /*limita a largura máxima para melhor leitura em telas grandes
+     margin: 20px auto; /* Centraliza o conteúdo e adiciona margem superior/inferior. */
+     padding: 20px; /* Adiciona padding interno ao wrapper. */
+     background-color: white; /* Dá um fundo branco para o conteúdo principal, contrastando com o fundo da página. */
+     border-radius: 8px; /* Cantos arredondados para um visual mais suave. */
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil para dar profundidade. */
+}
+
+/*título*/
+h1, h2{
+    color: #084673;
+    margin-bottom: 20px;
+    margin-top: 30px; 
+}
+
+h1{
+    font-size: 2.5em; /*aumenta o tamanho para maior destaque*/
+    font-weight: 700; 
+}
+
+h2{
+    font-size: 1.8em;
+    border-bottom: 2px solid #e9ecef; /*linha sutil para separar o título*/
+    padding-bottom: 10px; /*espaço abaixo da linha*/
+}
+
+/*parágrafo*/
+p{
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    line-height: 1.7; /*aumenta o espaço entre as linas*/
+}
+
+/*lista do menu*/
+ul{
+    list-style-type: none;
+    padding: 0px;
+    margin: 20px 0; /*margem inferior para separar do conteúdo */
+}
+
+ul li{
+    margin: 15px 0; /*espaçamento vertical entre os itens da lista*/
+}
+
+/*links do munu*/
+ul li a{
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    padding: 12px 20px;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    display: inline-block;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.2s;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/*crucial para acessibilidade*/
+ul li a:focus{
+    outline: 3px solid #28a745; /* Contorno verde vibrante para foco, diferente do azul do hover/link. */
+    outline-offset: 2px; /* Espaçamento entre o contorno e o elemento. */
+    background-color: #007bff; /* Mantém o fundo azul ao focar para consistência visual com o hover. */
+    color: white;
+    border-color: #007bff;
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.5); /* Sombra para indicar foco sem o outline tradicional. */
+}
+
+
+/*estilo dos botôes*/
+.btn-outline-secundary{
+    border-color: #6c757d;
+    color: #6c757d;
+    background-color: transparent;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: backgroud-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus{
+    background-color: #6c757d;
+    color: white;
+    border-color: #6c757d;
+    outline:  none;
+    box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.4);
+}
+
+.bnt-card{
+    color: #084673;
+    border-radius: 25px;
+    padding: 8px 12px;
+    border: 1px solid #084673;
+    background-color: white;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.bnt-card:hover,
+.bnt-card:focus{
+    background-color: #084673;
+    color: white;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(8, 70, 115, 0.4);
+}
+
+.bnt-custom-width{
+    width: 95%;
+    max-width: 300px; /*limita a largura para não ficar muit grande em telas largas*/
+    display: block; /* Garante que ocupe a largura total disponível. */
+    margin: 10px auto; /* Centraliza se a largura for limitada. */
+}
+
+/*Navbar customizada*/
+.custom-navbar{
+    background-color: #084673 !important;
+    color: white !important;
+    padding: 15px 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /*sombra sutil para destacar a navbar*/
+}
+
+/* Estilo para elementos dentro da navbar para garantir visibilidade */
+.custom-navbar .navbar-brand,
+.custom-navbar .nav-link,
+.custom-navbar .form-control {
+    color: white !important; /* Garante que o texto seja branco. */
+}
+
+.custom-navbar .form-control {
+    background-color: rgba(255, 255, 255, 0.2); /* Fundo semi-transparente para o input. */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Borda mais clara. */
+    color: white !important;
+}
+
+.custom-navbar .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7) !important; /* Cor do placeholder. */
+}
+
+.custom-navbar .btn-success { /* Supondo um botão de busca verde */
+    background-color: #28a745; /* Verde do Bootstrap. */
+    border-color: #28a745;
+    color: white;
+}
+
+.custom-navbar .btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+/*imagens (para uso futuro*/
+.img-card{
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/*Offcanvas padrão*/
+.offcanvas{
+    color: #3465a4;
+    background-color: #f0f4f7;
+}
+
+.offcanvas-header{
+    background-color: #084673;
+    color: white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.offcanvas-body{
+    padding: 20px;
+}
+
+/*media Queries para responsividade básica*/
+@media (max-width: 768px){
+    h1{
+        font-size: 2em;
+    }
+    h2{
+        font-size: 1.5em;
+    }
+    .main-content-wrapper{
+        margin: 10px;
+        padding: 15px;
+    }
+    ul li a{
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+    .custom-navbar{
+        padding: 10px 15px;
+    }
+}
+
