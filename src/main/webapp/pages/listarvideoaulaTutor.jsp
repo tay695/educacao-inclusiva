@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List,com.ifbaiano.educacaoinclusiva.model.VideoAula" %>
+<%@ page import="java.util.List.com.ifbaiano.educacaoinclusiva.model.VideoAula" %>
 <%@ page import="java.util.ArrayList, java.util.ArrayList, com.ifbaiano.educacaoinclusiva.model.VideoAula" %>
 
 
