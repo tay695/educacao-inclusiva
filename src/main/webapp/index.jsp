@@ -37,7 +37,6 @@
         </div>
     </div>
 </section>
-
     </div>
  </section>
  <section class="how-it-works">

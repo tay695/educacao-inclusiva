@@ -4,8 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/css/login.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/login.css">
 </head>
 <body>
 
@@ -22,10 +21,10 @@
 			<form action="${pageContext.request.contextPath}/login" method="post"
 				class="login-form">
 				<h2>LOGIN</h2>
-				<label for="email">Email</label> <input type="email" id="email"
-					name="email" placeholder="Digite seu email" required> <label
-					for="senha">Senha</label> <input type="password" id="senha"
-					name="senha" placeholder="Digite sua senha" required>
+				<label for="email">Email</label> 
+				<input type="email" id="email" name="email" placeholder="Digite seu email" required>
+					 <label for="senha">Senha</label>
+					  <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
 
 				<button type="submit">Entrar</button>
 			</form>

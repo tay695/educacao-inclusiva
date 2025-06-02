@@ -2,8 +2,9 @@ body, html {
 	height: 100%;
 	margin: 0;
 	padding-top: 80px;
-	background-color:  rgb(60, 0, 255);
+    background: linear-gradient(to right, #1e3c72, #2a5298);
 	font-family: 'Segoe UI';
+	color: white;
 }
 /*cabeçalhos do botões de iniciar e cadastrar */
 .navbar {
@@ -29,7 +30,7 @@ body, html {
 }
 
 .bg-custom {
-	background-color:rgb(60, 0, 255)
+	background-color:  rgb(60, 0, 255);
 }
 
 .hero-text {
@@ -39,15 +40,16 @@ body, html {
 }
 
 .hero {
-	background: linear-gradient;
-	background-color:rgb(60, 0, 255);
+	background: linear-gradient (to right, #1e3c72, #2a5298);
+	min-height: 100vh;
+	width: 100vw;
+	display: flex;
+	padding: 0px 20px;
 	height: 100vh;
 	position: relative;
 	overflow: hidden;
-	padding: 80px 0px;
 	padding-top: 0px;
 	color: white;
-	min-height: 100vh;
 }
 
 .hero h1 {
@@ -75,11 +77,11 @@ body, html {
 	border-top-left-radius: 50% 50px;
 	border-top-right-radius: 100% 50px;
 	z-index: 0;
+	display:none;
 }
 
 .hero .btn-resg {
 	background-color: white;
-
 	font-weight: bold;
 	border: none;
 	padding: 25px 80px;
@@ -126,7 +128,7 @@ body, html {
 }
 .description-how {
 	margin-bottom: 30px;
-	color: #3465a4;
+	 background:linear-gradient(to right, #1e3c72, #2a5298);
 }
 .how-step {
     background-color: #f0f4f8;
@@ -153,9 +155,9 @@ body, html {
     margin-top: 10px;
 }
 .description-img {
-	max-width: 850px;
+	max-width: 400px;
     height: auto;
-    margin-bottom: 15px;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+   width: 100%;
+	height: auto;
+	margin-top: 20px;
 }
