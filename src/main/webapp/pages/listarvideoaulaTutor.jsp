@@ -1,24 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List, com.ifbaiano.educacaoinclusiva.model.VideoAula" %>
-<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.ifbaiano.educacaoinclusiva.model.VideoAula" %>
 <%@ page import="com.ifbaiano.educacaoinclusiva.model.Usuario" %>
 
 <%
-    //Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
-    //if (usuario == null) {
-        //response.sendRedirect("login.jsp");
-        //return;
-    //}
-
-    // BLOCO DE TESTE (REMOVER)
-    if (request.getAttribute("videoAulas") == null) {
-        List<VideoAula> teste = new ArrayList<>();
-        teste.add(new VideoAula(1, "Aula Exemplo 1", "https://www.youtube.com/embed/exemplo1", 101));
-        teste.add(new VideoAula(2, "Aula Exemplo 2", "https://www.youtube.com/embed/exemplo2", 102));
-        teste.add(new VideoAula(3, "Aula Exemplo 3", "https://www.youtube.com/embed/exemplo3", 103));
-        request.setAttribute("videoAulas", teste);
+    Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+    if (usuario == null) {
+        response.sendRedirect("login.jsp");
+        return;
     }
-    // FIM DO BLOCO DE TESTE
 
     @SuppressWarnings("unchecked")
     List<VideoAula> videoAulas = (List<VideoAula>) request.getAttribute("videoAulas");
