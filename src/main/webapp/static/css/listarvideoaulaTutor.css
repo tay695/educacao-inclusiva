@@ -1,0 +1,111 @@
+.bg-light {
+    --bs-bg-opacity: 1;
+    background-color: #084673 !important;
+    color: white !important;
+}
+.custom-navbar i.bi-list {
+    color: white !important;
+}
+
+/* Reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo geral */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    padding: 30px;
+}
+
+/* Título */
+h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #3465a4;
+    font-weight: bold;
+}
+
+/* Links */
+a {
+    color: #3465a4;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Botão de cadastro */
+p a:first-child {
+    display: inline-block;
+    background-color: #3465a4;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+p a:first-child:hover {
+    background-color: #274b78;
+}
+
+/* Tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #3465a4;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #e9f0f7;
+}
+
+/* Ações */
+td a {
+    margin: 0 5px;
+    font-size: 14px;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+
+/* Botões de voltar */
+p:last-of-type a, p:nth-last-of-type(2) a {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 8px 12px;
+    background-color: #ccc;
+    color: #333;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+p:last-of-type a:hover, p:nth-last-of-type(2) a:hover {
+    background-color: #bbb;
+}
