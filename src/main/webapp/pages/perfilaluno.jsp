@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ page import="com.ifbaiano.educacaoinclusiva.model.Aluno"%>
+<%@ page import="com.ifbaiano.educacaoinclusiva.model.Aluno" %>
 
 <%
 Aluno aluno = (Aluno) request.getAttribute("aluno");
