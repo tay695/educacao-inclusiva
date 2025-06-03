@@ -10,25 +10,31 @@ import java.util.Properties;
 public class DBConfig {
 
 	public static Connection criarConexao() {
-		Properties properties = new Properties();
+	    Properties properties = new Properties();
 
-			try (InputStream input = DBConfig.class.getClassLoader().getResourceAsStream("dbconfig.properties")) {
-			if (input == null) {
-				throw new RuntimeException("Arquivo config.properties não encontrado no classpath");
-			}
+	    // Tenta carregar config.properties do classpath
+	    System.out.println("Tentando carregar config.properties...");
+	    InputStream input = DBConfig.class.getClassLoader().getResourceAsStream("config.properties");
 
-			properties.load(input);
+	    if (input == null) {
+	        System.out.println("config.properties NÃO ENCONTRADO!");
+	        throw new RuntimeException("Arquivo config.properties não encontrado no classpath");
+	    } else {
+	        System.out.println("config.properties encontrado com sucesso!");
+	    }
 
-		} catch (IOException e) {
-			throw new RuntimeException("Erro ao carregar arquivo de configuração", e);
-		}
+	    try {
+	        properties.load(input);
+	    } catch (IOException e) {
+	        throw new RuntimeException("Erro ao carregar arquivo de configuração", e);
+	    }
 
-		String user = properties.getProperty("db.username");
-		String password = properties.getProperty("db.password");
-		String url = properties.getProperty("db.url");
+	    String user = properties.getProperty("db.username");
+	    String password = properties.getProperty("db.password");
+	    String url = properties.getProperty("db.url");
 
-		try {
-	        Class.forName("com.mysql.cj.jdbc.Driver"); 
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
 	        return DriverManager.getConnection(url, user, password);
 	    } catch (SQLException | ClassNotFoundException e) {
 	        throw new RuntimeException("Erro ao criar conexão com o banco de dados", e);
