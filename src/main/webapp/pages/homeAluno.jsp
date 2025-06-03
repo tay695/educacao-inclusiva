@@ -7,8 +7,31 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a class="navbar-brand d-flex align-items-center gap-2" href="${pageContext.request.contextPath} assets/components/header.jsp">
-
+<nav class="navbar navbar-expand-lg custom-navbar">
+        <div class="container-fluid">
+            <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="menuLateral" aria-label="Abrir menu lateral">
+                <i class="bi bi-list fs-3"></i>
+            </button>
+            <a href="${pageContext.request.contextPath}/pages/homeTutor.jsp" class="navbar-brand">
+                <img src="${pageContext.request.contextPath}/static/images/logo.png" alt="logo" height="65" />
+            </a>
+        </div>
+    </nav>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="menuLateral" aria-labelledby="menuLateralLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="menuLateralLabel">Menu do Tutor</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/pages/perfiltutor.jsp"><i class="bi bi-person-circle me-2"></i>Meu Perfil</a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/pages/videoaulaTutor.jsp"><i class="bi bi-camera-video me-2"></i>Nova aula</a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/pages/listarvideoaulaTutor.jsp"><i class="bi bi-folder-plus me-2"></i>Cursos postados</a></li>
+                <li><hr /></li>
+                <li class="nav-item"><a class="nav-link text-danger" href="${pageContext.request.contextPath}/controller/Logout"><i class="bi bi-box-arrow-right me-2"></i>Sair</a></li>
+            </ul>
+        </div>
+    </div>
 
 </body>
 </html>

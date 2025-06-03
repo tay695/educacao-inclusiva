@@ -45,18 +45,14 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String senha = request.getParameter("senha");
-
 		LoginDTO loginDTO = new LoginDTO(email, senha);
 
 		try {
@@ -80,7 +76,6 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("usuarioLogado", usuarioLogado);
 			System.out.println("Sessão criada para: " + usuarioLogado.getEmail() + ", Sessão ID: " + session.getId());
 
-		
 			if (usuarioLogado instanceof Tutor) {
 				response.sendRedirect("pages/tutorHome.jsp");
 			} else if (usuarioLogado instanceof Aluno) {

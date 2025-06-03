@@ -29,23 +29,18 @@ public class CadastroTutorServlet extends HttpServlet {
 		String areaEspecializacao = request.getParameter("areaEspecializacao");
 
 		try (Connection conexao = DBConfig.criarConexao()) {
-			// Gerar salt e hash da senha
+			
 			String salt = SenhaUtils.gerarSalt();
 			String senhaHasheada = SenhaUtils.gerarHashSenha(senhaDigitada, salt);
-
-			// Criar tutor com senha hasheada e salt
 			Tutor tutor = new Tutor(areaEspecializacao, 0, nome, email, senhaHasheada, bio);
 			tutor.setSalt(salt);
-
-			// Inserir no banco
 			TutorDAO tutorDAO = new TutorDAO(conexao);
 			tutorDAO.adicionarTutor(tutor);
-
 			response.sendRedirect("pages/login.jsp");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("erro", "Erro ao cadastrar tutor.");
-			request.getRequestDispatcher("/pages/cadastroTutor.jsp").forward(request, response);
+			request.getRequestDispatcher("pages/cadastroTutor.jsp").forward(request, response);
 		}
 		System.out.println("Cadastro realizado para: " + email);
 	}

@@ -36,12 +36,11 @@ public class CadastroAlunoServlet extends HttpServlet {
 
 			AlunoDAO alunoDAO = new AlunoDAO(conexao);
 			alunoDAO.inserirAluno(aluno);
-
-			response.sendRedirect("/pages/homeAluno.jsp");
+			response.sendRedirect("pages/login.jsp");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("erro", "Erro ao cadastrar aluno.");
-			request.getRequestDispatcher("/pages/cadastroAluno.jsp").forward(request, response);
+			request.getRequestDispatcher("pages/login.jsp").forward(request, response);
 		}
 		System.out.println("Cadastro realizado para: " + email);
 	}
