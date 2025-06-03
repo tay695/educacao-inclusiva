@@ -1,163 +1,219 @@
 body, html {
-	height: 100%;
 	margin: 0;
-	padding-top: 80px;
-    background: linear-gradient(to right, #1e3c72, #2a5298);
-	font-family: 'Segoe UI';
-	color: white;
+	padding: 0;
+	font-family: 'Segoe UI', sans-serif;
+	background: white;
+	color: #1e3c72;
 }
-/*cabeçalhos do botões de iniciar e cadastrar */
+
+body, h1, h2, h3, p, a {
+	color: #1e3c72;
+}
+
 .navbar {
+	background: #1e3c72;
+	padding: 10px 30px;
 	position: fixed;
-	top: 0;
-	left: 0;
-	right:5px;
 	width: 100%;
-	height: 60px;
-	z-index: 999;
-	background-color: #3465a4;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	top: 0;
+	z-index: 1000;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 	display: flex;
-	justify-content: flex-end;
-	padding: 5 20 px;
+	justify-content: center;
 }
 
-.top-nav .nav-buttons a {
-	color: white;
-	font-weight: 500;
-	margin-left: 15px;
+.container-nav {
+	width: 100%;
+	max-width: 1200px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-righ: 10px;
+}
+
+.nav-buttons a {
+	margin-left: 8px;
 	text-decoration: none;
-}
-
-.bg-custom {
-	background-color:  rgb(60, 0, 255);
-}
-
-.hero-text {
-	text-align: center;
 	color: white;
-	padding-bottom: 200px
+	font-weight: bold;
+	padding: 6px 14px;
+	border: 1px solid white;
+	border-radius: 10px;
+	transition: background 0.3s;
+}
+
+.nav-buttons a:hover {
+	background: white;
+	color: #1e3c72;
 }
 
 .hero {
-	background: linear-gradient (to right, #1e3c72, #2a5298);
-	min-height: 100vh;
-	width: 100vw;
+	background: linear-gradient(to bottom right, #ffffff, #e6ecf5);
+	min-height: 90vh;
 	display: flex;
-	padding: 0px 20px;
-	height: 100vh;
-	position: relative;
-	overflow: hidden;
-	padding-top: 0px;
-	color: white;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 100px 20px 40px;
+	flex-wrap: wrap;
 }
 
-.hero h1 {
-	padding-top: 0;
-	font-size: 2.5rem;
-	font-weight: bold;
-	white-space: nowrap;
+.hero-content {
+	flex: 1;
+	text-align: left;
+	padding: 20px;
 }
 
-.hero p {
-	font-size: 2rem;
-	margin: 5px auto 5px;
-	max-width: 900px;
-	white-space: nowrap;
+.hero-image {
+	flex: 1;
+	text-align: center;
 }
 
-.hero::after {
-	content: "";
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 20%;
-	height: 10px;
-	background: rgb(0, 0, 0);
-	border-top-left-radius: 50% 50px;
-	border-top-right-radius: 100% 50px;
-	z-index: 0;
-	display:none;
-}
-
-.hero .btn-resg {
-	background-color: white;
-	font-weight: bold;
-	border: none;
-	padding: 25px 80px;
-	border-radius: 8px;
-}
-
-.hero-img {
-	margin-top: 20px;
-	max-width: 950px;
+.hero-image img {
+	max-width: 100%;
 	height: auto;
-	width: 100%;
-	margin-left:500px;
+	border-radius: 20px;
+}
+
+.hero-content h1 {
+	font-size: 3rem;
+	margin-bottom: 20px;
+}
+
+.hero-content p {
+	font-size: 1.2rem;
+	margin-bottom: 10px;
+	max-width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.buton-hero {
+	margin-top: 20px;
+	display: inline-block;
+	padding: 12px 24px;
+	font-size: 1.1rem;
+	font-weight: bold;
+	background-color: #1e3c72;
+	border: 2px solid white;
+	border-radius: 20px;
+	text-decoration: none;
+	transition: background 0.3s;
+	margin-left:55px;
+}
+
+.buton-hero a {
+	background-color: #1e3c72;
+	color: white;
+	padding: 12px 24px;
+	border: none;
+	transition: background 0.3s ease, color 0.3s ease;
+}
+
+.buton-hero a:hover {
+	background:  #1e3c72;
+	color: #1e3c72;
 }
 
 .how-it-works {
-	background-color: #3465a4;
-	padding: 60px 20px;
 	text-align: center;
-}
-
-.how-it-works {
-	color: #3465a4;
 	padding: 60px 20px;
-	text-align: center;
+	background: linear-gradient(to bottom right, #ffffff, #e6ecf5);
+	color: #1e3c72;
 }
 
 .how-it-works h2 {
-	color: #d3d7cf;
-	font-weight: bold;
+	font-size: 2rem;
 	margin-bottom: 40px;
 }
 
-.how-title {
-	font-size: 1.5rem;
-	font-weight: 600;
-	color: #333;
+.steps {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 40px;
+	margin-top: 30px;
 }
 
-.how-desc {
-	color: #555;
-	font-size: 1rem;
-	max-width: 280px;
-	margin: 0 auto;
-}
-.description-how {
-	margin-bottom: 30px;
-	 background:linear-gradient(to right, #1e3c72, #2a5298);
-}
-.how-step {
-    background-color: #f0f4f8;
-    border-radius: 20px;
-    padding: 25px;
-    margin: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
- .how-step:hover {
-    transform: translateY(-5px);
-}
- .how-title {
-    font:20px;
-    font-size: 1.3rem;
-    font-weight:800;
-    color: #3465a4;
-    margin-top: 10px;
-}
-
-.how-desc {
-    color: #444;
-    font-size: 0.95rem;
-    margin-top: 10px;
-}
-.description-img {
+.step {
 	max-width: 400px;
-    height: auto;
-   width: 100%;
-	height: auto;
-	margin-top: 20px;
+	text-align: center;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.step:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.step-icon {
+	width: 80px;
+	height: 80px;
+	margin-bottom: 15px;
+	font-size: 2.5rem;
+	color: #1e3c72;
+	margin-bottom: 10px;
+}
+
+.step h3 {
+	font-size: 1.4rem;
+	margin-bottom: 10px;
+	padding: 0 10px;
+	margin-left: 0;
+}
+
+.step p {
+	font-size: 1rem;
+	padding: 0 10px;
+	margin-left: 0;
+}
+
+.top-courses {
+	background: linear-gradient(to bottom right, #ffffff, #e6ecf5);
+	color: #1e3c72;
+	padding: 60px 20px;
+	text-align: center;
+}
+
+.top-courses h2 {
+	font-size: 2rem;
+	margin-bottom: 40px;
+	color: #1e3c72;
+}
+
+.course-cards {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+}
+
+.course-card {
+	background: white;
+	border-radius: 15px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	overflow: hidden;
+	width: 220px;
+	transition: transform 0.3s ease;
+	cursor: pointer;
+}
+
+.course-card:hover {
+	transform: scale(1.03);
+}
+
+.course-card img {
+	width: 100%;
+	height: 140px;
+	object-fit: cover;
+}
+
+.course-card p {
+	padding: 12px 10px;
+	font-weight: bold;
+	font-size: 1rem;
+	color: #1e3c72;
+	margin: 0;
+}
+																									
+																																								
