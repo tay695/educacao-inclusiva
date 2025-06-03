@@ -1,8 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.ifbaiano.educacaoinclusiva.model.Tutor" %>
 
-Tutor tutor = (Tutor) request.getAttribute("tutor");
+<%
+    Tutor tutor = (Tutor) session.getAttribute("tutor");
+    if (tutor == null) {
+        response.sendRedirect("login.jsp");	
+        return;
+    }
 %>
+
 <html lang="pt-br">
 <head>
     <title>Perfil do Tutor</title>
@@ -45,14 +51,13 @@ Tutor tutor = (Tutor) request.getAttribute("tutor");
         <div class="mb-3">
             <h5>Bio</h5>
             <div class="field-wrapper">
-                <span id="bioTexto"><%= tutor.getBio() %></span>
+                <span id="bioTexto"><%= tutor.getBio() != null ? tutor.getBio() : "" %></span>
                 <textarea id="bioInput" class="form-control d-none" rows="3"><%= tutor.getBio() %></textarea>
                 <button class="btn btn-sm btn-outline-primary" onclick="toggleEdit('bio')"><i class="bi bi-pencil"></i></button>
                 <button class="btn btn-sm btn-success d-none" id="bioSalvar" onclick="saveEdit('bio')"><i class="bi bi-check-lg"></i></button>
             </div>
         </div>
 
-        <!-- Área de Especialização -->
         <div class="mb-3">
             <h5>Área de Especialização</h5>
             <div class="field-wrapper">

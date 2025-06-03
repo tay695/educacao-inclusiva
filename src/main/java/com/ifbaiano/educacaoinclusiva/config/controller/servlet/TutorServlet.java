@@ -17,6 +17,8 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/cadastrarTutor")
 public class TutorServlet extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String nome = request.getParameter("nome");
@@ -34,11 +36,11 @@ public class TutorServlet extends HttpServlet {
 		try (Connection conexao = DBConfig.getConnection()) {
 			TutorDAO tutorDAO = new TutorDAO(conexao);
 			tutorDAO.adicionarTutor(tutor);
-			response.sendRedirect("pages/sucessoCadastroTutor.jsp");
+			response.sendRedirect(".pages/login.jsp");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("erro", "Erro ao cadastrar tutor: " + e.getMessage());
-			request.getRequestDispatcher("pages/erroCadastroTutor.jsp").forward(request, response);
+			request.getRequestDispatcher("pages/cadastroTutor.jsp").forward(request, response);
 		}
 	}
 }
