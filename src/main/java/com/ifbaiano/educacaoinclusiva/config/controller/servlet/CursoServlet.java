@@ -1,4 +1,4 @@
-package com.ifbaiano.educacaoinclusiva.controller.servlet;
+package com.ifbaiano.educacaoinclusiva.config.controller.servlet;
 
 import com.ifbaiano.educacaoinclusiva.DAO.CursoDAO;
 import com.ifbaiano.educacaoinclusiva.model.Curso;
