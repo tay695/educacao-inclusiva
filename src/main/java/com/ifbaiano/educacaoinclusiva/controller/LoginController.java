@@ -21,8 +21,10 @@ public class LoginController {
 	private final AlunoDAO alunoDao;
 	private final TutorDAO tutorDao;
 	private Usuario usuarioAutenticado;
-
+	
 	public LoginController(UsuarioDAO usuarioDao) {
+	    System.out.println("Construtor LoginController, usuarioDao é null? " + (usuarioDao == null));
+
 		this.usuarioDao = usuarioDao;
 		this.alunoDao = new AlunoDAO(usuarioDao.getConexao());
 		this.tutorDao = new TutorDAO(usuarioDao.getConexao());
@@ -35,6 +37,7 @@ public class LoginController {
 		String email = loginDTO.getEmail();
 		String senhaDigitada = loginDTO.getSenha();
 
+		
 		Validador.notBlank(email, "email", erros);
 		Validador.notBlank(senhaDigitada, "senha", erros);
 
@@ -42,33 +45,42 @@ public class LoginController {
 			return erros;
 		}
 
+		System.out.println("Verificando usuário base para email: " + email);
 		Usuario usuarioBase = usuarioDao.buscarEmail(email);
 		if (usuarioBase == null) {
-			erros.add(new ErroCampo("email", email, "Email não encontrado"));
-			return erros;
+		    System.out.println("Usuário base não encontrado");
+		    erros.add(new ErroCampo("email", email, "Email não encontrado"));
+		    return erros;
 		}
+		System.out.println("Usuário base encontrado: " + usuarioBase.getRetornaNome());
 
-		boolean senhaValida = SenhaUtils.verificarSenha(senhaDigitada, usuarioBase.getSalt(), usuarioBase.getSenha());
+		boolean senhaValida = SenhaUtils.verificarSenha(
+		    senhaDigitada,
+		    usuarioBase.getSalt(),
+		    usuarioBase.getSenha()
+		);
+		System.out.println("Senha válida? " + senhaValida);
 		if (!senhaValida) {
-			erros.add(new ErroCampo("senha", "", "Senha incorreta"));
-			return erros;
+		    erros.add(new ErroCampo("senha", "", "Senha incorreta"));
+		    return erros;
 		}
 
-	
 		Aluno aluno = alunoDao.buscarAlunoPorEmail(email);
+		System.out.println("Aluno encontrado: " + (aluno != null ? aluno.getRetornaNome() : "nenhum"));
 		if (aluno != null) {
-			this.usuarioAutenticado = aluno;
-			return erros;
+		    this.usuarioAutenticado = aluno;
+		    return erros;
 		}
 
 		Tutor tutor = tutorDao.buscarTutorPorEmail(email);
+		System.out.println("Tutor encontrado: " + (tutor != null ? tutor.getRetornaNome() : "nenhum"));
 		if (tutor != null) {
-			this.usuarioAutenticado = tutor;
-			return erros;
+		    this.usuarioAutenticado = tutor;
+		    return erros;
 		}
-		this.usuarioAutenticado = usuarioBase;
 		return erros;
 	}
+
 
 	public Usuario getUsuarioAutenticado() {
 		return usuarioAutenticado;

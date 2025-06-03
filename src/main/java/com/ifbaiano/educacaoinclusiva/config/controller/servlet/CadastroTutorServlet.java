@@ -42,10 +42,10 @@ public class CadastroTutorServlet extends HttpServlet {
 		        }
 		        
 			String salt = SenhaUtils.gerarSalt();
-			String senha = SenhaUtils.gerarHashSenha(senhaDigitada, salt);
+			String hashSenha = SenhaUtils.gerarHashSenha(senhaDigitada, salt);
 
 			try (Connection conexao = DBConfig.criarConexao()) {
-				Tutor tutor = new Tutor(areaEspecializacao, 0, nome, email, senha, bio);
+				Tutor tutor = new Tutor(areaEspecializacao, 0, nome, email, hashSenha, bio);
 				tutor.setSalt(salt);
 
 				TutorDAO tutorDAO = new TutorDAO(conexao);

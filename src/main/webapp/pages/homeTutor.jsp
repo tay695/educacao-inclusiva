@@ -1,14 +1,19 @@
 <%@ page import="com.ifbaiano.educacaoinclusiva.model.Usuario" %>
+<%@ page import="com.ifbaiano.educacaoinclusiva.model.Tutor" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.ifbaiano.educacaoinclusiva.model.VideoAula" %>
+
 <%
-    Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
-    if (usuario == null) {
-        response.sendRedirect("login.jsp");
-        return;
-    }
+HttpSession Session = request.getSession(false);
+if (session == null || session.getAttribute("usuarioLogado") == null) {
+    out.println("Sessão não encontrada ou usuário não logado.");
+} else {
+    out.println("Usuário logado: " + ((com.ifbaiano.educacaoinclusiva.model.Usuario) session.getAttribute("usuarioLogado")).getEmail());
+}
 %>
+
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -46,7 +51,7 @@
         </div>
     </div>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Bem-vindo, <%= usuario.getRetornaNome() %>!</h1>
+        <h1 class="text-center mb-4">Bem-vindo, <%= Tutor.getRetornaNome() %>!</h1>
 
 <%
     List<VideoAula> lista = (List<VideoAula>) request.getAttribute("listaVideoaulas");

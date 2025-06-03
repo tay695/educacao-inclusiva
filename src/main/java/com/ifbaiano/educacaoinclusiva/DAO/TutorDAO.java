@@ -1,8 +1,7 @@
 package com.ifbaiano.educacaoinclusiva.DAO;
 
-import com.ifbaiano.educacaoinclusiva.config.DBConfig;
-import com.ifbaiano.educacaoinclusiva.model.Aluno;
 import com.ifbaiano.educacaoinclusiva.model.Tutor;
+import com.ifbaiano.educacaoinclusiva.model.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,37 +17,17 @@ public class TutorDAO {
 		this.usuarioDAO = new UsuarioDAO(conexao);
 	}
 
-	public void adicionarTutor(Tutor tutor) {
-		try {
-			String sqlUsuario = "INSERT INTO Usuario (nome, email, senha, bio, salt, avaliacao) VALUES (?, ?, ?, ?, ?, ?)";
-			try (PreparedStatement stmtUsuario = conexao.prepareStatement(sqlUsuario,
-					PreparedStatement.RETURN_GENERATED_KEYS)) {
-				stmtUsuario.setString(1, tutor.getRetornaNome());
-				stmtUsuario.setString(2, tutor.getEmail());
-				stmtUsuario.setString(3, tutor.getSenha());
-				stmtUsuario.setString(4, tutor.getBio());
-				stmtUsuario.setString(5, tutor.getSalt());
-				stmtUsuario.setString(6, tutor.getAvaliacao() != null ? tutor.getAvaliacao() : "");
-				stmtUsuario.executeUpdate();
+	public void adicionarTutor(Tutor tutor) throws SQLException {
+		int idUsuario = usuarioDAO.inserir(tutor);
+		tutor.setId(idUsuario);
 
-				try (ResultSet rs = stmtUsuario.getGeneratedKeys()) {
-					if (rs.next()) {
-						int idUsuario = rs.getInt(1);
-						tutor.setId(idUsuario);
-
-						String sqlTutor = "INSERT INTO Tutor (area_especializacao, id_usuario) VALUES (?, ?)";
-						try (PreparedStatement stmtTutor = conexao.prepareStatement(sqlTutor)) {
-							stmtTutor.setString(1, tutor.getAreaEspecializacao());
-							stmtTutor.setInt(2, idUsuario);
-							stmtTutor.executeUpdate();
-						}
-					}
-				}
-			}
-			System.out.println("Tutor inserido com sucesso.");
-		} catch (SQLException e) {
-			System.out.println("Erro ao inserir tutor: " + e.getMessage());
+		String sqlTutor = "INSERT INTO Tutor(area_especializacao, id_usuario) VALUES (?, ?)";
+		try (PreparedStatement stmtTutor = conexao.prepareStatement(sqlTutor)) {
+			stmtTutor.setString(1, tutor.getAreaEspecializacao());
+			stmtTutor.setInt(2, idUsuario);
+			stmtTutor.executeUpdate();
 		}
+		System.out.println("Tutor inserido com sucesso.");
 	}
 
 	public void atualizarTutor(Tutor tutor) {
@@ -97,26 +76,25 @@ public class TutorDAO {
 	}
 
 	public Tutor buscarTutorPorEmail(String email) throws SQLException {
-
-		String sql = "SELECT t.area_especializacao, u.id, u.nome, u.email, u.senha, u.bio, u.salt FROM Tutor t JOIN Usuario u ON t.id_usuario = u.id WHERE u.email = ?";
-		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-			stmt.setString(1, email);
-			ResultSet rs = stmt.executeQuery();
-            if(rs.next()) {
-            	Tutor tutor = new Tutor( 
-                        rs.getString("area_especializacao"),
-
-            			rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getString("email"),
-                        rs.getString("senha"),
-                        rs.getString("bio"));
-            	tutor.setSalt(rs.getString("salt"));
-            	return tutor;
-            }
+		Usuario usuario = usuarioDAO.buscarEmail(email);
+		if (usuario == null) {
+			return null; //
 		}
-		return null;
+
+		String sqlTutor = "SELECT area_especializacao FROM Tutor WHERE id_usuario = ?";
+		try (PreparedStatement stmt = conexao.prepareStatement(sqlTutor)) {
+			stmt.setInt(1, usuario.getId());
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				Tutor tutor = new Tutor(rs.getString("area_especializacao"), usuario.getId(), usuario.getRetornaNome(),
+						usuario.getEmail(), usuario.getSenha(), usuario.getBio());
+				tutor.setSalt(usuario.getSalt());
+				return tutor;
+			}
+		}
+		return null; // 
 	}
+
 	public void atualizarCampo(int idUsuario, String campo, String valor) throws SQLException {
 		String sql;
 		if (campo.equals("area")) {
@@ -131,13 +109,12 @@ public class TutorDAO {
 			stmt.executeUpdate();
 		}
 	}
-	public boolean emailJaExiste(String email) throws SQLException {
-	    String sql = "SELECT 1 FROM Usuario WHERE email = ?";
-	    try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-	        stmt.setString(1, email);
-	        ResultSet rs = stmt.executeQuery();
-	        return rs.next();
-	    }
+
+	public UsuarioDAO getUsuarioDAO() {
+		return usuarioDAO;
 	}
 
+	public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
+		this.usuarioDAO = usuarioDAO;
+	}
 }

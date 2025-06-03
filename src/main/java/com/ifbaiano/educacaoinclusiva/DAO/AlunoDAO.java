@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.ifbaiano.educacaoinclusiva.model.Aluno;
+import com.ifbaiano.educacaoinclusiva.model.Usuario;
 
 public class AlunoDAO {
 	private Connection conexao;
@@ -32,39 +33,63 @@ public class AlunoDAO {
 	}
 
 	public Aluno buscarAlunoPorEmail(String email) throws SQLException {
-	    String sql = "SELECT u.id, u.nome, u.email, u.senha, u.bio, u.salt FROM Aluno a JOIN Usuario u ON a.id_usuario = u.id WHERE u.email = ?";
-		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-
-			stmt.setString(1, email);
-			ResultSet rs = stmt.executeQuery();
-            if(rs.next()) {
-            	Aluno aluno = new Aluno( 
-            			rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getString("email"),
-                        rs.getString("senha"),
-                        rs.getString("bio"));
-            	aluno.setSalt(rs.getString("salt"));
-            	return aluno;
-            }
+		Usuario usuario = usuarioDAO.buscarEmail(email);
+		if (usuario == null) {
+			return null;
 		}
-		return null;
-	}
-
-	public Aluno buscarId(int id) throws SQLException {
-		String sql = "SELECT u.id, u.nome FROM Usuario u JOIN Aluno a ON u.id = a.id_usuario WHERE u.id = ?";
-		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-			stmt.setInt(1, id);
+		String sqlAluno = "SELECT id_usuario FROM Aluno WHERE id_usuario = ?";
+		try (PreparedStatement stmt = conexao.prepareStatement(sqlAluno)) {
+			stmt.setInt(1, usuario.getId());
 			ResultSet rs = stmt.executeQuery();
-
 			if (rs.next()) {
-				return new Aluno(rs.getInt("id"), rs.getString("nome"), null, null, null);
+				Aluno aluno = new Aluno(usuario.getId(), usuario.getRetornaNome(), usuario.getEmail(),
+						usuario.getSenha(), usuario.getBio());
+				aluno.setSalt(usuario.getSalt());
+				return aluno;
 			}
 		}
 		return null;
 	}
-	
-	
+
+	public Aluno buscarPorId(int id) throws SQLException {
+		Usuario usuario = usuarioDAO.buscarId(id);
+		if (usuario == null) {
+			return null;
+		}
+
+		// Verifica se é aluno
+		String sqlAluno = "SELECT id_usuario FROM Aluno WHERE id_usuario = ?";
+		try (PreparedStatement stmt = conexao.prepareStatement(sqlAluno)) {
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				Aluno aluno = new Aluno(usuario.getId(), usuario.getRetornaNome(), usuario.getEmail(),
+						usuario.getSenha(), usuario.getBio());
+				aluno.setSalt(usuario.getSalt());
+				return aluno;
+			}
+		}
+		return null;
 	}
 
+	public void atualizarAluno(Aluno aluno) throws SQLException {
+		usuarioDAO.atualizarUsuario(aluno);
+	}
 
+	public void excluirAluno(int idUsuario) throws SQLException {
+		String sqlAluno = "DELETE FROM Aluno WHERE id_usuario = ?";
+		try (PreparedStatement stmt = conexao.prepareStatement(sqlAluno)) {
+			stmt.setInt(1, idUsuario);
+			stmt.executeUpdate();
+		}
+		usuarioDAO.excluirUsuario(idUsuario);
+	}
+
+	public UsuarioDAO getUsuarioDAO() {
+		return usuarioDAO;
+	}
+
+	public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
+		this.usuarioDAO = usuarioDAO;
+	}
+}

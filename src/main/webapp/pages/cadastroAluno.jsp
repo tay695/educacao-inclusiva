@@ -57,7 +57,7 @@
 <body>
 
 <div class="login-container">
-    <form action="${pageContext.request.contextPath}/cadastroAluno" method="post" class="login-form">
+<form action="${pageContext.request.contextPath}/cadastroAluno" method="post">
         <h2>Cadastro</h2>
 
         <label for="nome">Nome</label>
