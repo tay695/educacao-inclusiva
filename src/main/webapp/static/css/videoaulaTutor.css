@@ -1,193 +1,121 @@
-body {
-    font-family: 'Open Sans', Arial, sans-serif;
-    color: #333333;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 0;
-}
-
-/* Navbar customizada */
+/* Estilos para a navbar */
 .custom-navbar {
-    background-color: #084673; /* Azul escuro principal */
-    color: white;
-    padding: 15px 30px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #003366 !important; 
 }
 
 .custom-navbar .navbar-brand,
-.custom-navbar .nav-link {
-    color: white !important;
+.custom-navbar .nav-link,
+.custom-navbar .btn {
+    color: #ffffff !important;
 }
 
-.custom-navbar .bi-list {
-    color: white !important;
+.custom-navbar .nav-link:hover {
+    background-color: #002244 !important; 
+    color: #ffffff !important;
 }
 
-.btn-outline-secondary {
-    border-color: rgba(255, 255, 255, 0.5);
-    color: white;
-    background-color: transparent;
-    padding: 10px 15px;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-}
-
-.btn-outline-secondary:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    border-color: rgba(255, 255, 255, 0.8);
-}
-
-.btn-outline-secondary:focus {
-    outline: 3px solid #6c757d;
-    outline-offset: 2px;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    border-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.4);
-}
-
-/* Container principal */
-.main-content-wrapper {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 30px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-/* Títulos */
-h1, h2, h3 {
-    color: #084673;
-    margin-bottom: 20px;
-}
-
-h1 {
-    font-size: 2.8em;
-    font-weight: 700;
-    margin-top: 0;
-    padding-bottom: 10px;
-}
-
-h2 {
-    font-size: 2em;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-h3 {
-    font-size: 1.6em;
-    color: #0d6efd;
-    border-bottom: 1px solid #e9ecef;
-    padding-bottom: 10px;
-    margin-top: 30px;
-    margin-bottom: 20px;
-    font-weight: 500;
-}
-
-/* Parágrafo */
-p {
-    font-size: 1.1em;
-    margin-bottom: 20px;
-    line-height: 1.7;
-}
-
-/* Estilo para o grupo de boas-vindas e ações */
-.welcome-actions-group {
-    padding: 30px 0;
-    margin-top: 20px;
-}
-
-/* Estilos para os links de ação na página principal */
-.custom-action-btn {
-    width: 100%;
-    font-size: 1.1em;
-    padding: 15px 25px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-/* Offcanvas padrão (menu lateral) */
-.offcanvas {
-    color: #333333;
-    background-color: #f0f4f7;
-}
-
+/* Estilo para o offcanvas*/
 .offcanvas-header {
-    background-color: #084673;
-    color: white;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: #003366 !important;
+    color: #ffffff !important;
 }
 
-.offcanvas-body {
-    padding: 20px;
+.offcanvas-title {
+    color: #ffffff !important;
 }
 
 .offcanvas-body .nav-link {
-    color: #084673;
-    font-weight: 500;
-    padding: 10px 15px;
-    transition: background-color 0.2s, color 0.2s;
+    color: #003366 !important; 
 }
 
 .offcanvas-body .nav-link:hover {
-    background-color: #e9ecef;
-    color: #084673;
+    background-color: #e9ecef !important; /* leve cinza ao passar o mouse */
 }
 
-.offcanvas-body .nav-link:focus {
-    outline: 2px solid #007bff;
-    outline-offset: 2px;
-    background-color: #e9ecef;
-}
-
+/* Botão de sair no offcanvas  */
 .offcanvas-body .nav-link.text-danger {
-    color: #dc3545 !important;
+    color: #dc3545 !important; /* vermelho padrão Bootstrap */
 }
 
-.offcanvas-body .nav-link.text-danger:hover,
-.offcanvas-body .nav-link.text-danger:focus {
-    background-color: #f8d7da;
-    color: #dc3545 !important;
+.offcanvas-body .nav-link.text-danger:hover {
+    background-color: #f8d7da !important; /* vermelho claro ao passar o mouse */
 }
 
-/* media Queries para responsividade básica */
-@media (max-width: 768px) {
-    h1 {
-        font-size: 2.2em;
-    }
-    h2 {
-        font-size: 1.6em;
-    }
-    h3 {
-        font-size: 1.4em;
-    }
-    .main-content-wrapper {
-        margin: 10px;
-        padding: 20px;
-    }
-    .custom-action-btn {
-        padding: 12px 20px;
-        font-size: 1em;
-    }
-    .welcome-actions-group {
-        padding: 20px 0;
-        margin-top: 15px;
-    }
 
-    .boas-vindas {
-        color: #198754;
-        font-size: 1.4em;
-        font-weight: 600;
-        margin-top: 15px;
-        margin-bottom: 10px;
-    }
+/* Estilos para o CONTEÚDO PRINCIPAL */
 
-    .especializacao {
-        color: #6c757d;
-        font-style: italic;
-        margin-bottom: 15px;
-    }
+/* Títulos e textos gerais */
+.container h1.main-title,
+.container h2.welcome-message,
+.container p.specialization-text,
+.container h3.quick-actions-heading {
+    text-align: center;
+    color: #003366; /* Cor base dos textos como no aluno */
+}
+
+.container h1.main-title {
+    color: #084673; /* Cor do título principal (menu de visualização) do aluno */
+    font-weight: bold;
+    margin-top: 20px; /* Adiciona um pouco de espaço no topo */
+    margin-bottom: 20px;
+}
+
+.container h2.welcome-message {
+    color: #198754; /* Cor do "Seja Bem-vindo" do aluno */
+    margin-bottom: 10px;
+}
+
+.container p.specialization-text {
+    color: #003366; /* area de especialização */
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    font-weight: bold;
+
+}
+
+.container h3.quick-actions-heading {
+    color: #003366; /*subtítulo */
+    font-weight: 600;
+}
+/*centralizando os ícones nos botões do tutor se o Bootstrap não fizer isso automaticamente: */
+.d-grid .btn i {
+    margin-right: .5rem; /* Espaçamento entre o ícone e o texto */
+}
+
+/* Para garantir que o ícone e o texto estejam centralizados verticalmente em todos os botões .btn.btn-lg */
+.d-grid .btn.btn-lg {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+
+/* Ajuste específico para o botão Visualizar todas as vídeo aulas (btn-outline-info) */
+.d-grid .btn.btn-outline-info {
+    color: #17a2b8 !important; 
+    border-color: #17a2b8 !important;
+    background-color: transparent !important; 
+}
+
+.d-grid .btn.btn-outline-info:hover {
+    background-color: #17a2b8 !important;
+    color: white !important;
+}
+
+/*botão Retornar ao perfil (btn-outline-danger) */
+.d-grid .btn.btn-outline-danger {
+    color: #dc3545 !important; 
+    border-color: #dc3545 !important;
+    background-color: transparent !important; 
+}
+
+.d-grid .btn.btn-outline-danger:hover {
+    background-color: #dc3545 !important;
+    color: white !important;
+}
+
+.content-wrapper {
+    padding: 0 !important; 
+    margin: 0 !important; 
+    box-shadow: none !important; 
 }
