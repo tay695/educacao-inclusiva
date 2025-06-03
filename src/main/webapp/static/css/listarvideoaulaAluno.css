@@ -1,0 +1,154 @@
+body {
+    font-family: 'Open Sans', Arial, sans-serif;
+    color: #333333;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+
+.custom-navbar {
+    background-color: #084673 !important;
+}
+
+.custom-navbar .navbar-brand,
+.custom-navbar .nav-link,
+.custom-navbar .btn {
+    color: #ffffff !important;
+}
+
+.custom-navbar .nav-link:hover {
+    background-color: #063859 !important;
+    color: #ffffff !important;
+}
+
+/* Offcanvas */
+.offcanvas-header {
+    background-color: #084673 !important;
+    color: #ffffff !important;
+}
+
+.offcanvas-title {
+    color: #ffffff !important;
+}
+
+.offcanvas-body .nav-link {
+    color: #084673 !important;
+}
+
+.offcanvas-body .nav-link:hover {
+    background-color: #e9ecef !important;
+}
+
+.offcanvas-body .nav-link.text-danger {
+    color: #dc3545 !important;
+}
+
+.offcanvas-body .nav-link.text-danger:hover,
+.offcanvas-body .nav-link.text-danger:focus {
+    background-color: #f8d7da !important;
+    color: #dc3545 !important;
+}
+
+/* ===== Container principal ===== */
+.main-content-wrapper {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== Títulos e textos ===== */
+h1.page-title {
+    color: #084673;
+    font-size: 2.5em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+p.subtext {
+    color: #555555;
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* ===== Tabela de vídeo aulas ===== */
+.table-responsive {
+    margin-top: 20px;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f5f9;
+}
+
+.table a {
+    color: #198754;
+    text-decoration: none;
+}
+
+.table a:hover {
+    text-decoration: underline;
+}
+.table td a,
+.table td a * {
+    color: #046fbb !important;
+    text-decoration: none;
+}
+
+.table td a:hover,
+.table td a:hover * {
+    text-decoration: underline;
+}
+
+
+/* ===== Botões de navegação ===== */
+.nav-buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.nav-buttons a.btn {
+    min-width: 200px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    padding: 12px 20px;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.nav-buttons a.btn:hover {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* ===== Responsividade ===== */
+@media (max-width: 768px) {
+    .main-content-wrapper {
+        margin: 10px;
+        padding: 20px;
+    }
+    h1.page-title {
+        font-size: 2em;
+    }
+    .table-responsive {
+        overflow-x: auto;
+    }
+    .nav-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .nav-buttons a.btn {
+        width: 100%;
+        font-size: 1em;
+    }
+}
