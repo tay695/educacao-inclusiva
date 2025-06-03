@@ -5,15 +5,11 @@
 <%@ page import="com.ifbaiano.educacaoinclusiva.model.VideoAula" %>
 
 <%
-HttpSession Session = request.getSession(false);
-if (session == null || session.getAttribute("usuarioLogado") == null) {
-    out.println("Sessão não encontrada ou usuário não logado.");
-} else {
-    out.println("Usuário logado: " + ((com.ifbaiano.educacaoinclusiva.model.Usuario) session.getAttribute("usuarioLogado")).getEmail());
-}
+    Tutor tutor = (Tutor) session.getAttribute("tutor");
+    if (tutor == null) {
+        out.println("Tutor não encontrado na sessão.");
+    }
 %>
-
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -51,7 +47,7 @@ if (session == null || session.getAttribute("usuarioLogado") == null) {
         </div>
     </div>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Bem-vindo, <%= Tutor.getRetornaNome() %>!</h1>
+<h1 class="text-center mb-4">Bem-vindo, <%= tutor != null ? tutor.getRetornaNome() : "Visitante" %>!</h1>
 
 <%
     List<VideoAula> lista = (List<VideoAula>) request.getAttribute("listaVideoaulas");

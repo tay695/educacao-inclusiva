@@ -14,19 +14,34 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;  
+import java.util.List;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private LoginController loginController;
+	private Connection conexao;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		UsuarioDAO usuarioDAO = new UsuarioDAO(DBConfig.criarConexao());
+		conexao = DBConfig.criarConexao();
+		UsuarioDAO usuarioDAO = new UsuarioDAO(conexao);
 		loginController = new LoginController(usuarioDAO);
+	}
+
+	@Override
+	public void destroy() {
+		super.destroy();
+		try {
+			if (conexao != null && !conexao.isClosed()) {
+				conexao.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -36,7 +51,9 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String email = request.getParameter("email");
 		String senha = request.getParameter("senha");
 
@@ -53,23 +70,25 @@ public class LoginServlet extends HttpServlet {
 
 			Usuario usuarioLogado = loginController.getUsuarioAutenticado();
 
-			if (usuarioLogado != null) {
-				HttpSession session = request.getSession();
-				session.setAttribute("usuarioLogado", usuarioLogado);
-				System.out.println("Sessão criada para: " + usuarioLogado.getEmail() + ", Sessão ID: " + session.getId());
-			} else {
+			if (usuarioLogado == null) {
 				request.setAttribute("erro", "Usuário não encontrado.");
 				request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 				return;
 			}
 
-			
+			HttpSession session = request.getSession();
+			session.setAttribute("usuarioLogado", usuarioLogado);
+			System.out.println("Sessão criada para: " + usuarioLogado.getEmail() + ", Sessão ID: " + session.getId());
+
+		
 			if (usuarioLogado instanceof Tutor) {
-				response.sendRedirect(request.getContextPath() + "/pages/HomeTutor.jsp");
+				response.sendRedirect("pages/tutorHome.jsp");
 			} else if (usuarioLogado instanceof Aluno) {
-				response.sendRedirect(request.getContextPath() + "/pages/homeAluno.jsp");
+				response.sendRedirect("pages/homeAluno.jsp");
 			} else {
-				response.sendRedirect(request.getContextPath() + "/login?erro=1");
+				
+				request.setAttribute("erro", "Tipo de usuário desconhecido.");
+				request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 			}
 
 		} catch (SQLException e) {
