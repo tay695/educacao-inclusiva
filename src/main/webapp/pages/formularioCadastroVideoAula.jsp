@@ -100,28 +100,6 @@
                        value="<%= video != null ? video.getUrl() : "" %>">
             </div>
 
-            <div class="mb-3">
-                <label for="idModulo" class="form-label">Módulo:</label>
-                <select class="form-select" name="idModulo" id="idModulo" required>
-                    <%
-                        if (modulos != null && !modulos.isEmpty()) {
-                            for (Modulo modulo : modulos) {
-                                boolean selecionado = (modulo.getId() == idModuloSelecionado);
-                    %>
-                        <option value="<%= modulo.getId() %>" <%= selecionado ? "selected" : "" %>>
-                            <%= modulo.getTitulo() %>
-                        </option>
-                    <%
-                            }
-                        } else {
-                    %>
-                        <option value="">Nenhum módulo disponível para seleção</option>
-                    <%
-                        }
-                    %>
-                </select>
-            </div>
-
             <button type="submit" class="btn btn-primary" title="Salvar vídeo-aula">
                 <i class="bi bi-save me-2"></i><%= video == null ? "Cadastrar" : "Salvar" %>
             </button>
