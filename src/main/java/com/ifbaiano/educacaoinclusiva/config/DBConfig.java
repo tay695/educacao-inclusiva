@@ -12,7 +12,6 @@ public class DBConfig {
 	public static Connection criarConexao() {
 	    Properties properties = new Properties();
 
-	    // Tenta carregar config.properties do classpath
 	    System.out.println("Tentando carregar config.properties...");
 	    InputStream input = DBConfig.class.getClassLoader().getResourceAsStream("config.properties");
 
@@ -35,16 +34,11 @@ public class DBConfig {
 
 	    try {
 	        Class.forName("com.mysql.cj.jdbc.Driver");
-	        return DriverManager.getConnection(url, user, password);
+	        Connection conexao = DriverManager.getConnection(url, user, password);
+	        System.out.println("Auto-commit da conexão: " + conexao.getAutoCommit());
+	        return conexao;
 	    } catch (SQLException | ClassNotFoundException e) {
 	        throw new RuntimeException("Erro ao criar conexão com o banco de dados", e);
 	    }
-	}
-
-	private DBConfig() {
-	}
-
-	public static Connection getConnection() {
-		return criarConexao();
 	}
 }

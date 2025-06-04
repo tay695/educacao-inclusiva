@@ -1,4 +1,3 @@
-
 <%@ page import="com.ifbaiano.educacaoinclusiva.model.Usuario" %>
 <%@ page import="com.ifbaiano.educacaoinclusiva.model.Tutor" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -27,7 +26,7 @@
             <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="menuLateral" aria-label="Abrir menu lateral">
                 <i class="bi bi-list fs-3"></i>
             </button>
-            <a href="${pageContext.request.contextPath}/pages/homeTutor.jsp" class="navbar-brand">
+                <a href="${pageContext.request.contextPath}/homeTutor" class="navbar-brand">
                 <img src="${pageContext.request.contextPath}/static/images/logo.png" alt="logo" height="65" />
             </a>
         </div>
@@ -59,7 +58,7 @@
         for (VideoAula v : lista) { %>
             <div class="col-12 mb-4">
                 <div class="card h-100">
-                    <iframe class="card-img-top" src="<%= v.getUrl() %>" allowfullscreen></iframe>
+                   <iframe class="card-img-top" src="<%= v.getUrl() %>" allowfullscreen style="height: 250px;"></iframe>
                     <div class="card-body">
                         <h5 class="card-title"><%= v.getTitulo() %></h5>
                         <a href="${pageContext.request.contextPath}/pages/listarvideoaulaTutor.jsp" class="btn-card">Gerenciar curso</a>

@@ -5,72 +5,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Cursos Disponíveis</title>
-      
-    <style type="text/css">
-  
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-}
+      <%@ page import="com.ifbaiano.educacaoinclusiva.model.Usuario" %>
+<%
+    Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+    if (usuario == null) {
+        response.sendRedirect(request.getContextPath() + "/login");
+        return;
+    }
+%>
 
-h2 {
-    margin-bottom: 20px;
-}
-
-.cursos-container {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.card {
-    padding: 20px;
-    margin: 15px;
-    border-radius: 12px;
-    color: white;
-    width: 250px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.azul {
-    background-color: #007BFF;
-}
-
-.ciano {
-    background-color: #17A2B8;
-}
-
-.rosa {
-    background-color: #E83E8C;
-}
-
-.marrom {
-    background-color: #795548;
-}
-
-.vinho {
-    background-color: #6f0427;
-}
-
-.azul-escuro {
-    background-color: #343a40;
-}
-
-.inscrever-btn {
-    margin-top: 10px;
-    padding: 8px 15px;
-    background-color: white;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.inscrever-btn:hover {
-    background-color: #f0f0f0;
-}
-    </style>
+       
 </head>
 <body>
+<h1>Bem-vindo, <%= usuario.getRetornaNome() %>!</h1>
 
   <nav class="navbar navbar-expand-lg custom-navbar">
         <div class="container-fluid">

@@ -77,9 +77,9 @@ public class LoginServlet extends HttpServlet {
 			System.out.println("Sessão criada para: " + usuarioLogado.getEmail() + ", Sessão ID: " + session.getId());
 
 			if (usuarioLogado instanceof Tutor) {
-				response.sendRedirect("pages/tutorHome.jsp");
+				response.sendRedirect(request.getContextPath() + "/pages/homeTutor.jsp");
 			} else if (usuarioLogado instanceof Aluno) {
-				response.sendRedirect("pages/homeAluno.jsp");
+				response.sendRedirect(request.getContextPath() + "/pages/homeAluno.jsp");
 			} else {
 				
 				request.setAttribute("erro", "Tipo de usuário desconhecido.");

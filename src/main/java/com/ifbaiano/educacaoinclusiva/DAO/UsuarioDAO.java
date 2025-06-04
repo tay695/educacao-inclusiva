@@ -15,26 +15,31 @@ public class UsuarioDAO {
 	}
 
 	public int inserir(Usuario usuario) throws SQLException {
-		String sql = "INSERT INTO Usuario (nome, email, senha, bio, salt) VALUES (?, ?, ?, ?, ?)";
-		try (PreparedStatement stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-			stmt.setString(1, usuario.getRetornaNome());
-			stmt.setString(2, usuario.getEmail());
-			stmt.setString(3, usuario.getSenha());
-			stmt.setString(4, usuario.getBio());
-			stmt.setString(5, usuario.getSalt());
+	    String sql = "INSERT INTO Usuario (nome, email, senha, bio, salt) VALUES (?, ?, ?, ?, ?)";
+	    try (PreparedStatement stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+	        stmt.setString(1, usuario.getRetornaNome());
+	        stmt.setString(2, usuario.getEmail());
+	        stmt.setString(3, usuario.getSenha());
+	        stmt.setString(4, usuario.getBio());
+	        stmt.setString(5, usuario.getSalt());
 
-			stmt.executeUpdate();
+	        int affectedRows = stmt.executeUpdate();
 
-			try (ResultSet rs = stmt.getGeneratedKeys()) {
-				if (rs.next()) {
-					int idGerado = rs.getInt(1);
-					usuario.setId(idGerado);
-					return idGerado;
-				}
-			}
-		}
-		return -1;
+	        if (affectedRows == 0) {
+	            throw new SQLException("Falha ao inserir usuário, nenhuma linha afetada.");
+	        }
+
+	        try (ResultSet rs = stmt.getGeneratedKeys()) {
+	            if (rs.next()) {
+	                 conexao.commit();
+	                return rs.getInt(1);
+	            } else {
+	                throw new SQLException("Falha ao obter ID gerado.");
+	            }
+	        }
+	    }
 	}
+
 
 	public Usuario buscarEmail(String email) throws SQLException {
 		String sql = "SELECT * from Usuario  WHERE email = ?";

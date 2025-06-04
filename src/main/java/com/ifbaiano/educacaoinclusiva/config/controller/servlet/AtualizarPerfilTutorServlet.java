@@ -2,31 +2,71 @@ package com.ifbaiano.educacaoinclusiva.config.controller.servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 
 import com.ifbaiano.educacaoinclusiva.DAO.TutorDAO;
 import com.ifbaiano.educacaoinclusiva.config.DBConfig;
+import com.ifbaiano.educacaoinclusiva.model.Tutor;
 
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/AtualizarPerfilTutorServlet")
 public class AtualizarPerfilTutorServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        HttpSession session = request.getSession(false);
+        if(session == null || session.getAttribute("tutor") == null) {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+            return;
+        }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        Tutor tutorSessao = (Tutor) session.getAttribute("tutor");
+
         String campo = request.getParameter("campo");
         String valor = request.getParameter("valor");
+        int id = Integer.parseInt(request.getParameter("id"));
 
-        try (Connection conn = DBConfig.getConnection()) {
+        if(id != tutorSessao.getId()) {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+            return;
+        }
+
+        // Validação básica dos campos
+        if(!List.of("nome", "email", "bio", "area").contains(campo)) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        try(Connection conn = DBConfig.criarConexao()) {
             TutorDAO dao = new TutorDAO(conn);
-            dao.atualizarCampo(id, campo, valor);
+
+            switch(campo) {
+                case "nome":
+                    tutorSessao.setNome(valor);
+                    break;
+                case "email":
+                    tutorSessao.setEmail(valor);
+                    break;
+                case "bio":
+                    tutorSessao.setBio(valor);
+                    break;
+                case "area":
+                    tutorSessao.setAreaEspecializacao(valor);
+                    break;
+            }
+
+            dao.atualizarTutor(tutorSessao);
+            session.setAttribute("tutor", tutorSessao); // Atualiza sessão
+
             response.setStatus(HttpServletResponse.SC_OK);
-        } catch (Exception e) {
+        } catch(SQLException e) {
             e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 }

@@ -45,27 +45,8 @@ public class LoginController {
 			return erros;
 		}
 
-		System.out.println("Verificando usuário base para email: " + email);
-		Usuario usuarioBase = usuarioDao.buscarEmail(email);
+	
 
-		Usuario usuarioBase1 = usuarioDao.buscarEmail(email);
-		if (usuarioBase1 == null) {
-		    System.out.println("Usuário base não encontrado");
-		    erros.add(new ErroCampo("email", email, "Email não encontrado"));
-		    return erros;
-		}
-		System.out.println("Usuário base encontrado: " + usuarioBase1.getRetornaNome());
-
-		boolean senhaValida = SenhaUtils.verificarSenha(
-		    senhaDigitada,
-		    usuarioBase1.getSalt(),
-		    usuarioBase1.getSenha()
-		);
-		System.out.println("Senha válida? " + senhaValida);
-		if (!senhaValida) {
-		    erros.add(new ErroCampo("senha", "", "Senha incorreta"));
-		    return erros;
-		}
 
 		Aluno aluno = alunoDao.buscarAlunoPorEmail(email);
 		System.out.println("Aluno encontrado: " + (aluno != null ? aluno.getRetornaNome() : "nenhum"));
@@ -78,6 +59,27 @@ public class LoginController {
 		System.out.println("Tutor encontrado: " + (tutor != null ? tutor.getRetornaNome() : "nenhum"));
 		if (tutor != null) {
 		    this.usuarioAutenticado = tutor;
+		    return erros;
+		}
+		
+		System.out.println("Verificando usuário base para email: " + email);
+
+		Usuario usuarioBase = usuarioDao.buscarEmail(email);
+		if (usuarioBase == null) {
+		    System.out.println("Usuário base não encontrado");
+		    erros.add(new ErroCampo("email", email, "Email não encontrado"));
+		    return erros;
+		}
+		System.out.println("Usuário base encontrado: " + usuarioBase.getRetornaNome());
+
+		boolean senhaValida = SenhaUtils.verificarSenha(
+		    senhaDigitada,
+		    usuarioBase.getSalt(),
+		    usuarioBase.getSenha()
+		);
+		System.out.println("Senha válida? " + senhaValida);
+		if (!senhaValida) {
+		    erros.add(new ErroCampo("senha", "", "Senha incorreta"));
 		    return erros;
 		}
 		return erros;

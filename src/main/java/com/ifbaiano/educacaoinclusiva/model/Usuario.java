@@ -19,19 +19,13 @@ public class Usuario {
 		this.email = email;
 		this.senha = senha;
 		this.bio = bio;
-		
-
-
 	}
 
 	public String gerarSalt() {
 	    return SenhaUtils.gerarSalt();
 	}
 
-	private String aplicarHash(String senha, String salt) {
-	    return SenhaUtils.gerarHashSenha(senha, salt);
-	}
-
+	
 	public int getId() {
 		return id;
 	}

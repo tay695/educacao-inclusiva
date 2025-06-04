@@ -67,10 +67,10 @@
         <input type="email" id="email" name="email" placeholder="Digite seu email" required>
 
        <label for="areaespecialização ">Qual sua área de especialização</label>
-        <input type="areaespecialização" id="areaespecialização" name="area especialização" placeholder="informe sua especialização" required>
+        <input type="text" id="areaespecialização" name="area especialização" placeholder="informe sua especialização" required>
 
-        <label for="biografia">Biografia</label>
-        <textarea id="biografia" name="biografia" placeholder="Fale sobre você" rows="3" required></textarea>
+        <label for="bio">Biografia</label>
+        <textarea id="bio" name="bio" placeholder="Fale sobre você" rows="3" required></textarea>
 
         <label for="senha">Digite sua senha</label>
         <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
