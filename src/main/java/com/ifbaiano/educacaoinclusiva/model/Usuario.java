@@ -11,7 +11,8 @@ public class Usuario {
 	private String bio;
 	private String avaliacao;
 	private String salt;
-
+	
+	
 	public Usuario(int id, String nome, String email, String senha, String bio) {
 		this.id = id;
 		this.nome = nome;
@@ -19,6 +20,7 @@ public class Usuario {
 		this.senha = senha;
 		this.bio = bio;
 		
+
 
 	}
 
@@ -88,4 +90,6 @@ public class Usuario {
 	public void Postar(String conteudo) {
 		System.out.println("Esperando postagem");
 	}
+
 }
+

@@ -85,3 +85,4 @@ CREATE TABLE Comentario (
     FOREIGN KEY (id_Usuario) REFERENCES Aluno(id_usuario),
     FOREIGN KEY (id_videoaula) REFERENCES Videoaula(id)
 );
+

@@ -19,24 +19,25 @@ public class TutorServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String nome = request.getParameter("nome");
 		String email = request.getParameter("email");
 		String senha = request.getParameter("senha");
 		String bio = request.getParameter("bio");
-		String salt = "saltGeradoAqui";
-		String avaliacao = "";
 		String area = request.getParameter("area");
 
-		Tutor tutor = new Tutor(salt, 0, nome, email, senha, bio);
-		tutor.setAvaliacao(avaliacao);
+		String salt = "saltGeradoAqui";  
+		String senhaComHash = senha;     
+
+		Tutor tutor = new Tutor(salt, 0, nome, email, senhaComHash, bio);
 		tutor.setAreaEspecializacao(area);
 
 		try (Connection conexao = DBConfig.getConnection()) {
 			TutorDAO tutorDAO = new TutorDAO(conexao);
 			tutorDAO.adicionarTutor(tutor);
-			response.sendRedirect(".pages/login.jsp");
+			response.sendRedirect("pages/login.jsp");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("erro", "Erro ao cadastrar tutor: " + e.getMessage());

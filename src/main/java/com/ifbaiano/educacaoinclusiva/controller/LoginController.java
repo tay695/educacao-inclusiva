@@ -47,17 +47,19 @@ public class LoginController {
 
 		System.out.println("Verificando usuário base para email: " + email);
 		Usuario usuarioBase = usuarioDao.buscarEmail(email);
-		if (usuarioBase == null) {
+
+		Usuario usuarioBase1 = usuarioDao.buscarEmail(email);
+		if (usuarioBase1 == null) {
 		    System.out.println("Usuário base não encontrado");
 		    erros.add(new ErroCampo("email", email, "Email não encontrado"));
 		    return erros;
 		}
-		System.out.println("Usuário base encontrado: " + usuarioBase.getRetornaNome());
+		System.out.println("Usuário base encontrado: " + usuarioBase1.getRetornaNome());
 
 		boolean senhaValida = SenhaUtils.verificarSenha(
 		    senhaDigitada,
-		    usuarioBase.getSalt(),
-		    usuarioBase.getSenha()
+		    usuarioBase1.getSalt(),
+		    usuarioBase1.getSenha()
 		);
 		System.out.println("Senha válida? " + senhaValida);
 		if (!senhaValida) {
@@ -80,7 +82,6 @@ public class LoginController {
 		}
 		return erros;
 	}
-
 
 	public Usuario getUsuarioAutenticado() {
 		return usuarioAutenticado;

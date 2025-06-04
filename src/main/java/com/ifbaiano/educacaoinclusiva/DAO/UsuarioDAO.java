@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
-import com.ifbaiano.educacaoinclusiva.utils.SenhaUtils;
 
 public class UsuarioDAO {
 	private Connection conexao;

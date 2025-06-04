@@ -8,10 +8,12 @@ public class Tutor extends Usuario {
     private List<VideoAula> videoaulas;
 
     public Tutor(String areaEspecializacao, int id, String nome, String email, String senha, String bio) {
-        super(id, nome, email, senha, bio);
-        this.areaEspecializacao = areaEspecializacao;
-        this.videoaulas = new ArrayList<>();
+    	super(id, nome, email, senha, bio);
+    	this.areaEspecializacao = areaEspecializacao;
+    	this.videoaulas = new ArrayList<>();
     }
+
+    
 
     public String getAreaEspecializacao() {
         return areaEspecializacao;
