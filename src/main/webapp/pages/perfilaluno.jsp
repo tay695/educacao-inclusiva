@@ -4,33 +4,41 @@
 <%
 Aluno aluno = (Aluno) request.getAttribute("aluno");
 %>
-
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<title>Perfil do Aluno</title>
-<style type="text/css">
-</style>
+    <meta charset="UTF-8">
+    <title>Perfil do Aluno</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/perfilAluno.css" rel="stylesheet"> 
 </head>
 <body>
-<nav class="navbar navbar-expand-lg custom-navbar">
-        <div class="container-fluid">
-            <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="menuLateral" aria-label="Abrir menu lateral">
-                <i class="bi bi-list fs-3"></i>
-            </button>
-            <a href="${pageContext.request.contextPath}/pages/homeTutor.jsp" class="navbar-brand">
-                <img src="${pageContext.request.contextPath}/static/images/logo.png" alt="logo" height="65" />
-            </a>
+
+<div class="container py-5">
+    <div class="profile-card mx-auto">
+        <div class="text-center">
+            <div class="icon-circle mx-auto mb-3">
+                <i class="bi bi-person-fill display-4 text-white"></i>
+            </div>
+            <h3 class="fw-bold"><%= aluno.getRetornaNome() %></h3>
+            <p class="text-muted"><%= aluno.getEmail() %></p>
+            <button class="btn btn-outline-primary btn-sm">Editar perfil</button>
         </div>
-    </nav>
-	<h2>
-		Bem-vindo,
-		<%=aluno.getRetornaNome()%>
-		(Aluno)
-	</h2>
-	<p>
-		Email:
-		<%=aluno.getEmail()%></p>
-	<p>
-		Bio:
-		<%=aluno.getBio()%></p>
+        <hr>
+        <div class="mt-4">
+            <h6 class="text-primary fw-bold">Nome:</h6>
+            <p><%= aluno.getRetornaNome() %> <button class="btn btn-sm btn-outline-secondary">Editar Nome</button></p>
+
+            <h6 class="text-primary fw-bold">Email:</h6>
+            <p><%= aluno.getEmail() %> <button class="btn btn-sm btn-outline-secondary">Editar Email</button></p>
+
+            <h6 class="text-primary fw-bold">Bio:</h6>
+            <p><%= aluno.getBio() != null ? aluno.getBio() : "Nenhuma bio cadastrada." %></p>
+        </div>
+    </div>
+</div>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </body>
+</html>
