@@ -8,10 +8,20 @@ Aluno aluno = (Aluno) request.getAttribute("aluno");
 <html lang="pt-br">
 <head>
 <title>Perfil do Aluno</title>
+<style type="text/css">
+</style>
 </head>
 <body>
-<a class="navbar-brand d-flex align-items-center gap-2" href="${pageContext.request.contextPath} assets/components/header.jsp">
-
+<nav class="navbar navbar-expand-lg custom-navbar">
+        <div class="container-fluid">
+            <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="menuLateral" aria-label="Abrir menu lateral">
+                <i class="bi bi-list fs-3"></i>
+            </button>
+            <a href="${pageContext.request.contextPath}/pages/homeTutor.jsp" class="navbar-brand">
+                <img src="${pageContext.request.contextPath}/static/images/logo.png" alt="logo" height="65" />
+            </a>
+        </div>
+    </nav>
 	<h2>
 		Bem-vindo,
 		<%=aluno.getRetornaNome()%>

@@ -1,0 +1,61 @@
+@charset "UTF-8";
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.cursos-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    padding: 20px;
+    margin: 15px;
+    border-radius: 12px;
+    color: white;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.azul {
+    background-color: #007BFF;
+}
+
+.ciano {
+    background-color: #17A2B8;
+}
+
+.rosa {
+    background-color: #E83E8C;
+}
+
+.marrom {
+    background-color: #795548;
+}
+
+.vinho {
+    background-color: #6f0427;
+}
+
+.azul-escuro {
+    background-color: #343a40;
+}
+
+.inscrever-btn {
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.inscrever-btn:hover {
+    background-color: #f0f0f0;
+}
