@@ -45,23 +45,6 @@ public class LoginController {
 			return erros;
 		}
 
-	
-
-
-		Aluno aluno = alunoDao.buscarAlunoPorEmail(email);
-		System.out.println("Aluno encontrado: " + (aluno != null ? aluno.getRetornaNome() : "nenhum"));
-		if (aluno != null) {
-		    this.usuarioAutenticado = aluno;
-		    return erros;
-		}
-
-		Tutor tutor = tutorDao.buscarTutorPorEmail(email);
-		System.out.println("Tutor encontrado: " + (tutor != null ? tutor.getRetornaNome() : "nenhum"));
-		if (tutor != null) {
-		    this.usuarioAutenticado = tutor;
-		    return erros;
-		}
-		
 		System.out.println("Verificando usuário base para email: " + email);
 
 		Usuario usuarioBase = usuarioDao.buscarEmail(email);
@@ -82,6 +65,23 @@ public class LoginController {
 		    erros.add(new ErroCampo("senha", "", "Senha incorreta"));
 		    return erros;
 		}
+
+
+		Aluno aluno = alunoDao.buscarAlunoPorEmail(email);
+		System.out.println("Aluno encontrado: " + (aluno != null ? aluno.getRetornaNome() : "nenhum"));
+		if (aluno != null) {
+		    this.usuarioAutenticado = aluno;
+		    return erros;
+		}
+
+		Tutor tutor = tutorDao.buscarTutorPorEmail(email);
+		System.out.println("Tutor encontrado: " + (tutor != null ? tutor.getRetornaNome() : "nenhum"));
+		if (tutor != null) {
+		    this.usuarioAutenticado = tutor;
+		    return erros;
+		}
+		
+		
 		return erros;
 	}
 
