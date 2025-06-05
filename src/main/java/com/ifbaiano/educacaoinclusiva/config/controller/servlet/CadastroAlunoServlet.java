@@ -32,7 +32,7 @@ public class CadastroAlunoServlet extends HttpServlet {
 			String salt = SenhaUtils.gerarSalt();
 			String hash = SenhaUtils.gerarHash(senhaDigitada + salt);
 			
-			// Inserir o usuário
+		
 			UsuarioDAO usuarioDAO = new UsuarioDAO(conexao);
 			Usuario usuario = new Usuario(0, nome, email, senhaDigitada, bio);
 			usuario.setSalt(salt);
@@ -42,7 +42,6 @@ public class CadastroAlunoServlet extends HttpServlet {
 				throw new SQLException("Falha ao inserir usuário.");
 			}
 
-			// Inserir aluno com id_usuario correto
 			Aluno aluno = new Aluno(idUsuario, nome, email, senhaDigitada, bio);
 			aluno.setSalt(salt);
 

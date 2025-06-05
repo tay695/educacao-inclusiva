@@ -13,15 +13,19 @@ public class UsuarioDAO {
 	public UsuarioDAO(Connection connection) {
 		this.conexao = connection;
 	}
+	
+	public Connection getConexao() {
+		return this.conexao;
+	}
 
 	public int inserir(Usuario usuario) throws SQLException {
-	    String sql = "INSERT INTO Usuario (nome, email, senha, bio, salt) VALUES (?, ?, ?, ?, ?)";
+	    String sql = "INSERT INTO Usuario (nome, email, senha, salt,bio ) VALUES (?, ?, ?, ?, ?)";
 	    try (PreparedStatement stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 	        stmt.setString(1, usuario.getRetornaNome());
 	        stmt.setString(2, usuario.getEmail());
 	        stmt.setString(3, usuario.getSenha());
-	        stmt.setString(4, usuario.getBio());
-	        stmt.setString(5, usuario.getSalt());
+	        stmt.setString(4, usuario.getSalt());
+	        stmt.setString(5, usuario.getBio());
 
 	        int affectedRows = stmt.executeUpdate();
 
@@ -40,7 +44,6 @@ public class UsuarioDAO {
 	    }
 	}
 
-
 	public Usuario buscarEmail(String email) throws SQLException {
 		String sql = "SELECT * from Usuario  WHERE email = ?";
 
@@ -48,8 +51,7 @@ public class UsuarioDAO {
 			stmt.setString(1, email);
 			ResultSet resul = stmt.executeQuery();
 			if (resul.next()) {
-				Usuario usuario = new Usuario(resul.getInt("id"), resul.getString("nome"), resul.getString("email"),
-						resul.getString("senha"), resul.getString("bio"));
+				Usuario usuario = new Usuario(resul.getInt("id"), resul.getString("nome"), resul.getString("email"),resul.getString("senha"), resul.getString("bio"));
 				usuario.setSalt(resul.getString("salt"));
 				return usuario;
 			}
@@ -63,8 +65,7 @@ public class UsuarioDAO {
 			stmt.setInt(1, id);
 			ResultSet resul = stmt.executeQuery();
 			if (resul.next()) {
-				Usuario usuario = new Usuario(resul.getInt("id"), resul.getString("nome"), resul.getString("email"),
-						resul.getString("senha"), resul.getString("bio"));
+				Usuario usuario = new Usuario(resul.getInt("id"), resul.getString("nome"), resul.getString("email"),resul.getString("senha"), resul.getString("bio"));
 				usuario.setSalt(resul.getString("salt"));
 				return usuario;
 			}
@@ -81,9 +82,7 @@ public class UsuarioDAO {
 		}
 	}
 
-	public Connection getConexao() {
-		return this.conexao;
-	}
+	
 
 	public void atualizarUsuario(Usuario usuario) throws SQLException {
 		String sql = "UPDATE Usuario SET nome = ?, email = ?, senha = ?, bio = ?, salt = ? WHERE id = ?";

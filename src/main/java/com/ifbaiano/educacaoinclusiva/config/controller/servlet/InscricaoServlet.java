@@ -2,13 +2,13 @@ package com.ifbaiano.educacaoinclusiva.config.controller.servlet;
 
 import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
+import com.ifbaiano.educacaoinclusiva.model.dto.SessionDTO;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -19,10 +19,14 @@ import java.time.LocalDate;
 @WebServlet("/inscricao")
 public class InscricaoServlet extends HttpServlet {
 
-    @Override
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        
-        // Pega o curso escolhido pelo id enviado no formulário - Lembrando q a ideia é de que tenha uma lista de cursos, e o usuario só precisa clicar para se inscrever.
         String cursoIdStr = request.getParameter("idCurso");
         if (cursoIdStr == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Curso não especificado.");
@@ -37,9 +41,13 @@ public class InscricaoServlet extends HttpServlet {
             return;
         }
 
-	HttpSession session = request.getSession(false);
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-	    
+        SessionDTO sessionDTO = (SessionDTO) request.getSession().getAttribute("usuarioLogado");
+        if (sessionDTO == null) {
+            response.sendRedirect("pages/login.jsp");
+            return;
+        }
+
+        Usuario usuario = sessionDTO.getUsuario();
         if (usuario == null) {
             response.sendRedirect("pages/login.jsp");
             return;
@@ -50,20 +58,20 @@ public class InscricaoServlet extends HttpServlet {
             try (PreparedStatement stmt = con.prepareStatement(sql)) {
                 stmt.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
                 stmt.setString(2, "ativo");
-                stmt.setNull(3, java.sql.Types.DECIMAL); // nota_final começa null
-				
-                stmt.setInt(5, idCurso);
+                stmt.setNull(3, java.sql.Types.DECIMAL); // nota_final começa como null
+                stmt.setInt(4, usuario.getId());         // ID do usuário logado
+                stmt.setInt(5, idCurso);                 // ID do curso
 
                 stmt.executeUpdate();
             }
         } catch (SQLException e) {
-            // Pode tratar duplicidade aqui (aluno já inscrito)
+            // Aqui você pode verificar erro de chave duplicada (usuário já inscrito)
             e.printStackTrace();
             request.setAttribute("erro", "Erro ao realizar inscrição: " + e.getMessage());
-            request.getRequestDispatcher("cursos.jsp").forward(request, response);
+            request.getRequestDispatcher("/pages/cursos.jsp").forward(request, response);
             return;
         }
 
-        response.sendRedirect("pages/cursos.jsp");
+        response.sendRedirect(request.getContextPath() + "/pages/cursos.jsp");
     }
 }

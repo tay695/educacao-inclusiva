@@ -33,7 +33,7 @@ public class CadastroTutorServlet extends HttpServlet {
         try (Connection conexao = DBConfig.criarConexao()) {
 
             String salt = SenhaUtils.gerarSalt();
-            String senhaHasheada = SenhaUtils.gerarHashComSalt(senhaDigitada, salt);  // Aqui usa salt!
+            String senhaHasheada = SenhaUtils.gerarHashComSalt(senhaDigitada, salt);  
 
             Usuario usuario = new Usuario(0, nome, email, senhaHasheada, bio);
             usuario.setSalt(salt);
@@ -47,10 +47,10 @@ public class CadastroTutorServlet extends HttpServlet {
                 throw new SQLException("Falha ao inserir usuário.");
             }
 
-            Tutor tutor1 = new Tutor(areaEspecializacao, idUsuario, nome, email, senhaHasheada, bio);
-            tutor1.setSalt(salt);
+            Tutor tutor = new Tutor(areaEspecializacao, idUsuario, nome, email, senhaHasheada, bio);
+            tutor.setSalt(salt);
             TutorDAO tutorDAO = new TutorDAO(conexao);
-            tutorDAO.adicionarTutor(tutor1);
+            tutorDAO.adicionarTutor(tutor);
 
             System.out.println("Cadastro realizado para: " + email);
             response.sendRedirect("pages/login.jsp");

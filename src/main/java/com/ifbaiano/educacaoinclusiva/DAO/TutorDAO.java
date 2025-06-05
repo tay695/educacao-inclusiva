@@ -18,10 +18,12 @@ public class TutorDAO {
 	}
 
 	public void adicionarTutor(Tutor tutor) throws SQLException {
+		int idGerado = usuarioDAO.inserir(tutor);
+		tutor.setId(idGerado);
 	    String sqlTutor = "INSERT INTO Tutor(area_especializacao, id_usuario) VALUES (?, ?)";
 	    try (PreparedStatement stmtTutor = conexao.prepareStatement(sqlTutor)) {
 	        stmtTutor.setString(1, tutor.getAreaEspecializacao());
-	        stmtTutor.setInt(2, tutor.getId()); 
+	        stmtTutor.setInt(2, idGerado); 
 	        stmtTutor.executeUpdate();
 	    }
 	    System.out.println("Tutor inserido com sucesso.");

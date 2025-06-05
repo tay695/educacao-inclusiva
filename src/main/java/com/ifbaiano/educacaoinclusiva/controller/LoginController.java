@@ -16,7 +16,6 @@ import com.ifbaino.educacaoinclusiva.utils.validation.ErroCampo;
 import com.ifbaino.educacaoinclusiva.utils.validation.Validador;
 
 public class LoginController {
-
 	private final UsuarioDAO usuarioDao;
 	private final AlunoDAO alunoDao;
 	private final TutorDAO tutorDao;
@@ -46,26 +45,24 @@ public class LoginController {
 		}
 
 		System.out.println("Verificando usuário base para email: " + email);
-
-		Usuario usuarioBase = usuarioDao.buscarEmail(email);
-		if (usuarioBase == null) {
+		Usuario usuario = usuarioDao.buscarEmail(email);
+		if (usuario == null) {
 		    System.out.println("Usuário base não encontrado");
 		    erros.add(new ErroCampo("email", email, "Email não encontrado"));
 		    return erros;
 		}
-		System.out.println("Usuário base encontrado: " + usuarioBase.getRetornaNome());
+		System.out.println("Usuário base encontrado: " + usuario.getRetornaNome());
 
 		boolean senhaValida = SenhaUtils.verificarSenha(
 		    senhaDigitada,
-		    usuarioBase.getSalt(),
-		    usuarioBase.getSenha()
+		    usuario.getSalt(),
+		    usuario.getSenha()
 		);
 		System.out.println("Senha válida? " + senhaValida);
 		if (!senhaValida) {
 		    erros.add(new ErroCampo("senha", "", "Senha incorreta"));
 		    return erros;
 		}
-
 
 		Aluno aluno = alunoDao.buscarAlunoPorEmail(email);
 		System.out.println("Aluno encontrado: " + (aluno != null ? aluno.getRetornaNome() : "nenhum"));

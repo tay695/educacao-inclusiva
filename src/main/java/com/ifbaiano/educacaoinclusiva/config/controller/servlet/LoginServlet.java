@@ -6,7 +6,7 @@ import com.ifbaiano.educacaoinclusiva.model.Aluno;
 import com.ifbaiano.educacaoinclusiva.model.Tutor;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
 import com.ifbaiano.educacaoinclusiva.model.dto.LoginDTO;
-import com.ifbaino.educacaoinclusiva.utils.validation.ErroCampo;
+import com.ifbaiano.educacaoinclusiva.model.dto.SessionDTO;
 import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 
 import jakarta.servlet.ServletException;
@@ -16,7 +16,6 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -40,6 +39,7 @@ public class LoginServlet extends HttpServlet {
 				conexao.close();
 			}
 		} catch (SQLException e) {
+			// Idealmente logar o erro com Logger
 			e.printStackTrace();
 		}
 	}
@@ -53,27 +53,28 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String senha = request.getParameter("senha");
+
+		if (email == null || email.trim().isEmpty() || senha == null || senha.trim().isEmpty()) {
+			request.setAttribute("erro", "E-mail e senha são obrigatórios.");
+			request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
+			return;
+		}
+
 		LoginDTO loginDTO = new LoginDTO(email, senha);
 
 		try {
-			List<ErroCampo> erros = loginController.autenticar(loginDTO);
-
-			if (!erros.isEmpty()) {
-				request.setAttribute("erros", erros);
-				request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
-				return;
-			}
-
+			loginController.autenticar(loginDTO);
 			Usuario usuarioLogado = loginController.getUsuarioAutenticado();
 
 			if (usuarioLogado == null) {
-				request.setAttribute("erro", "Usuário não encontrado.");
+				request.setAttribute("erro", "E-mail ou senha inválidos.");
 				request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 				return;
 			}
 
 			HttpSession session = request.getSession();
-			session.setAttribute("usuarioLogado", usuarioLogado);
+			SessionDTO sessionDTO = new SessionDTO(usuarioLogado);
+			session.setAttribute("usuarioLogado", sessionDTO);
 			System.out.println("Sessão criada para: " + usuarioLogado.getEmail() + ", Sessão ID: " + session.getId());
 
 			if (usuarioLogado instanceof Tutor) {
@@ -81,14 +82,14 @@ public class LoginServlet extends HttpServlet {
 			} else if (usuarioLogado instanceof Aluno) {
 				response.sendRedirect(request.getContextPath() + "/pages/homeAluno.jsp");
 			} else {
-				
 				request.setAttribute("erro", "Tipo de usuário desconhecido.");
 				request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
-			response.sendRedirect(request.getContextPath() + "/login?erro=1");
+			e.printStackTrace(); 
+			request.setAttribute("erro", "Erro interno. Tente novamente mais tarde.");
+			request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-
+	
 package com.ifbaiano.educacaoinclusiva.DAO;
 
 import java.sql.Connection;
@@ -20,18 +20,17 @@ public class AlunoDAO {
 
 	public void inserirAluno(Aluno aluno) throws SQLException {
 		int idGerado = usuarioDAO.inserir(aluno);
-		if (idGerado != -1) {
 			aluno.setId(idGerado);
 			String sql = "INSERT INTO Aluno (id_usuario) VALUES (?)";
 			try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
 				stmt.setInt(1, idGerado);
 				stmt.executeUpdate();
-			}
-
-		} else {
+				conexao.commit();
+				
+			}	
 			throw new SQLException("Houve um erro ao inserir o novo usuário aluno");
 		}
-	}
+	
 
 	public Aluno buscarAlunoPorEmail(String email) throws SQLException {
 		Usuario usuario = usuarioDAO.buscarEmail(email);
@@ -43,8 +42,7 @@ public class AlunoDAO {
 			stmt.setInt(1, usuario.getId());
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				Aluno aluno = new Aluno(usuario.getId(), usuario.getRetornaNome(), usuario.getEmail(),
-						usuario.getSenha(), usuario.getBio());
+				Aluno aluno = new Aluno(usuario.getId(), usuario.getRetornaNome(), usuario.getEmail(), usuario.getSenha(), usuario.getBio());
 				aluno.setSalt(usuario.getSalt());
 				return aluno;
 			}
@@ -58,14 +56,12 @@ public class AlunoDAO {
 			return null;
 		}
 
-		// Verifica se é aluno
 		String sqlAluno = "SELECT id_usuario FROM Aluno WHERE id_usuario = ?";
 		try (PreparedStatement stmt = conexao.prepareStatement(sqlAluno)) {
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				Aluno aluno = new Aluno(usuario.getId(), usuario.getRetornaNome(), usuario.getEmail(),
-						usuario.getSenha(), usuario.getBio());
+				Aluno aluno = new Aluno(usuario.getId(), usuario.getRetornaNome(), usuario.getEmail(),usuario.getSenha(), usuario.getBio());
 				aluno.setSalt(usuario.getSalt());
 				return aluno;
 			}
