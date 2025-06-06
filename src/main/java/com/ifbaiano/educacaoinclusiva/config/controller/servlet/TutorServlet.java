@@ -8,6 +8,7 @@ import com.ifbaiano.educacaoinclusiva.DAO.TutorDAO;
 import com.ifbaiano.educacaoinclusiva.DAO.UsuarioDAO;
 import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 import com.ifbaiano.educacaoinclusiva.model.Tutor;
+import com.ifbaiano.educacaoinclusiva.model.enums.TipoDeUsuario;
 import com.ifbaiano.educacaoinclusiva.utils.SenhaUtils;
 
 import jakarta.servlet.ServletException;
@@ -32,7 +33,7 @@ public class TutorServlet extends HttpServlet {
 			String salt = SenhaUtils.gerarSalt();
 			String senhaHasheada = SenhaUtils.gerarHash(senhaDigitada);
 
-			Tutor tutor = new Tutor(area,0, nome, email, senhaHasheada, bio);
+			Tutor tutor = new Tutor(area,0, nome, email, senhaHasheada, bio, TipoDeUsuario.tutor.name());
 			tutor.setSalt(salt);
 
 			UsuarioDAO usuarioDAO = new UsuarioDAO(conexao);

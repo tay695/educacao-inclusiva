@@ -53,11 +53,8 @@ public class LoginController {
 		}
 		System.out.println("Usuário base encontrado: " + usuario.getRetornaNome());
 
-		boolean senhaValida = SenhaUtils.verificarSenha(
-		    senhaDigitada,
-		    usuario.getSalt(),
-		    usuario.getSenha()
-		);
+		boolean senhaValida = usuario.getSenha().equals(senhaDigitada);
+		
 		System.out.println("Senha válida? " + senhaValida);
 		if (!senhaValida) {
 		    erros.add(new ErroCampo("senha", "", "Senha incorreta"));

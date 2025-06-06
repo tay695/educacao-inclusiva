@@ -7,8 +7,8 @@ public class Aluno extends Usuario {
 	private List<Curso> cursosInscritos = new ArrayList<>();
 	private List<Curso> favoritos = new ArrayList<>();
 
-	public Aluno(int id, String nome, String email, String senha, String bio) {
-		super(id, nome, email, senha, bio);
+	public Aluno(int id, String nome, String email, String senha, String bio, String tipoUsuario) {
+		super(id, nome, email, senha, bio, tipoUsuario);
 	}
 
 	public void adicionarCurso(Curso curso) {

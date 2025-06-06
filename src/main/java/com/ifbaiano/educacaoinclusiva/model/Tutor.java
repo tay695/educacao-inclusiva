@@ -7,8 +7,8 @@ public class Tutor extends Usuario {
     private String areaEspecializacao;
     private List<VideoAula> videoaulas;
 
-    public Tutor(String areaEspecializacao, int id, String nome, String email, String senha, String bio) {
-    	super(id, nome, email, senha, bio);
+    public Tutor(String areaEspecializacao, int id, String nome, String email, String senha, String bio,String tipoUsuario) {
+    	super(id, nome, email, senha, bio, tipoUsuario);
     	this.areaEspecializacao = areaEspecializacao;
     	this.videoaulas = new ArrayList<>();
     }

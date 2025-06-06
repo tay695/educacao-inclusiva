@@ -15,6 +15,7 @@ import com.ifbaiano.educacaoinclusiva.DAO.UsuarioDAO;
 import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 import com.ifbaiano.educacaoinclusiva.model.Tutor;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
+import com.ifbaiano.educacaoinclusiva.model.enums.TipoDeUsuario;
 import com.ifbaiano.educacaoinclusiva.utils.SenhaUtils;
 
 @WebServlet("/cadastroTutor")
@@ -35,7 +36,7 @@ public class CadastroTutorServlet extends HttpServlet {
             String salt = SenhaUtils.gerarSalt();
             String senhaHasheada = SenhaUtils.gerarHashComSalt(senhaDigitada, salt);  
 
-            Usuario usuario = new Usuario(0, nome, email, senhaHasheada, bio);
+            Usuario usuario = new Usuario(0, nome, email, senhaHasheada, bio, TipoDeUsuario.tutor.toString());
             usuario.setSalt(salt);
             UsuarioDAO usuarioDAO = new UsuarioDAO(conexao);
             
@@ -47,7 +48,7 @@ public class CadastroTutorServlet extends HttpServlet {
                 throw new SQLException("Falha ao inserir usuário.");
             }
 
-            Tutor tutor = new Tutor(areaEspecializacao, idUsuario, nome, email, senhaHasheada, bio);
+            Tutor tutor = new Tutor(areaEspecializacao, idUsuario, nome, email, senhaHasheada, bio, TipoDeUsuario.tutor.toString());
             tutor.setSalt(salt);
             TutorDAO tutorDAO = new TutorDAO(conexao);
             tutorDAO.adicionarTutor(tutor);

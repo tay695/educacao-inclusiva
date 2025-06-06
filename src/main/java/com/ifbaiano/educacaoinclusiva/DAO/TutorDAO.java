@@ -18,6 +18,7 @@ public class TutorDAO {
 	}
 
 	public void adicionarTutor(Tutor tutor) throws SQLException {
+		conexao.setAutoCommit(false);
 		int idGerado = usuarioDAO.inserir(tutor);
 		tutor.setId(idGerado);
 	    String sqlTutor = "INSERT INTO Tutor(area_especializacao, id_usuario) VALUES (?, ?)";
@@ -27,6 +28,7 @@ public class TutorDAO {
 	        stmtTutor.executeUpdate();
 	    }
 	    System.out.println("Tutor inserido com sucesso.");
+	    conexao.commit();
 	}
 
 
@@ -87,7 +89,7 @@ public class TutorDAO {
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
 				Tutor tutor = new Tutor(rs.getString("area_especializacao"), usuario.getId(), usuario.getRetornaNome(),
-						usuario.getEmail(), usuario.getSenha(), usuario.getBio());
+						usuario.getEmail(), usuario.getSenha(), usuario.getBio(), usuario.getTipoUsuario());
 				tutor.setSalt(usuario.getSalt());
 				return tutor;
 			}

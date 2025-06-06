@@ -37,10 +37,10 @@ public class DBConfig {
 			throw new RuntimeException("Erro ao carregar arquivo de configuração", e);
 		}
 
-		String user = properties.getProperty("db.username");
+		String user = properties.getProperty("db.user");
 		String password = properties.getProperty("db.password");
 		String url = properties.getProperty("db.url");
-
+		System.out.println(user + password +  url);
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conexao = DriverManager.getConnection(url, user, password);

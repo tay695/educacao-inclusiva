@@ -15,6 +15,7 @@ import com.ifbaiano.educacaoinclusiva.DAO.UsuarioDAO;
 import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 import com.ifbaiano.educacaoinclusiva.model.Aluno;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
+import com.ifbaiano.educacaoinclusiva.model.enums.TipoDeUsuario;
 import com.ifbaiano.educacaoinclusiva.utils.SenhaUtils;
 
 @WebServlet("/cadastroAluno")
@@ -27,14 +28,16 @@ public class CadastroAlunoServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String senhaDigitada = request.getParameter("senha");
 		String bio = request.getParameter("bio");
-
+		
+		System.out.println(nome);
+		
 		try (Connection conexao = DBConfig.criarConexao()) {
 			String salt = SenhaUtils.gerarSalt();
 			String hash = SenhaUtils.gerarHash(senhaDigitada + salt);
 			
 		
 			UsuarioDAO usuarioDAO = new UsuarioDAO(conexao);
-			Usuario usuario = new Usuario(0, nome, email, senhaDigitada, bio);
+			Usuario usuario = new Usuario(0, nome, email, senhaDigitada, bio, TipoDeUsuario.aluno.toString());
 			usuario.setSalt(salt);
 
 			int idUsuario = usuarioDAO.inserir(usuario);
@@ -42,7 +45,7 @@ public class CadastroAlunoServlet extends HttpServlet {
 				throw new SQLException("Falha ao inserir usuário.");
 			}
 
-			Aluno aluno = new Aluno(idUsuario, nome, email, senhaDigitada, bio);
+			Aluno aluno = new Aluno(idUsuario, nome, email, senhaDigitada, bio, TipoDeUsuario.aluno.toString());
 			aluno.setSalt(salt);
 
 			AlunoDAO alunoDAO = new AlunoDAO(conexao);

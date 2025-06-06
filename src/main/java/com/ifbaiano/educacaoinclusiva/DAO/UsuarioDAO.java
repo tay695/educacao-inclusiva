@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.ifbaiano.educacaoinclusiva.config.DBConfig;
+import com.ifbaiano.educacaoinclusiva.model.Aluno;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
 
 public class UsuarioDAO {
@@ -19,13 +21,41 @@ public class UsuarioDAO {
 	}
 
 	public int inserir(Usuario usuario) throws SQLException {
-	    String sql = "INSERT INTO Usuario (nome, email, senha, salt,bio ) VALUES (?, ?, ?, ?, ?)";
+	    String sql = "INSERT INTO Usuario (nome, email, senha, salt,bio,tipo_usuario ) VALUES (?, ?, ?, ?, ?,?)";
 	    try (PreparedStatement stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+	        
+	    	stmt.setString(1, usuario.getRetornaNome());
+	        stmt.setString(2, usuario.getEmail());
+	        stmt.setString(3, usuario.getSenha());
+	        stmt.setString(4, usuario.getSalt());
+	        stmt.setString(5, usuario.getBio());
+	        stmt.setString(6,usuario.getTipoUsuario());
+
+	        int affectedRows = stmt.executeUpdate();
+
+	        if (affectedRows == 0) {
+	            throw new SQLException("Falha ao inserir usuário, nenhuma linha afetada.");
+	        }
+
+	        try (ResultSet rs = stmt.getGeneratedKeys()) {
+	            if (rs.next()) {
+	                return rs.getInt(1);
+	            } else {
+	                throw new SQLException("Falha ao obter ID gerado.");
+	            }
+	        }
+	    }
+	}
+	
+	public int inserirAluno(Aluno usuario) throws SQLException {
+	    String sql = "INSERT INTO Usuario (nome, email, senha, salt,bio,tipo_usuario ) VALUES (?, ?, ?, ?, ?,?)";
+	    try ( PreparedStatement stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 	        stmt.setString(1, usuario.getRetornaNome());
 	        stmt.setString(2, usuario.getEmail());
 	        stmt.setString(3, usuario.getSenha());
 	        stmt.setString(4, usuario.getSalt());
 	        stmt.setString(5, usuario.getBio());
+	        stmt.setString(6,usuario.getTipoUsuario());
 
 	        int affectedRows = stmt.executeUpdate();
 
@@ -51,7 +81,7 @@ public class UsuarioDAO {
 			stmt.setString(1, email);
 			ResultSet resul = stmt.executeQuery();
 			if (resul.next()) {
-				Usuario usuario = new Usuario(resul.getInt("id"), resul.getString("nome"), resul.getString("email"),resul.getString("senha"), resul.getString("bio"));
+				Usuario usuario = new Usuario(resul.getInt("id"), resul.getString("nome"), resul.getString("email"),resul.getString("senha"), resul.getString("bio"), resul.getString("tipo_usuario"));
 				usuario.setSalt(resul.getString("salt"));
 				return usuario;
 			}
@@ -65,7 +95,7 @@ public class UsuarioDAO {
 			stmt.setInt(1, id);
 			ResultSet resul = stmt.executeQuery();
 			if (resul.next()) {
-				Usuario usuario = new Usuario(resul.getInt("id"), resul.getString("nome"), resul.getString("email"),resul.getString("senha"), resul.getString("bio"));
+				Usuario usuario = new Usuario(resul.getInt("id"), resul.getString("nome"), resul.getString("email"),resul.getString("senha"), resul.getString("bio"),  resul.getString("tipo_usuario"));
 				usuario.setSalt(resul.getString("salt"));
 				return usuario;
 			}

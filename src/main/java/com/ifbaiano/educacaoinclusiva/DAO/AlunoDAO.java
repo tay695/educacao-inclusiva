@@ -37,12 +37,16 @@ public class AlunoDAO {
 		if (usuario == null) {
 			return null;
 		}
-		String sqlAluno = "SELECT id_usuario FROM Aluno WHERE id_usuario = ?";
+		String sqlAluno = """
+				SELECT * FROM Aluno 
+				JOIN Usuario on Usuario.id = Aluno.id_usuario
+				WHERE Usuario.email =  ?
+				""";
 		try (PreparedStatement stmt = conexao.prepareStatement(sqlAluno)) {
 			stmt.setInt(1, usuario.getId());
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				Aluno aluno = new Aluno(usuario.getId(), usuario.getRetornaNome(), usuario.getEmail(), usuario.getSenha(), usuario.getBio());
+				Aluno aluno = new Aluno(usuario.getId(), usuario.getRetornaNome(), usuario.getEmail(), usuario.getSenha(), usuario.getBio(), usuario.getTipoUsuario());
 				aluno.setSalt(usuario.getSalt());
 				return aluno;
 			}
@@ -61,7 +65,7 @@ public class AlunoDAO {
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				Aluno aluno = new Aluno(usuario.getId(), usuario.getRetornaNome(), usuario.getEmail(),usuario.getSenha(), usuario.getBio());
+				Aluno aluno = new Aluno(usuario.getId(), usuario.getRetornaNome(), usuario.getEmail(),usuario.getSenha(), usuario.getBio(), usuario.getTipoUsuario());
 				aluno.setSalt(usuario.getSalt());
 				return aluno;
 			}
