@@ -11,7 +11,6 @@ import com.ifbaiano.educacaoinclusiva.model.Aluno;
 import com.ifbaiano.educacaoinclusiva.model.Tutor;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
 import com.ifbaiano.educacaoinclusiva.model.dto.LoginDTO;
-import com.ifbaiano.educacaoinclusiva.utils.SenhaUtils;
 import com.ifbaino.educacaoinclusiva.utils.validation.ErroCampo;
 import com.ifbaino.educacaoinclusiva.utils.validation.Validador;
 
@@ -61,7 +60,7 @@ public class LoginController {
 		    return erros;
 		}
 
-		Aluno aluno = alunoDao.buscarAlunoPorEmail(email);
+		Aluno aluno = alunoDao.buscarEmail(email);
 		System.out.println("Aluno encontrado: " + (aluno != null ? aluno.getRetornaNome() : "nenhum"));
 		if (aluno != null) {
 		    this.usuarioAutenticado = aluno;

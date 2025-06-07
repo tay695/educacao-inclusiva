@@ -8,6 +8,7 @@ import com.ifbaiano.educacaoinclusiva.model.Usuario;
 import com.ifbaiano.educacaoinclusiva.model.dto.LoginDTO;
 import com.ifbaiano.educacaoinclusiva.model.dto.SessionDTO;
 import com.ifbaiano.educacaoinclusiva.config.DBConfig;
+import com.ifbaino.educacaoinclusiva.utils.validation.ErroCampo;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -27,8 +29,7 @@ public class LoginServlet extends HttpServlet {
 	public void init() throws ServletException {
 		super.init();
 		conexao = DBConfig.criarConexao();
-		UsuarioDAO usuarioDAO = new UsuarioDAO(conexao);
-		loginController = new LoginController(usuarioDAO);
+		loginController = new LoginController(new UsuarioDAO(conexao));
 	}
 
 	@Override
@@ -39,42 +40,37 @@ public class LoginServlet extends HttpServlet {
 				conexao.close();
 			}
 		} catch (SQLException e) {
-			// Idealmente logar o erro com Logger
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String email = request.getParameter("email");
 		String senha = request.getParameter("senha");
-
-		if (email == null || email.trim().isEmpty() || senha == null || senha.trim().isEmpty()) {
-			request.setAttribute("erro", "E-mail e senha são obrigatórios.");
-			request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
-			return;
-		}
 
 		LoginDTO loginDTO = new LoginDTO(email, senha);
 
 		try {
-			loginController.autenticar(loginDTO);
+			List<ErroCampo> erros = loginController.autenticar(loginDTO);
 			Usuario usuarioLogado = loginController.getUsuarioAutenticado();
 
-			if (usuarioLogado == null) {
+			if (!erros.isEmpty() || usuarioLogado == null) {
 				request.setAttribute("erro", "E-mail ou senha inválidos.");
 				request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 				return;
 			}
 
 			HttpSession session = request.getSession();
-			SessionDTO sessionDTO = new SessionDTO(usuarioLogado);
-			session.setAttribute("usuarioLogado", sessionDTO);
+			session.setAttribute("usuarioLogado", new SessionDTO(usuarioLogado));
 			System.out.println("Sessão criada para: " + usuarioLogado.getEmail() + ", Sessão ID: " + session.getId());
 
 			if (usuarioLogado instanceof Tutor) {
@@ -88,7 +84,7 @@ public class LoginServlet extends HttpServlet {
 
 		} catch (SQLException e) {
 			e.printStackTrace(); 
-			request.setAttribute("erro", "Erro interno. Tente novamente mais tarde.");
+			request.setAttribute("erro", "Erro interno ao tentar realizar login.");
 			request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 		}
 	}

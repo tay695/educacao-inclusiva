@@ -8,16 +8,16 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DBConfig {
-	private static DBConfig conexao;
+	private static Connection connection;
 
 	private DBConfig() {
 	}
 
-	public static DBConfig getConexao() {
-		if (conexao == null) {
-			conexao = new DBConfig();
+	public static Connection getConnection() {
+		if (connection == null) {
+			connection = (Connection) new DBConfig();
 		}
-		return conexao;
+		return connection;
 	}
 
 	public static Connection criarConexao() {

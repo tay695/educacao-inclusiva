@@ -57,7 +57,7 @@
 <body>
 
 <div class="login-container">
-    <form action="${pageContext.request.contextPath}/cadastroAluno" method="post" class="login-form">
+    <form action="${pageContext.request.contextPath}/cadastroTutor" method="post" class="login-form">
         <h2>Cadastro</h2>
 
         <label for="nome">Nome</label>
@@ -66,8 +66,8 @@
         <label for="email">Email</label>
         <input type="email" id="email" name="email" placeholder="Digite seu email" required>
 
-       <label for="areaespecialização ">Qual sua área de especialização</label>
-        <input type="text" id="areaespecialização" name="area especialização" placeholder="informe sua especialização" required>
+       <label for="areaEspecializacao ">Qual sua área de especialização</label>
+        <input type="text" id="areaEspecializacao" name="areaEspecializacao" placeholder="informe sua especialização" required>
 
         <label for="bio">Biografia</label>
         <textarea id="bio" name="bio" placeholder="Fale sobre você" rows="3" required></textarea>

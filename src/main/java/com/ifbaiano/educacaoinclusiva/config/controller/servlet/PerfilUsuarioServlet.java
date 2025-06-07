@@ -52,7 +52,7 @@ public class PerfilUsuarioServlet extends HttpServlet {
 
         try {
             if (tipo == TipoDeUsuario.aluno) {
-                Aluno aluno = alunoDAO.buscarAlunoPorEmail(email);
+                Aluno aluno = alunoDAO.buscarEmail(email);
                 if (aluno != null) {
                     request.setAttribute("usuario", aluno);
                     request.getRequestDispatcher("/pages/perfil/aluno.jsp").forward(request, response);

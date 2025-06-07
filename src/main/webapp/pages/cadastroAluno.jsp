@@ -116,8 +116,8 @@
         </div>
 
         <div class="form-group">
-            <label for="biografia">Biografia</label>
-            <textarea id="biografia" name="biografia" placeholder="Fale sobre você" rows="3" required></textarea>
+            <label for="bio">Biografia</label>
+            <textarea id="bio name="bio" placeholder="Fale sobre você" rows="3" required></textarea>
         </div>
 
         <div class="form-group">

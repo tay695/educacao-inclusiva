@@ -24,7 +24,6 @@ public class PostagemDAO {
 	public PostagemDAO(){
 		conexao = DBConfig.criarConexao();
 	}
-		//insere uma nova postagem no banco de dados (tanto para curso quanto para modulo)
 	public void inserirPostagem(Postagem postagem) throws SQLException{
 		String sql = "INSERT INTO Postagem (titulo, autor, conteudo, dataHora, curso_id, modulo_id) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -51,8 +50,7 @@ public class PostagemDAO {
 			stmt.executeUpdate();
 		}
 	}
-	//lista todas as postagens de curso ou módulo
-	public List<Postagem> listarTodas() throws SQLException{
+		public List<Postagem> listarTodas() throws SQLException{
 		List<Postagem> postagens = new ArrayList<>();
 		String sql = "SELECT * FROM Postagem";
 

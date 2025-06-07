@@ -1,5 +1,6 @@
 package com.ifbaiano.educacaoinclusiva.config.controller.servlet;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,15 +17,18 @@ import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 import com.ifbaiano.educacaoinclusiva.model.Tutor;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
 import com.ifbaiano.educacaoinclusiva.model.enums.TipoDeUsuario;
-import com.ifbaiano.educacaoinclusiva.utils.SenhaUtils;
 
 @WebServlet("/cadastroTutor")
 public class CadastroTutorServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+		response.getWriter().append("Olá mundo").append(request.getContextPath());
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/cadastroTutor.jsp");
+		dispatcher.forward(request, response);
+	}
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nome = request.getParameter("nome");
         String email = request.getParameter("email");
         String senhaDigitada = request.getParameter("senha");
@@ -32,30 +36,22 @@ public class CadastroTutorServlet extends HttpServlet {
         String areaEspecializacao = request.getParameter("area_especializacao");
 
         try (Connection conexao = DBConfig.criarConexao()) {
+                        Usuario usuario = new Usuario(0, nome, email, senhaDigitada, bio, TipoDeUsuario.tutor.toString());
 
-            String salt = SenhaUtils.gerarSalt();
-            String senhaHasheada = SenhaUtils.gerarHashComSalt(senhaDigitada, salt);  
-
-            Usuario usuario = new Usuario(0, nome, email, senhaHasheada, bio, TipoDeUsuario.tutor.toString());
-            usuario.setSalt(salt);
             UsuarioDAO usuarioDAO = new UsuarioDAO(conexao);
-            
-            System.out.println("Chamando UsuarioDAO.inserir...");
-            int idUsuario = usuarioDAO.inserir(usuario); 
-            System.out.println("ID retornado do insert: " + idUsuario);
+            int idUsuario = usuarioDAO.inserir(usuario);
 
             if (idUsuario == -1) {
                 throw new SQLException("Falha ao inserir usuário.");
             }
 
-            Tutor tutor = new Tutor(areaEspecializacao, idUsuario, nome, email, senhaHasheada, bio, TipoDeUsuario.tutor.toString());
-            tutor.setSalt(salt);
+            Tutor tutor = new Tutor(areaEspecializacao, idUsuario, nome, email,senhaDigitada, bio, TipoDeUsuario.tutor.toString());
+
             TutorDAO tutorDAO = new TutorDAO(conexao);
-            tutorDAO.adicionarTutor(tutor);
+            tutorDAO.inserirTutor(tutor); 
 
             System.out.println("Cadastro realizado para: " + email);
             response.sendRedirect("pages/login.jsp");
-        
 
         } catch (SQLException e) {
             e.printStackTrace();

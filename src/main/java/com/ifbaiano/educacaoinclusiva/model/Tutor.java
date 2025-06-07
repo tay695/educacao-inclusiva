@@ -13,7 +13,11 @@ public class Tutor extends Usuario {
     	this.videoaulas = new ArrayList<>();
     }
 
-    
+    public Tutor(String areaEspecializacao, String nome, String email, String senha, String bio,String tipoUsuario) {
+    	super( nome, email, senha, bio, tipoUsuario);
+    	this.areaEspecializacao = areaEspecializacao;
+    }
+
 
     public String getAreaEspecializacao() {
         return areaEspecializacao;

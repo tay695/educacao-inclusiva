@@ -5,8 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 import com.ifbaiano.educacaoinclusiva.model.Aluno;
+import com.ifbaiano.educacaoinclusiva.model.Tutor;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
 
 public class UsuarioDAO {
@@ -19,15 +19,39 @@ public class UsuarioDAO {
 	public Connection getConexao() {
 		return this.conexao;
 	}
-
 	public int inserir(Usuario usuario) throws SQLException {
-	    String sql = "INSERT INTO Usuario (nome, email, senha, salt,bio,tipo_usuario ) VALUES (?, ?, ?, ?, ?,?)";
-	    try (PreparedStatement stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-	        
+	    String sql = "INSERT INTO Usuario (nome, email, senha, bio, tipo_usuario) VALUES (?, ?, ?, ?, ?)";
+		try (PreparedStatement stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+	        stmt.setString(1, usuario.getRetornaNome());
+	        stmt.setString(2, usuario.getEmail());
+	        stmt.setString(3, usuario.getSenha());
+	        stmt.setString(4, usuario.getBio());
+	        stmt.setString(5, usuario.getTipoUsuario());
+
+	        int linhasAfetadas = stmt.executeUpdate();
+	        if (linhasAfetadas == 0) {
+	            throw new SQLException("Falha ao inserir usuário.");
+	        }
+
+	        try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+	            if (generatedKeys.next()) {
+	                return generatedKeys.getInt(1);
+	            } else {
+	                throw new SQLException("Falha ao obter ID do usuário.");
+	            }
+	        }
+	    }
+	}
+
+	public int inserir(Tutor usuario) throws SQLException {
+		String sql = "INSERT INTO Usuario (nome, email, senha,bio,tipo_usuario ) VALUES (?, ?, ?, ?, ?)";
+        String sqlTutor = "INSERT INTO Tutor (area_especializacao,id_usuario) VALUES (?,?)";
+
+		try (PreparedStatement stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+	        stmt.setString(1, usuario.getAreaEspecializacao());
 	    	stmt.setString(1, usuario.getRetornaNome());
 	        stmt.setString(2, usuario.getEmail());
 	        stmt.setString(3, usuario.getSenha());
-	        stmt.setString(4, usuario.getSalt());
 	        stmt.setString(5, usuario.getBio());
 	        stmt.setString(6,usuario.getTipoUsuario());
 
@@ -48,15 +72,16 @@ public class UsuarioDAO {
 	}
 	
 	public int inserirAluno(Aluno usuario) throws SQLException {
-	    String sql = "INSERT INTO Usuario (nome, email, senha, salt,bio,tipo_usuario ) VALUES (?, ?, ?, ?, ?,?)";
-	    try ( PreparedStatement stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+		String sql = "INSERT INTO Usuario (nome, email, senha,bio,tipo_usuario ) VALUES (?, ?, ?, ?,?)";
+        String sqlAluno = "INSERT INTO Aluno (id_usuario) VALUES (?)";
+		try ( PreparedStatement stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+			conexao.setAutoCommit(false);
 	        stmt.setString(1, usuario.getRetornaNome());
 	        stmt.setString(2, usuario.getEmail());
 	        stmt.setString(3, usuario.getSenha());
-	        stmt.setString(4, usuario.getSalt());
 	        stmt.setString(5, usuario.getBio());
 	        stmt.setString(6,usuario.getTipoUsuario());
-
+	        System.out.println(usuario);
 	        int affectedRows = stmt.executeUpdate();
 
 	        if (affectedRows == 0) {
@@ -65,7 +90,6 @@ public class UsuarioDAO {
 
 	        try (ResultSet rs = stmt.getGeneratedKeys()) {
 	            if (rs.next()) {
-	                 conexao.commit();
 	                return rs.getInt(1);
 	            } else {
 	                throw new SQLException("Falha ao obter ID gerado.");
@@ -82,7 +106,6 @@ public class UsuarioDAO {
 			ResultSet resul = stmt.executeQuery();
 			if (resul.next()) {
 				Usuario usuario = new Usuario(resul.getInt("id"), resul.getString("nome"), resul.getString("email"),resul.getString("senha"), resul.getString("bio"), resul.getString("tipo_usuario"));
-				usuario.setSalt(resul.getString("salt"));
 				return usuario;
 			}
 		}
@@ -96,7 +119,6 @@ public class UsuarioDAO {
 			ResultSet resul = stmt.executeQuery();
 			if (resul.next()) {
 				Usuario usuario = new Usuario(resul.getInt("id"), resul.getString("nome"), resul.getString("email"),resul.getString("senha"), resul.getString("bio"),  resul.getString("tipo_usuario"));
-				usuario.setSalt(resul.getString("salt"));
 				return usuario;
 			}
 		}
@@ -121,7 +143,6 @@ public class UsuarioDAO {
 			stmt.setString(2, usuario.getEmail());
 			stmt.setString(3, usuario.getSenha());
 			stmt.setString(4, usuario.getBio());
-			stmt.setString(5, usuario.getSalt());
 			stmt.setInt(6, usuario.getId());
 			stmt.executeUpdate();
 		}

@@ -1,7 +1,6 @@
 package com.ifbaiano.educacaoinclusiva.model;
 
 import com.ifbaiano.educacaoinclusiva.model.enums.TipoDeUsuario;
-import com.ifbaiano.educacaoinclusiva.utils.SenhaUtils;
 
 public class Usuario {
 
@@ -9,7 +8,6 @@ public class Usuario {
 	private String nome;
 	private String email;
 	private String senha;
-	private String salt;
 	private String bio;
 	private String avaliacao;
 	private String tipoUsuario;
@@ -25,10 +23,15 @@ public class Usuario {
 		this.setTipoUsuario(tipoUsuario);
 	}
 
-	public String gerarSalt() {
-	    return SenhaUtils.gerarSalt();
+	public Usuario( String nome, String email, String senha, String bio, String tipoUsuario ) {
+		this.nome = nome;
+		this.email = email;
+		this.senha = senha;
+		this.bio = bio;
+		this.setTipoUsuario(tipoUsuario);
 	}
-
+	
+	
 	
 	public int getId() {
 		return id;
@@ -78,13 +81,7 @@ public class Usuario {
 		this.avaliacao = avaliacao;
 	}
 
-	public String getSalt() {
-		return salt;
-	}
 
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
 	public void Postar(String conteudo) {
 		System.out.println("Esperando postagem");
 	}

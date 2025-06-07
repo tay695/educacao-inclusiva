@@ -10,7 +10,9 @@ public class Aluno extends Usuario {
 	public Aluno(int id, String nome, String email, String senha, String bio, String tipoUsuario) {
 		super(id, nome, email, senha, bio, tipoUsuario);
 	}
-
+	public Aluno( String nome, String email, String senha, String bio, String tipoUsuario) {
+		super( nome, email, senha, bio, tipoUsuario);
+	}
 	public void adicionarCurso(Curso curso) {
 		cursosInscritos.add(curso);
 	}

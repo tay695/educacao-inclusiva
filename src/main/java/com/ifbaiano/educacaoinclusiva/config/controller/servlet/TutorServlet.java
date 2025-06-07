@@ -9,7 +9,6 @@ import com.ifbaiano.educacaoinclusiva.DAO.UsuarioDAO;
 import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 import com.ifbaiano.educacaoinclusiva.model.Tutor;
 import com.ifbaiano.educacaoinclusiva.model.enums.TipoDeUsuario;
-import com.ifbaiano.educacaoinclusiva.utils.SenhaUtils;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -30,11 +29,8 @@ public class TutorServlet extends HttpServlet {
 		String area = request.getParameter("area");
 
 		try (Connection conexao = DBConfig.criarConexao()) {
-			String salt = SenhaUtils.gerarSalt();
-			String senhaHasheada = SenhaUtils.gerarHash(senhaDigitada);
-
-			Tutor tutor = new Tutor(area,0, nome, email, senhaHasheada, bio, TipoDeUsuario.tutor.name());
-			tutor.setSalt(salt);
+			
+			Tutor tutor = new Tutor(area,0, nome, email, senhaDigitada, bio, TipoDeUsuario.tutor.name());
 
 			UsuarioDAO usuarioDAO = new UsuarioDAO(conexao);
 			int idGerado = usuarioDAO.inserir(tutor); 
@@ -42,7 +38,7 @@ public class TutorServlet extends HttpServlet {
 			if (idGerado > 0) {
 				tutor.setId(idGerado); 
 				TutorDAO tutorDAO = new TutorDAO(conexao);
-				tutorDAO.adicionarTutor(tutor);
+				tutorDAO.inserirTutor(tutor);
 				System.out.println("Tutor cadastrado com sucesso: " + email);
 				response.sendRedirect("pages/login.jsp");
 			} else {
