@@ -5,21 +5,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Cursos Disponíveis</title>
-      <%@ page import="com.ifbaiano.educacaoinclusiva.model.Usuario" %>
-<%
-    Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
-    if (usuario == null) {
-        response.sendRedirect(request.getContextPath() + "/login");
-        return;
-    }
-%>
-
-       
+    <%@ page import="com.ifbaiano.educacaoinclusiva.model.Usuario" %>
+    <%
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+        if (usuario == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+    %>
 </head>
 <body>
-<h1>Bem-vindo, <%= usuario.getRetornaNome() %>!</h1>
+    <h1>Bem-vindo, <%= usuario.getRetornaNome() %>!</h1>
 
-  <nav class="navbar navbar-expand-lg custom-navbar">
+    <nav class="navbar navbar-expand-lg custom-navbar">
         <div class="container-fluid">
             <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="menuLateral" aria-label="Abrir menu lateral">
                 <i class="bi bi-list fs-3"></i>
@@ -29,6 +27,7 @@
             </a>
         </div>
     </nav>
+
     <div class="offcanvas offcanvas-start" tabindex="-1" id="menuLateral" aria-labelledby="menuLateralLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="menuLateralLabel">Menu Aluno</h5>
@@ -44,28 +43,29 @@
             </ul>
         </div>
     </div>
-<h2>Cursos Disponíveis</h2>
 
-<%
-    String[] cores = {"azul", "ciano", "rosa", "marrom", "vinho", "azul-escuro"};
-    java.util.Random rand = new java.util.Random();
-%>
+    <h2>Cursos Disponíveis</h2>
 
-<div class="cursos-container">
-    <c:forEach var="curso" items="${cursos}">
-        <%
-            String corAleatoria = cores[rand.nextInt(cores.length)];
-        %>
-        <div class="card <%= corAleatoria %>">
-            <h3><c:out value="${curso.titulo}" /></h3>
-            <p><c:out value="${curso.descricao}" /></p>
-            <form method="post" action="inscricao">
-                <input type="hidden" name="idCurso" value="${curso.id}" />
-                <button type="submit" class="inscrever-btn">Inscrever-se</button>
-            </form>
-        </div>
-    </c:forEach>
-</div>
+    <%
+        String[] cores = {"azul", "ciano", "rosa", "marrom", "vinho", "azul-escuro"};
+        java.util.Random rand = new java.util.Random();
+    %>
+
+    <div class="cursos-container">
+        <c:forEach var="curso" items="${cursos}">
+            <%
+                String corAleatoria = cores[rand.nextInt(cores.length)];
+            %>
+            <div class="card <%= corAleatoria %>">
+                <h3><c:out value="${curso.titulo}" /></h3>
+                <p><c:out value="${curso.descricao}" /></p>
+                <form method="post" action="inscricao">
+                    <input type="hidden" name="idCurso" value="${curso.id}" />
+                    <button type="submit" class="inscrever-btn">Inscrever-se</button>
+                </form>
+            </div>
+        </c:forEach>
+    </div>
 
 </body>
 </html>

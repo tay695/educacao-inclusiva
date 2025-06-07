@@ -9,14 +9,13 @@ import com.ifbaiano.educacaoinclusiva.DAO.UsuarioDAO;
 import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 import com.ifbaiano.educacaoinclusiva.model.Tutor;
 import com.ifbaiano.educacaoinclusiva.model.enums.TipoDeUsuario;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/cadastrarTutor")
+@WebServlet("/TutorServlet")
 public class TutorServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -26,11 +25,11 @@ public class TutorServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String senhaDigitada = request.getParameter("senha");
 		String bio = request.getParameter("bio");
-		String area = request.getParameter("area");
+		String areaEspecializacao = request.getParameter("area_especializacao");
 
 		try (Connection conexao = DBConfig.criarConexao()) {
 			
-			Tutor tutor = new Tutor(area,0, nome, email, senhaDigitada, bio, TipoDeUsuario.tutor.name());
+			Tutor tutor = new Tutor(areaEspecializacao,0, nome, email, senhaDigitada, bio, TipoDeUsuario.tutor.name());
 
 			UsuarioDAO usuarioDAO = new UsuarioDAO(conexao);
 			int idGerado = usuarioDAO.inserir(tutor); 

@@ -43,34 +43,33 @@ public class UsuarioDAO {
 	    }
 	}
 
-	public int inserir(Tutor usuario) throws SQLException {
-		String sql = "INSERT INTO Usuario (nome, email, senha,bio,tipo_usuario ) VALUES (?, ?, ?, ?, ?)";
-        String sqlTutor = "INSERT INTO Tutor (area_especializacao,id_usuario) VALUES (?,?)";
+	//*public int inserir(Tutor usuario) throws SQLException {
+	//*	String sql = "INSERT INTO Usuario (nome, email, senha,bio,tipo_usuario ) VALUES (?, ?, ?, ?, ?)";
+     //*   String sqlTutor = "INSERT INTO Tutor (area_especializacao,id_usuario) VALUES (?,?)";
 
-		try (PreparedStatement stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-	        stmt.setString(1, usuario.getAreaEspecializacao());
-	    	stmt.setString(1, usuario.getRetornaNome());
-	        stmt.setString(2, usuario.getEmail());
-	        stmt.setString(3, usuario.getSenha());
-	        stmt.setString(5, usuario.getBio());
-	        stmt.setString(6,usuario.getTipoUsuario());
+		//*try (PreparedStatement stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+	       //* stmt.setString(1, usuario.getAreaEspecializacao());
+	    //*	stmt.setString(2, usuario.getRetornaNome());
+	      //*  stmt.setString(3, usuario.getEmail());
+	      //*  stmt.setString(4, usuario.getSenha());
+	        //*stmt.setString(5, usuario.getBio());
+	        //*stmt.setString(6,usuario.getTipoUsuario());
 
-	        int affectedRows = stmt.executeUpdate();
+	        //*int affectedRows = stmt.executeUpdate();
 
-	        if (affectedRows == 0) {
-	            throw new SQLException("Falha ao inserir usuário, nenhuma linha afetada.");
-	        }
+	        //*if (affectedRows == 0) {
+	           //* throw new SQLException("Falha ao inserir usuário, nenhuma linha afetada.");
+	        //*}
 
-	        try (ResultSet rs = stmt.getGeneratedKeys()) {
-	            if (rs.next()) {
-	                return rs.getInt(1);
-	            } else {
-	                throw new SQLException("Falha ao obter ID gerado.");
-	            }
-	        }
-	    }
-	}
-	
+	       //* try (ResultSet rs = stmt.getGeneratedKeys()) {
+	          //*  if (rs.next()) {
+	             //*   return rs.getInt(1);
+	            //*} else {
+	               //* throw new SQLException("Falha ao obter ID gerado.");
+	            
+	        
+
+
 	public int inserirAluno(Aluno usuario) throws SQLException {
 		String sql = "INSERT INTO Usuario (nome, email, senha,bio,tipo_usuario ) VALUES (?, ?, ?, ?,?)";
         String sqlAluno = "INSERT INTO Aluno (id_usuario) VALUES (?)";

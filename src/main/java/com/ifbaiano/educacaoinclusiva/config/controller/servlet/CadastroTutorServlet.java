@@ -29,14 +29,14 @@ public class CadastroTutorServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String nome = request.getParameter("nome");
+        String areaEspecializacao = request.getParameter("area_especializacao");
+    	String nome = request.getParameter("nome");
         String email = request.getParameter("email");
         String senhaDigitada = request.getParameter("senha");
         String bio = request.getParameter("bio");
-        String areaEspecializacao = request.getParameter("area_especializacao");
 
         try (Connection conexao = DBConfig.criarConexao()) {
-                        Usuario usuario = new Usuario(0, nome, email, senhaDigitada, bio, TipoDeUsuario.tutor.toString());
+         Usuario usuario = new Usuario(0, nome, email, senhaDigitada, bio, TipoDeUsuario.tutor.toString());
 
             UsuarioDAO usuarioDAO = new UsuarioDAO(conexao);
             int idUsuario = usuarioDAO.inserir(usuario);
@@ -49,6 +49,7 @@ public class CadastroTutorServlet extends HttpServlet {
 
             TutorDAO tutorDAO = new TutorDAO(conexao);
             tutorDAO.inserirTutor(tutor); 
+            System.out.println("ID atribuído ao tutor: " + tutor.getId());
 
             System.out.println("Cadastro realizado para: " + email);
             response.sendRedirect("pages/login.jsp");
