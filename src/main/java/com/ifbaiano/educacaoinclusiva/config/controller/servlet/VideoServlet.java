@@ -70,20 +70,8 @@ public class VideoServlet extends HttpServlet {
 		return;
 	}
 
-	if("edit".equals(action) && idStr != null){
-		try{
-			dao.deletarVideoaula(Integer.parseInt(idStr));
-		}
-		catch(SQLException e){
-			e.printStackTrace();
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro ao excluir vídeo auls.");
-			return;
-		}
-		response.sendRedirect(request.getContextPath() + "/pages/listarvideoaulaTutor.jsp");
-		return;
 	}
-		
-}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
 

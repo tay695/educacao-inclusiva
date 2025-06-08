@@ -19,11 +19,7 @@ import java.time.LocalDate;
 @WebServlet("/inscricao")
 public class InscricaoServlet extends HttpServlet {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
+   
 	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        
@@ -53,9 +49,9 @@ public class InscricaoServlet extends HttpServlet {
             return;
         }
 
-        try (Connection con = DBConfig.criarConexao()) {
+		try (Connection conexao = DBConfig.criarConexao()){
             String sql = "INSERT INTO UsuarioCurso (data_inscricao, estado, nota_final, id_usuario, id_curso) VALUES (?, ?, ?, ?, ?)";
-            try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            try (PreparedStatement stmt =conexao.prepareStatement(sql)) {
                 stmt.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
                 stmt.setString(2, "ativo");
                 stmt.setNull(3, java.sql.Types.DECIMAL); // nota_final começa como null

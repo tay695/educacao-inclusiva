@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.ifbaiano.educacaoinclusiva.DAO.ModuloDAO;
+import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 import com.ifbaiano.educacaoinclusiva.model.Modulo;
 
 import jakarta.servlet.ServletException;
@@ -19,10 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class ModuloServlet extends HttpServlet {
 	
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        String acao = request.getParameter("acao");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
         String titulo = request.getParameter("titulo");
         String descricao = request.getParameter("descricao");
         String idCursoStr = request.getParameter("idCurso");
@@ -44,10 +42,9 @@ public class ModuloServlet extends HttpServlet {
             return;
         }
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/seubanco", "usuario", "senha")) {
-            ModuloDAO moduloDAO = new ModuloDAO(connection);
-
-            if ("inserir".equalsIgnoreCase(acao)) {
+		try (Connection conexao = DBConfig.criarConexao()){
+			
+                ModuloDAO moduloDAO = new ModuloDAO(conexao);
                 Modulo modulo = new Modulo();
                 modulo.setTitulo(titulo);
                 modulo.setDescricao(descricao);
@@ -55,29 +52,22 @@ public class ModuloServlet extends HttpServlet {
                 moduloDAO.inserirModulo(modulo, idCurso);
                 response.sendRedirect("moduloListar?idCurso=" + idCurso);
 
-            } else if ("atualizar".equalsIgnoreCase(acao)) {
-                Modulo modulo = new Modulo();
+            
                 modulo.setId(idModulo);
                 modulo.setTitulo(titulo);
                 modulo.setDescricao(descricao);
-
+                
                 moduloDAO.atualizarModulo(modulo);
                 response.sendRedirect("moduloListar?idCurso=" + idCurso);
 
-            } else if ("deletar".equalsIgnoreCase(acao)) {
                 moduloDAO.deletarModulo(idModulo);
                 response.sendRedirect("moduloListar?idCurso=" + idCurso);
 
-            } else {
-                request.setAttribute("erro", "Ação inválida.");
-                request.getRequestDispatcher("/pages/modulo.jsp").forward(request, response);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            request.setAttribute("erro", "Erro no banco de dados: " + e.getMessage());
-            request.getRequestDispatcher("/pages/modulo.jsp").forward(request, response);
-        }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
     }
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

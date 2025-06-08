@@ -21,8 +21,8 @@ import com.ifbaiano.educacaoinclusiva.model.Postagem;
 public class PostagemDAO {
 	private Connection conexao;
 
-	public PostagemDAO(){
-		conexao = DBConfig.criarConexao();
+	public PostagemDAO(Connection conexao){
+		this.conexao = conexao;
 	}
 	public void inserirPostagem(Postagem postagem) throws SQLException{
 		String sql = "INSERT INTO Postagem (titulo, autor, conteudo, dataHora, curso_id, modulo_id) VALUES (?, ?, ?, ?, ?, ?)";

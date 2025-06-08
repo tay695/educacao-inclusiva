@@ -13,7 +13,6 @@ import com.ifbaiano.educacaoinclusiva.model.VideoAula;
 import com.ifbaiano.educacaoinclusiva.model.dto.SessionDTO;
 @WebServlet("/pages/homeTutor.jsp")
 public class HomeTutorServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SessionDTO sessionDTO = (SessionDTO) request.getSession().getAttribute("usuarioLogado");
@@ -23,14 +22,13 @@ public class HomeTutorServlet extends HttpServlet {
             return;
         }
 
-        try {
-            VideoAulaDAO dao = new VideoAulaDAO();
-            List<VideoAula> lista = dao.listarPorTutor(sessionDTO.getId());
-            request.setAttribute("listaVideoaulas", lista);
-            request.getRequestDispatcher("/pages/homeTutor.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(500, "Erro ao carregar videoaulas");
-        }
-    }
+      //*  try {
+        //*    VideoAulaDAO dao = new VideoAulaDAO();
+         //*   List<VideoAula> lista = dao.listarPorTutor(sessionDTO.getId());
+          //*  request.setAttribute("listaVideoaulas", lista);
+         //*   request.getRequestDispatcher("/pages/homeTutor.jsp").forward(request, response);
+        //*} catch (Exception e) {
+        //*    e.printStackTrace();
+        //*    response.sendError(500, "Erro ao carregar videoaulas");
+	}
 }

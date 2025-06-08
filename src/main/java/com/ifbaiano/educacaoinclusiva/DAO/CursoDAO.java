@@ -13,8 +13,8 @@ import com.ifbaiano.educacaoinclusiva.model.Curso;
 public class CursoDAO {
 	private final Connection conexao;
 
-	public CursoDAO() {
-		this.conexao = DBConfig.criarConexao();
+	public CursoDAO(Connection conexao) {
+		this.conexao = conexao;
 	}
 
 	public void addCurso(Curso curso) throws SQLException {

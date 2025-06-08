@@ -20,7 +20,8 @@ import com.ifbaiano.educacaoinclusiva.model.enums.TipoDeUsuario;
 
 @WebServlet("/cadastroAluno")
 public class CadastroAlunoServlet extends HttpServlet {
-
+  
+  
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().append("Olá mundo").append(request.getContextPath());
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/cadastroAluno.jsp");
@@ -34,7 +35,7 @@ public class CadastroAlunoServlet extends HttpServlet {
 	    String senhaDigitada = request.getParameter("senha");
 	    String bio = request.getParameter("bio");
 
-	    try (Connection conexao = DBConfig.criarConexao()) {
+		try (Connection conexao = DBConfig.criarConexao()){
 
 	        Usuario usuario = new Usuario(0, nome, email, senhaDigitada, bio, TipoDeUsuario.tutor.toString());
 	        UsuarioDAO usuarioDAO = new UsuarioDAO(conexao);

@@ -8,15 +8,15 @@ import com.ifbaiano.educacaoinclusiva.model.Modulo;
 import com.ifbaiano.educacaoinclusiva.model.VideoAula;
 
 public class ModuloDAO {
-    private Connection connection;
+    private Connection conexao;
 
-    public ModuloDAO(Connection connection) {
-        this.connection = connection;
+    public ModuloDAO(Connection conexao) {
+        this.conexao = conexao;
     }
 
     public void inserirModulo(Modulo modulo, int idCurso) throws SQLException {
         String sql = "INSERT INTO Modulo (titulo, descricao, id_curso) VALUES (?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, modulo.getTitulo());
             stmt.setString(2, modulo.getDescricao());
             stmt.setInt(3, idCurso);
@@ -36,7 +36,7 @@ public class ModuloDAO {
     public List<Modulo> listarTodosPorCurso(int idCurso) throws SQLException {
         List<Modulo> modulos = new ArrayList<>();
         String sql = "SELECT * FROM Modulo WHERE id_curso = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, idCurso);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
@@ -57,7 +57,7 @@ public class ModuloDAO {
 
     public void atualizarModulo(Modulo modulo) throws SQLException {
         String sql = "UPDATE Modulo SET titulo = ?, descricao = ? WHERE id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, modulo.getTitulo());
             stmt.setString(2, modulo.getDescricao());
             stmt.setInt(3, modulo.getId());
@@ -70,7 +70,7 @@ public class ModuloDAO {
 
     public void deletarModulo(int id) throws SQLException {
         String sql = "DELETE FROM Modulo WHERE id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, id);
             int linhasAfetadas = stmt.executeUpdate();
             if (linhasAfetadas == 0) {
@@ -81,7 +81,7 @@ public class ModuloDAO {
 
     public Modulo buscarModulo(int id) throws SQLException {
         String sql = "SELECT * FROM Modulo WHERE id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -101,7 +101,7 @@ public class ModuloDAO {
     private List<VideoAula> listarVideoaulasModulo(int idModulo) throws SQLException {
         List<VideoAula> videoaulas = new ArrayList<>();
         String sql = "SELECT * FROM Videoaula WHERE id_modulo = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, idModulo);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {

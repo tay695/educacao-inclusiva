@@ -21,7 +21,7 @@ import java.util.List;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	
 	private LoginController loginController;
 	private Connection conexao;
 
@@ -74,13 +74,15 @@ public class LoginServlet extends HttpServlet {
 			System.out.println("Sessão criada para: " + usuarioLogado.getEmail() + ", Sessão ID: " + session.getId());
 
 			if (usuarioLogado instanceof Tutor) {
-				response.sendRedirect(request.getContextPath() + "/pages/homeTutor.jsp");
+			    session.setAttribute("tutor", usuarioLogado);
+			    response.sendRedirect(request.getContextPath() + "/pages/dashboardTutor.jsp");
+			    return;
 			} else if (usuarioLogado instanceof Aluno) {
-				response.sendRedirect(request.getContextPath() + "/pages/homeAluno.jsp");
-			} else {
-				request.setAttribute("erro", "Tipo de usuário desconhecido.");
-				request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
+			    session.setAttribute("aluno", usuarioLogado); 
+			    response.sendRedirect(request.getContextPath() + "/pages/dashboardAluno.jsp");
+			    return;
 			}
+
 
 		} catch (SQLException e) {
 			e.printStackTrace(); 

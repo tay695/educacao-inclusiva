@@ -45,7 +45,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- CSS específico desta página -->
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/listarvideoaulaAluno.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/listarvideoaulaAluno.css">
 </head>
 <body>
     <!-- ===== HEADER DO ALUNO ===== -->
@@ -59,7 +59,7 @@
                     aria-label="Abrir menu lateral">
                 <i class="bi bi-list fs-3"></i>
             </button>
-            <a href="<%= request.getContextPath() %>/pages/homeAluno.jsp" class="navbar-brand text-white">
+            <a href="${pageContext.request.contextPath}/pages/homeAluno.jsp" class="navbar-brand text-white">
                 <img src="<%= request.getContextPath() %>/static/images/logo.png"
                      alt="Logo da Educação Inclusiva"
                      height="65">
@@ -133,10 +133,10 @@
         <% } %>
 
         <div class="nav-buttons">
-            <a href="videoaulaAluno.jsp" class="btn btn-secondary">
+            <a href="${pageContext.request.contextPath}/pages/homeAluno">
                 <i class="bi bi-arrow-left-circle me-1"></i> Voltar ao Painel
             </a>
-            <a href="perfilaluno.jsp" class="btn btn-secondary">
+            <a href="${pageContext.request.contextPath}/pages/perfilaluno.jsp" class="btn btn-secondary">
                 <i class="bi bi-person-circle me-1"></i> Voltar ao Perfil
             </a>
         </div>

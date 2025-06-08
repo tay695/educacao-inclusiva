@@ -18,6 +18,8 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/AtualizarPerfilTutorServlet")
 public class AtualizarPerfilTutorServlet extends HttpServlet {
+	private Connection conexao;
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession(false);
         if(session == null || session.getAttribute("tutor") == null) {
@@ -42,8 +44,8 @@ public class AtualizarPerfilTutorServlet extends HttpServlet {
             return;
         }
 
-        try(Connection conn = DBConfig.criarConexao()) {
-            TutorDAO dao = new TutorDAO(conn);
+    	try (Connection conexao = DBConfig.criarConexao()) {
+            TutorDAO dao = new TutorDAO(conexao);
 
             switch(campo) {
                 case "nome":

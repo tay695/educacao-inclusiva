@@ -33,7 +33,8 @@ public class TutorServlet extends HttpServlet {
 
 			UsuarioDAO usuarioDAO = new UsuarioDAO(conexao);
 			int idGerado = usuarioDAO.inserir(tutor); 
-
+             usuarioDAO.atualizarUsuario(tutor);
+             
 			if (idGerado > 0) {
 				tutor.setId(idGerado); 
 				TutorDAO tutorDAO = new TutorDAO(conexao);

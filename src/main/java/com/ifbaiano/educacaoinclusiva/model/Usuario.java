@@ -1,5 +1,7 @@
 package com.ifbaiano.educacaoinclusiva.model;
 
+import java.sql.Connection;
+
 import com.ifbaiano.educacaoinclusiva.model.enums.TipoDeUsuario;
 
 public class Usuario {
@@ -100,6 +102,11 @@ public class Usuario {
 
 	public void setTipoUsuario(String tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
+	}
+
+	public void setConnection(Connection conexao) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

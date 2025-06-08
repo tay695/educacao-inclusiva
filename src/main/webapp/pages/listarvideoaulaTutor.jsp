@@ -38,7 +38,7 @@
             <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="menuLateral" aria-label="Abrir menu lateral">
                 <i class="bi bi-list fs-3"></i>
             </button>
-            <a href="<%= ctx %>/pages/homeTutor.jsp" class="navbar-brand">
+            <a href="${pageContext.request.contextPath}/pages/homeTutor.jsp" class="navbar-brand">
                 <img src="<%= ctx %>/static/images/logo.png" alt="logo" height="65">
             </a>
         </div>
@@ -53,23 +53,23 @@
         <div class="offcanvas-body">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= ctx %>/pages/perfiltutor.jsp">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/pages/perfiltutor.jsp">
                         <i class="bi bi-person-circle me-2"></i> Meu Perfil
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= ctx %>/pages/videoaulaTutor.jsp">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/pages/homeTutor.jsp">
                         <i class="bi bi-camera-video me-2"></i> Nova aula
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= ctx %>/pages/listarvideoaulaTutor.jsp">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/pages/homeTutor.jsp">
                         <i class="bi bi-folder-plus me-2"></i> Cursos postados
                     </a>
                 </li>
                 <li><hr></li>
                 <li class="nav-item">
-                    <a class="nav-link text-danger" href="<%= ctx %>/controller/Logout">
+                    <a class="nav-link text-danger" href="${pageContext.request.contextPath}/controller/LogoutController">
                         <i class="bi bi-box-arrow-right me-2"></i> Sair
                     </a>
                 </li>
@@ -81,7 +81,7 @@
     <div class="container mt-5">
         <h1 class="text-center mb-4">Listando vídeo aulas</h1>
         <div class="mb-3 text-end">
-            <a class="btn btn-primary" href="<%= ctx %>/pages/formularioCadastroVideoAula.jsp">
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}pages/formularioCadastroVideoAula.jsp">
                 <i class="bi bi-plus-circle me-2"></i> Cadastrar nova vídeo aula
             </a>
         </div>
@@ -111,7 +111,7 @@
                             </td>
                             <td><%= va.getIdModulo() %></td>
                             <td>
-                                <a class="btn btn-sm btn-warning" href="<%= ctx %>/pages/formularioCadastroVideoAula.jsp?id=<%= va.getId() %>">
+                                <a class="btn btn-sm btn-warning" href="${pageContext.request.contextPath}/pages/formularioCadastroVideoAula.jsp ?id=<%= va.getId() %>">
                                     <i class="bi bi-pencil"></i> Editar
                                 </a>
                                 <a class="btn btn-sm btn-danger" href="<%= ctx %>/videoaula?action=delete&id=<%= va.getId() %>"
@@ -126,10 +126,10 @@
         <% } %>
 
         <div class="mt-4">
-            <a href="<%= ctx %>/pages/videoaulaTutor.jsp" class="btn btn-secondary me-2">
+            <a href="${pageContext.request.contextPath}/pages/homeTutor.jsp" class="btn btn-secondary me-2">
                 <i class="bi bi-arrow-left"></i> Voltar ao painel de Vídeo Aula
             </a>
-            <a href="<%= ctx %>/pages/perfiltutor.jsp" class="btn btn-secondary">
+            <a href="${pageContext.request.contextPath}/pages/perfiltutor.jsp" class="btn btn-secondary">
                 <i class="bi bi-person-circle"></i> Voltar ao perfil de Tutor
             </a>
         </div>
