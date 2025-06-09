@@ -31,7 +31,7 @@ if (tutor == null) {
             <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="menuLateral" aria-label="Abrir menu lateral">
                 <i class="bi bi-list fs-3"></i>
             </button>
-            <a href="<%= ctx %>/pages/homeTutor.jsp" class="navbar-brand">
+            <a href="<%= ctx %>/pages/dashboardTutor.jsp" class="navbar-brand">
                 <img src="<%= ctx %>/static/images/logo.png" alt="Logo da Educação Inclusiva" height="65">
             </a>
         </div>
@@ -49,11 +49,7 @@ if (tutor == null) {
                         <i class="bi bi-person-circle me-2"></i> Meu Perfil
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<%= ctx %>/pages/homeTutor.jsp">
-                        <i class="bi bi-camera-video me-2"></i> Nova aula
-                    </a>
-                </li>
+               
                 <li class="nav-item">
                     <a class="nav-link" href="<%= ctx %>/videoaula">
                         <i class="bi bi-collection-play me-2"></i> Minhas Aulas

@@ -1,28 +1,121 @@
-@charset "UTF-8";
-body {
-    background-color: #f4f4f4;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* Estilos para a navbar */
+.custom-navbar {
+    background-color: #003366 !important; 
+}
+
+.custom-navbar .navbar-brand,
+.custom-navbar .nav-link,
+.custom-navbar .btn {
+    color: #ffffff !important;
+}
+
+.custom-navbar .nav-link:hover {
+    background-color: #002244 !important; 
+    color: #ffffff !important;
+}
+
+/* Estilo para o offcanvas*/
+.offcanvas-header {
+    background-color: #003366 !important;
+    color: #ffffff !important;
+}
+
+.offcanvas-title {
+    color: #ffffff !important;
+}
+
+.offcanvas-body .nav-link {
+    color: #003366 !important; 
+}
+
+.offcanvas-body .nav-link:hover {
+    background-color: #e9ecef !important; /* leve cinza ao passar o mouse */
+}
+
+/* Botão de sair no offcanvas  */
+.offcanvas-body .nav-link.text-danger {
+    color: #dc3545 !important; /* vermelho padrão Bootstrap */
+}
+
+.offcanvas-body .nav-link.text-danger:hover {
+    background-color: #f8d7da !important; /* vermelho claro ao passar o mouse */
 }
 
 
-.profile-card {
-    background-color: #fff;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    max-width: 700px;
+/* Estilos para o CONTEÚDO PRINCIPAL */
+
+/* Títulos e textos gerais */
+.container h1.main-title,
+.container h2.welcome-message,
+.container p.specialization-text,
+.container h3.quick-actions-heading {
+    text-align: center;
+    color: #003366; /* Cor base dos textos como no aluno */
 }
 
-.icon-circle {
-    width: 120px;
-    height: 120px;
-    background-color: #2b2bb2;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.container h1.main-title {
+    color: #084673; /* Cor do título principal (menu de visualização) do aluno */
+    font-weight: bold;
+    margin-top: 20px; /* Adiciona um pouco de espaço no topo */
+    margin-bottom: 20px;
 }
 
-hr {
-    border-top: 1px solid #dee2e6;
+.container h2.welcome-message {
+    color: #198754; /* Cor do "Seja Bem-vindo" do aluno */
+    margin-bottom: 10px;
+}
+
+.container p.specialization-text {
+    color: #003366; /* area de especialização */
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    font-weight: bold;
+
+}
+
+.container h3.quick-actions-heading {
+    color: #003366; /*subtítulo */
+    font-weight: 600;
+}
+/*centralizando os ícones nos botões do tutor se o Bootstrap não fizer isso automaticamente: */
+.d-grid .btn i {
+    margin-right: .5rem; /* Espaçamento entre o ícone e o texto */
+}
+
+/* Para garantir que o ícone e o texto estejam centralizados verticalmente em todos os botões .btn.btn-lg */
+.d-grid .btn.btn-lg {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+
+/* Ajuste específico para o botão Visualizar todas as vídeo aulas (btn-outline-info) */
+.d-grid .btn.btn-outline-info {
+    color: #17a2b8 !important; 
+    border-color: #17a2b8 !important;
+    background-color: transparent !important; 
+}
+
+.d-grid .btn.btn-outline-info:hover {
+    background-color: #17a2b8 !important;
+    color: white !important;
+}
+
+/*botão Retornar ao perfil (btn-outline-danger) */
+.d-grid .btn.btn-outline-danger {
+    color: #dc3545 !important; 
+    border-color: #dc3545 !important;
+    background-color: transparent !important; 
+}
+
+.d-grid .btn.btn-outline-danger:hover {
+    background-color: #dc3545 !important;
+    color: white !important;
+}
+
+.content-wrapper {
+    padding: 0 !important; 
+    margin: 0 !important; 
+    box-shadow: none !important; 
 }

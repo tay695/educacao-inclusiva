@@ -8,19 +8,28 @@ public class Curso {
 	private String titulo;
 	private String descricao;
 	private String area;
-	private Modulo modulo;
+	private List<Modulo> modulos;
 	private List<Postagem> postagens;
 
 	public Curso() {
-		
+		this.setModulos(new ArrayList<>());
+		this.postagens = new ArrayList<>();
 	}
-	public Curso(int id, String titulo, String descricao, String area, Modulo modulo, List<Postagem> postagem) {
+
+	public Curso(int id, String titulo, String descricao, String area, List<Modulo> modulos, List<Postagem> postagens) {
 		this.id = id;
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.area = area;
-		this.modulo = modulo;
-		this.postagens = postagem != null? postagens : new ArrayList<>(); //se postagem for null crie uma nova lista vazia (se postagem for null daria erro no codigo, mas se a lista já existe, mesmo que vazia, esse erro não acontece)
+		this.setModulos(modulos != null ? modulos : new ArrayList<>());
+		this.postagens = postagens != null ? postagens : new ArrayList<>();
+	}
+
+	public void adicionarModulo(Modulo modulo) {
+		if (modulos == null) {
+			modulos = new ArrayList<>();
+		}
+		modulos.add(modulo);
 	}
 
 	public String getArea() {
@@ -55,14 +64,6 @@ public class Curso {
 		this.id = id;
 	}
 
-	public Modulo getModulo() {
-		return modulo;
-	}
-
-	public void setModulo(Modulo modulo) {
-		this.modulo = modulo;
-	}
-
 	public List<Postagem> getPostagens() {
 		return postagens;
 	}
@@ -70,15 +71,19 @@ public class Curso {
 	public void setPostagens(List<Postagem> postagens) {
 		this.postagens = postagens;
 	}
-	public Modulo retornaModulo() {
-		return modulo;
-	}
 
-	//metodo para adicionar uma nova postagem no curso
-	public void adicionarPostagem(Postagem postagem){
-		if(this.postagens == null){
+	public void adicionarPostagem(Postagem postagem) {
+		if (this.postagens == null) {
 			this.postagens = new ArrayList<>();
 		}
 		this.postagens.add(postagem);
+	}
+
+	public List<Modulo> getModulos() {
+		return modulos;
+	}
+
+	public void setModulos(List<Modulo> modulos) {
+		this.modulos = modulos;
 	}
 }

@@ -10,9 +10,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 import com.ifbaiano.educacaoinclusiva.model.Curso;
 import com.ifbaiano.educacaoinclusiva.model.Modulo;
 import com.ifbaiano.educacaoinclusiva.model.Postagem;
@@ -40,13 +37,7 @@ public class PostagemDAO {
 				stmt.setNull(5, Types.INTEGER);
 			}
 
-			if(postagem.getModulo() != null){
-				stmt.setInt(6, postagem.getModulo().getId());
-			}
-
-			else{
-				stmt.setNull(6, Types.INTEGER);
-			}
+		
 			stmt.executeUpdate();
 		}
 	}
@@ -73,7 +64,7 @@ public class PostagemDAO {
 				Modulo modulo = null;
 				int moduloId = rs.getInt("modulo_id");
 				if (!rs.wasNull()){
-					modulo = new Modulo(moduloId, null, null, null);
+					modulo = new Modulo();
 				}
 
 				Postagem postagem = new Postagem(titulo, autor, conteudo, id, dataHora, curso, modulo);
@@ -106,9 +97,8 @@ public class PostagemDAO {
 				}
 
 				Modulo modulo = null;
-				int moduloId = rs.getInt("modulo_id");
 				if(!rs.wasNull()){
-					modulo = new Modulo(moduloId, null, null, null);
+					modulo = new Modulo();
 				}
 
 						
@@ -135,7 +125,7 @@ public class PostagemDAO {
 				String conteudo = rs.getString("conteudo");
 				LocalDateTime dataHora = rs.getTimestamp("dataHora").toLocalDateTime();
 
-				Modulo modulo = new Modulo(idModulo, null, null, null);
+				Modulo modulo = new Modulo();
 
 				Curso curso = null;
 				int cursoId = rs.getInt("curso_id");
@@ -171,9 +161,8 @@ public class PostagemDAO {
 				Curso curso = new Curso(idCurso, null, null, null, null, null);
 
 				Modulo modulo = null;
-				int moduloId = rs.getInt("modulo_id");
 				if(!rs.wasNull()){
-					modulo = new Modulo(moduloId, null, null, null);
+					modulo = new Modulo();
 
 				}
 				Postagem postagem = new Postagem(titulo, autor, conteudo, id, dataHora, curso, modulo);

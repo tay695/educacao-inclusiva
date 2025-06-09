@@ -5,11 +5,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.ifbaiano.educacaoinclusiva.model.Aluno;
+import com.ifbaiano.educacaoinclusiva.model.Curso;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
 
 public class AlunoDAO {
+	
 	private Connection conexao;
 
 	public AlunoDAO(Connection conexao) {
@@ -83,4 +87,26 @@ public class AlunoDAO {
 	        }
 	        return null;
 	    }
+	    
+	 public List<Curso> buscarCursosDoAluno(int idAluno) throws SQLException {
+	        List<Curso> cursos = new ArrayList<>();
+	        String sql = "SELECT c.id, c.titulo, c.area, c.descricao FROM Curso c " +
+	                     "JOIN UsuarioCurso uc ON c.id = uc.id_curso " +
+	                     "WHERE uc.id_usuario = ?";
+
+	        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+	            stmt.setInt(1, idAluno);
+	            ResultSet rs = stmt.executeQuery();
+	            while (rs.next()) {
+	                Curso curso = new Curso();
+	                curso.setId(rs.getInt("id"));
+	                curso.setTitulo(rs.getString("titulo"));
+	                curso.setArea(rs.getString("area"));
+	                curso.setDescricao(rs.getString("descricao"));
+	                cursos.add(curso);
+	            }
+	        }
+	        return cursos;
+	    }
+
 }

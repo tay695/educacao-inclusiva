@@ -30,7 +30,8 @@ body {
 	right: 0;
 	z-index: 1030; /* Garante que fique acima de outros elementos */
 	background-color: white; /* Cor de fundo para sobrepor conteúdo */
-	box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra para efeito de elevação */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	/* Sombra para efeito de elevação */
 }
 
 /* Conteúdo principal */
@@ -102,6 +103,7 @@ h2 {
 				</a></li>
 			</ul>
 		</div>
+
 	</div>
 
 	<!-- Conteúdo principal -->
@@ -109,23 +111,29 @@ h2 {
 		<div class="menu2">
 			<h2>O que você deseja fazer?</h2>
 			<div class="d-grid gap-2">
-				<a href="#" class="btn btn-outline-primary">Explorar cursos disponíveis</a>
-				<a href="#" class="btn btn-outline-secondary">Enviar mensagem para tutor</a> 
-				<a href="#" class="btn btn-outline-success">Deixa sua opinião com um comentário</a>
+				<a href="#" class="btn btn-outline-primary">Explorar cursos
+					disponíveis</a> <a href="#" class="btn btn-outline-secondary">Enviar
+					mensagem para tutor</a> <a href="#" class="btn btn-outline-success">Deixa
+					sua opinião com um comentário</a>
 			</div>
 		</div>
-		
-		<div class="cursos-container mt-4">
-			<div class="card">
-				<form method="post" action="${pageContext.request.contextPath}/inscricao">
-					<input type="hidden" name="idCurso" value="${curso.id}" />
-					<button type="submit" class="btn btn-primary mt-3">Inscrever-se</button>
-				</form>
-			</div>
-		</div>
-	</div>
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+		<c:forEach var="curso" items="${cursosDisponiveis}">
+			<div class="card mb-3">
+				<div class="card-body">
+					<h5 class="card-title">${curso.titulo}</h5>
+					<p class="card-text">${curso.descricao}</p>
+					<form method="post"
+						action="${pageContext.request.contextPath}/inscricao">
+						<input type="hidden" name="idCurso" value="${curso.id}" />
+						<button type="submit" class="btn btn-primary">Inscrever-se</button>
+					</form>
+				</div>
+			</div>
+		</c:forEach>
+
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

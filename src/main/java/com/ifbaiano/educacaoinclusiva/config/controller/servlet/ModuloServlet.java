@@ -2,8 +2,6 @@ package com.ifbaiano.educacaoinclusiva.config.controller.servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.List;
 
 import com.ifbaiano.educacaoinclusiva.DAO.ModuloDAO;
@@ -15,89 +13,71 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/modulo")
 public class ModuloServlet extends HttpServlet {
-	
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+	        throws ServletException, IOException {
+	    
+	    String action = request.getParameter("action");
+	    HttpSession session = request.getSession();
+	    String idStr = request.getParameter("id");
+	    String titulo = request.getParameter("titulo");
+	    String descricao = request.getParameter("descricao");
+
+	 
+
+	    try (Connection conexao = DBConfig.criarConexao()) {
+	        ModuloDAO moduloDAO = new ModuloDAO(conexao);
+
+	        switch (action != null ? action : "") {
+	            case "inserir":
+	                Modulo novoModulo = new Modulo();
+	                novoModulo.setTitulo(titulo);
+	                novoModulo.setDescricao(descricao);
+	                
+	                moduloDAO.inserirModulo(novoModulo);
+	                session.setAttribute("sucesso", "Módulo criado com sucesso!");
+	                
+	                if ("videoaula".equals(request.getParameter("redirect"))) {
+	                	response.sendRedirect(request.getContextPath() + "/pages/formularioCadastroVideoAula.jsp?idModulo=" + novoModulo.getId());
+	                }
+	                  break;     
+	            
+	                
+	            default:
+	                session.setAttribute("erro", "Ação inválida!");
+	                response.sendRedirect(request.getContextPath() + "/dashboardTutor.jsp");
+	        }
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        session.setAttribute("erro", "Erro: " + e.getMessage());
+	       	    }
+	}
+    
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
-        String titulo = request.getParameter("titulo");
-        String descricao = request.getParameter("descricao");
-        String idCursoStr = request.getParameter("idCurso");
-        String idModuloStr = request.getParameter("idModulo");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        String action = request.getParameter("action");
 
-        int idCurso = 0;
-        int idModulo = 0;
-
-        try {
-            if (idCursoStr != null && !idCursoStr.isEmpty()) {
-                idCurso = Integer.parseInt(idCursoStr);
-            }
-            if (idModuloStr != null && !idModuloStr.isEmpty()) {
-                idModulo = Integer.parseInt(idModuloStr);
-            }
-        } catch (NumberFormatException e) {
-            request.setAttribute("erro", "ID inválido.");
+        if ("novo".equals(action)) {
             request.getRequestDispatcher("/pages/modulo.jsp").forward(request, response);
             return;
         }
 
-		try (Connection conexao = DBConfig.criarConexao()){
-			
-                ModuloDAO moduloDAO = new ModuloDAO(conexao);
-                Modulo modulo = new Modulo();
-                modulo.setTitulo(titulo);
-                modulo.setDescricao(descricao);
-
-                moduloDAO.inserirModulo(modulo, idCurso);
-                response.sendRedirect("moduloListar?idCurso=" + idCurso);
-
+        try (Connection conexao = DBConfig.criarConexao()) {
+            ModuloDAO moduloDAO = new ModuloDAO(conexao);
             
-                modulo.setId(idModulo);
-                modulo.setTitulo(titulo);
-                modulo.setDescricao(descricao);
-                
-                moduloDAO.atualizarModulo(modulo);
-                response.sendRedirect("moduloListar?idCurso=" + idCurso);
-
-                moduloDAO.deletarModulo(idModulo);
-                response.sendRedirect("moduloListar?idCurso=" + idCurso);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-    }
-
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        String idCursoStr = request.getParameter("idCurso");
-        int idCurso = 0;
-
-        try {
-            if (idCursoStr != null && !idCursoStr.isEmpty()) {
-                idCurso = Integer.parseInt(idCursoStr);
-            }
-        } catch (NumberFormatException e) {
-            request.setAttribute("erro", "ID do curso inválido.");
-            request.getRequestDispatcher("/pages/modulo.jsp").forward(request, response);
-            return;
-        }
-
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Capacita", "usuario", "senha")) {
-            ModuloDAO moduloDAO = new ModuloDAO(connection);
-            List<Modulo> modulos = moduloDAO.listarTodosPorCurso(idCurso);
-
+            List<Modulo> modulos = moduloDAO.listarModulos();
             request.setAttribute("modulos", modulos);
-            request.setAttribute("idCurso", idCurso);
+            
             request.getRequestDispatcher("/pages/modulo.jsp").forward(request, response);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            request.setAttribute("erro", "Erro ao listar módulos: " + e.getMessage());
-            request.getRequestDispatcher("/pages/modulo.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("erro", "Erro: " + e.getMessage());
         }
     }
 }

@@ -54,20 +54,19 @@ public class InscricaoServlet extends HttpServlet {
             try (PreparedStatement stmt =conexao.prepareStatement(sql)) {
                 stmt.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
                 stmt.setString(2, "ativo");
-                stmt.setNull(3, java.sql.Types.DECIMAL); // nota_final começa como null
-                stmt.setInt(4, usuario.getId());         // ID do usuário logado
-                stmt.setInt(5, idCurso);                 // ID do curso
+                stmt.setNull(3, java.sql.Types.DECIMAL); 
+                stmt.setInt(4, usuario.getId());         
+                stmt.setInt(5, idCurso);                 
 
                 stmt.executeUpdate();
             }
         } catch (SQLException e) {
-            // Aqui você pode verificar erro de chave duplicada (usuário já inscrito)
             e.printStackTrace();
             request.setAttribute("erro", "Erro ao realizar inscrição: " + e.getMessage());
             request.getRequestDispatcher("/pages/cursos.jsp").forward(request, response);
             return;
         }
 
-        response.sendRedirect(request.getContextPath() + "/pages/cursos.jsp");
+        response.sendRedirect(request.getContextPath() + "/pages/dashboardAluno.jsp");
     }
 }

@@ -10,28 +10,34 @@ public class Aluno extends Usuario {
 	public Aluno(int id, String nome, String email, String senha, String bio, String tipoUsuario) {
 		super(id, nome, email, senha, bio, tipoUsuario);
 	}
+	
 	public Aluno( String nome, String email, String senha, String bio, String tipoUsuario) {
 		super( nome, email, senha, bio, tipoUsuario);
 	}
-	public void adicionarCurso(Curso curso) {
-		cursosInscritos.add(curso);
+	
+	public void inscreverEmCurso(Curso curso) {
+		 if (!cursosInscritos.contains(curso)) {
+		        cursosInscritos.add(curso);
+		    }
+		}			
+	
+	public List<Curso> getCursosInscritos() {
+	    return cursosInscritos;
 	}
 
-	public void listaCurso(Curso curso) {
-		if (cursosInscritos.isEmpty()) {
-			System.out.println("Você não está inscrito em nenhum curso!");
-		} else {
-			System.out.println("Curso que" + getRetornaNome() + " está inscrito" + curso.getTitulo());
-
-			for (Curso cursos : cursosInscritos) {
-				System.out.println("MEUS CURSOS  ");
-				System.out.println("--" + cursos.getTitulo());
-			}
-		}
+	public void listarCursos() {
+	    if (cursosInscritos.isEmpty()) {
+	        System.out.println("Você não está inscrito em nenhum curso!");
+	    } else {
+	        System.out.println("Cursos que " + getRetornaNome() + " está inscrito:");
+	        for (Curso curso : cursosInscritos) {
+	            System.out.println("- " + curso.getTitulo());
+	        }
+	    }
 	}
 
 	public void addCursoFavorito(Curso curso) {
-		favoritos.add(curso);
+		favoritos.add(curso);															 
 	}
 
 	@Override
