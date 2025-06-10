@@ -38,10 +38,7 @@
 			<p>Inclusão começa com conhecimento.</p>
 			<p>Oferecemos capacitação para preparar profissionais para a
 				diversidade e a inclusão no trabalho e na sociedade.</p>
-			<div class="buton-hero">
-				<a href="${pageContext.request.contextPath}/pages/login.jsp">Venha
-					enriquecer seu conhecimento</a>
-			</div>
+				
 		</div>
 	</section>
 	

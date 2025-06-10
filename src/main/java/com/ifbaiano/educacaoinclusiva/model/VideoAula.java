@@ -5,13 +5,18 @@ public class VideoAula {
 	private String titulo;
 	private String url;
 	private Modulo modulo;
-	private int idModulo;
+	private int moduloId;
 
-	public VideoAula(int id, String titulo, String url, int idModulo) {
+	public VideoAula(int id, String titulo, String url, int moduloId) {
 		this.id = id;
 		this.titulo = titulo;
 		setUrl(url);
-		this.idModulo = idModulo;
+		this.moduloId = moduloId;
+	}
+	public VideoAula(int id, String titulo, String url) {
+		this.id = id;
+		this.titulo = titulo;
+		setUrl(url);
 	}
 
 	public VideoAula() {
@@ -36,12 +41,12 @@ public class VideoAula {
 		this.url = url;
 	}
 
-	public int getIdModulo() {
-		return idModulo;
+	public int getModuloId() {
+		return moduloId;
 	}
 
-	public void setIdModulo(int idModulo) {
-		this.idModulo = idModulo;
+	public void setmoduloId(int moduloId) {
+		this.moduloId = moduloId;
 	}
 
 	public int getId() {
@@ -59,5 +64,7 @@ public class VideoAula {
 	public void setModulo(Modulo modulo) {
 		this.modulo = modulo;
 	}
-
+	public void ADD(VideoAula aula) {
+		aula.ADD(aula);
+	}
 }

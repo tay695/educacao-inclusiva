@@ -96,7 +96,7 @@
                                 <h5 class="card-title"><%= video.getTitulo() %></h5>
                                 <div class="ratio ratio-16x9 mb-3">
                                     <iframe src="<%= video.getUrl().replace("watch?v=", "embed/") %>" 
-                                            allowfullscreen></iframe>
+                                            ></iframe>
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <a href="<%= ctx %>/videoaula?action=edit&id=<%= video.getId() %>" 

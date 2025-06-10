@@ -16,10 +16,9 @@ public class ModuloDAO {
 	}
 
 	public void inserirModulo(Modulo modulo) throws SQLException {
-		String sql = "INSERT INTO Modulo (titulo, descricao) VALUES ( ?, ?)";
+		String sql = "INSERT INTO Modulo (titulo, descricao) VALUES (?, ?)";
 		try (Connection conn = DBConfig.criarConexao();
 				PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
 			stmt.setString(1, modulo.getTitulo());
 			stmt.setString(2, modulo.getDescricao());
 
@@ -76,7 +75,6 @@ public class ModuloDAO {
 			stmt.setInt(1, idModulo);
 			try (ResultSet rs = stmt.executeQuery()) {
 				if (rs.next()) {
-					List<VideoAula> videoaulas = listarVideoaulasModulo(idModulo);
 					return new Modulo(rs.getInt("id"), rs.getString("titulo"), rs.getString("descricao"));
 				}
 			}
@@ -86,7 +84,7 @@ public class ModuloDAO {
 
 	private List<VideoAula> listarVideoaulasModulo(int idModulo) throws SQLException {
 		List<VideoAula> videoaulas = new ArrayList<>();
-		String sql = "SELECT * FROM Videoaula WHERE id_modulo = ?";
+		String sql = "SELECT m.titulo, a.titulo,a.URL FROM VideoAula  a  JOIN  Modulo on m.id = a.id where m.id = ?";
 		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
 			stmt.setInt(1, idModulo);
 			try (ResultSet rs = stmt.executeQuery()) {
@@ -116,26 +114,33 @@ public class ModuloDAO {
 		}
 	}
 
-	public List<Modulo> listarModulos() {
-		List<Modulo> modulos = new ArrayList<>();
-		String sql = "SELECT id, titulo, descricao, id_curso FROM Modulo";
+	public List<Modulo> listarModulosComVideos() {
+	    List<Modulo> modulos = new ArrayList<>();
+	    String sql = "SELECT id, titulo, descricao FROM Modulo";
 
-		try (Connection conn = DBConfig.criarConexao();
-				PreparedStatement stmt = conn.prepareStatement(sql);
-				ResultSet rs = stmt.executeQuery()) {
+	    try (Connection conn = DBConfig.criarConexao();
+	         PreparedStatement stmt = conn.prepareStatement(sql);
+	         ResultSet rs = stmt.executeQuery()) {
 
-			while (rs.next()) {
-				Modulo modulo = new Modulo();
-				modulo.setId(rs.getInt(1));
-				modulo.setTitulo(rs.getString("titulo"));
-				modulo.setDescricao(rs.getString("descricao"));
-				modulos.add(modulo);
-			}
-		} catch (SQLException e) {
-			System.err.println("Erro ao listar módulos: " + e.getMessage());
-			e.printStackTrace();
-		}
+	        while (rs.next()) {
+	            Modulo modulo = new Modulo();
+	            int idModulo = rs.getInt("id");
+	            modulo.setId(idModulo);
+	            modulo.setTitulo(rs.getString("titulo"));
+	            modulo.setDescricao(rs.getString("descricao"));
 
-		return modulos;
+	            modulo.setVideoAulas(listarVideoaulasModulo(idModulo));
+
+	            modulos.add(modulo);
+	        }
+	    } catch (SQLException e) {
+	        System.err.println("Erro ao listar módulos com vídeos: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+
+	    return modulos;
 	}
+
 }
+       
+

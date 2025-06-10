@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Aluno extends Usuario {
-	private List<Curso> cursosInscritos = new ArrayList<>();
+	private List<VideoAula> videoaulas;
 	private List<Curso> favoritos = new ArrayList<>();
 
 	public Aluno(int id, String nome, String email, String senha, String bio, String tipoUsuario) {
@@ -15,23 +15,17 @@ public class Aluno extends Usuario {
 		super( nome, email, senha, bio, tipoUsuario);
 	}
 	
-	public void inscreverEmCurso(Curso curso) {
-		 if (!cursosInscritos.contains(curso)) {
-		        cursosInscritos.add(curso);
-		    }
-		}			
-	
-	public List<Curso> getCursosInscritos() {
-	    return cursosInscritos;
-	}
-
-	public void listarCursos() {
-	    if (cursosInscritos.isEmpty()) {
+	public void inscreverAula(VideoAula aula) {
+		        videoaulas.add(aula);
+		   }
+					
+	public void listarAulas() {
+	    if (videoaulas.isEmpty()) {
 	        System.out.println("Você não está inscrito em nenhum curso!");
 	    } else {
 	        System.out.println("Cursos que " + getRetornaNome() + " está inscrito:");
-	        for (Curso curso : cursosInscritos) {
-	            System.out.println("- " + curso.getTitulo());
+	        for (VideoAula a : videoaulas) {
+	            System.out.println("- " +a.getTitulo());
 	        }
 	    }
 	}
@@ -43,5 +37,13 @@ public class Aluno extends Usuario {
 	@Override
 	public void Postar(String conteudo) {
 		System.out.println("Comentário adicionado por " + getRetornaNome() + " ");
+	}
+
+	public List<VideoAula> getVideoaulas() {
+		return videoaulas;
+	}
+
+	public void setVideoaulas(List<VideoAula> videoaulas) {
+		this.videoaulas = videoaulas;
 	}
 }

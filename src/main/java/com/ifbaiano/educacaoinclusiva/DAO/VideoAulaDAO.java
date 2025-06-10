@@ -14,8 +14,9 @@ public class VideoAulaDAO {
         this.conexao = conexao;
     }
 
-    public VideoAula inserirVideoaula(VideoAula videoaula) throws SQLException {
-        // Validação básica da URL
+    
+
+	public VideoAula inserirVideoaula(VideoAula videoaula) throws SQLException {
         if (videoaula.getUrl() == null || !videoaula.getUrl().startsWith("http")) {
             throw new IllegalArgumentException("URL da videoaula inválida");
         }
@@ -25,7 +26,7 @@ public class VideoAulaDAO {
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, videoaula.getTitulo());
             stmt.setString(2, videoaula.getUrl());
-            stmt.setInt(3, videoaula.getIdModulo());
+            stmt.setInt(3, videoaula.getModuloId());
             
             conexao.setAutoCommit(false);
             try {
@@ -47,12 +48,11 @@ public class VideoAulaDAO {
         }
     }
    
-    public List<VideoAula> listarPorModulo(int idModulo) throws SQLException {
+    public List<VideoAula> listarPorModulo() throws SQLException {
         List<VideoAula> videoaulas = new ArrayList<>();
-        String sql = "SELECT id, titulo, url, id_modulo FROM Videoaula WHERE id_modulo = ?";
+        String sql = "SELECT * FROM Modulo ";
         
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, idModulo);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     VideoAula videoaula = new VideoAula(
@@ -68,7 +68,6 @@ public class VideoAulaDAO {
         return videoaulas;
     }
     
- // No VideoAulaDAO.java
     public List<VideoAula> listarPorTutor(int tutorId) throws SQLException {
         List<VideoAula> videoAulas = new ArrayList<>();
         String sql = """
@@ -131,6 +130,5 @@ public class VideoAulaDAO {
         }
         return null;
     }
-
-	
+  
 }

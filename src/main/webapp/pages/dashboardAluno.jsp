@@ -117,7 +117,6 @@ h2 {
 					sua opinião com um comentário</a>
 			</div>
 		</div>
-
 		<c:forEach var="curso" items="${cursosDisponiveis}">
 			<div class="card mb-3">
 				<div class="card-body">
@@ -130,6 +129,22 @@ h2 {
 					</form>
 				</div>
 			</div>
+		</c:forEach>
+		<c:forEach var="modulo" items="${modulos}">
+			<h2>${modulo.titulo}</h2>
+			<p>${modulo.descricao}</p>
+
+			<c:forEach var="video" items="${modulo.videoAulas}">
+				<div class="card mb-3">
+					<div class="card-body">
+						<h5 class="card-title">${video.titulo}</h5>
+						<div class="embed-responsive embed-responsive-16by9">
+							<iframe src="https://www.youtube.com/embed/CÓDIGO_VIDEO"
+								></iframe>
+						</div>
+					</div>
+				</div>
+			</c:forEach>
 		</c:forEach>
 
 

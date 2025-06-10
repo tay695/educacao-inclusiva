@@ -12,8 +12,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.ifbaiano.educacaoinclusiva.DAO.AlunoDAO;
+import com.ifbaiano.educacaoinclusiva.DAO.ModuloDAO;
+import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 import com.ifbaiano.educacaoinclusiva.model.Aluno;
-import com.ifbaiano.educacaoinclusiva.model.Curso;
+import com.ifbaiano.educacaoinclusiva.model.Modulo;
+import com.ifbaiano.educacaoinclusiva.model.VideoAula;
 import com.ifbaiano.educacaoinclusiva.model.dto.SessionDTO;
 
 @WebServlet("/dashboardAluno")
@@ -23,6 +26,10 @@ public class AlunoServlet extends HttpServlet {
 
     private AlunoDAO alunoDAO = new AlunoDAO(conexao);
 
+    @Override
+	public void init() throws ServletException {
+		this.conexao = DBConfig.criarConexao();
+	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
@@ -33,26 +40,31 @@ public class AlunoServlet extends HttpServlet {
         }
 
         Aluno aluno = (Aluno) sessionDTO.getUsuario();
-        List<Curso> cursosInscritos = null;
+        List<VideoAula> videoaula = null;
 		try {
-			cursosInscritos = alunoDAO.buscarCursosDoAluno(aluno.getId());
+			videoaula = alunoDAO.buscarAulasDoAluno(aluno.getId());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-        for (Curso curso : cursosInscritos) {
-            aluno.inscreverEmCurso(curso);         }
-
-        // Atualiza o objeto na sessão
+        for (VideoAula aula: videoaula) {
+            aluno.inscreverAula(aula);        
+        }
+       
+       
         sessionDTO.setUsuario(aluno);
         request.getSession().setAttribute("usuarioLogado", sessionDTO);
 
-        // Encaminha para a página do aluno
-        request.setAttribute("cursos", cursosInscritos);
+        request.setAttribute("aula", videoaula);
         request.getRequestDispatcher("/pages/dashboardAluno.jsp").forward(request, response);
-
-	}
+        
+        List<Modulo> modulos = null;
+        try {
+            ModuloDAO moduloDAO = new ModuloDAO(conexao); 
+            modulos = moduloDAO.listarModulosComVideos(); 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        request.setAttribute("modulos", modulos);	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -2,6 +2,7 @@
 package com.ifbaiano.educacaoinclusiva.model.dto;
 
 import com.ifbaiano.educacaoinclusiva.model.Aluno;
+import com.ifbaiano.educacaoinclusiva.model.Tutor;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
 import com.ifbaiano.educacaoinclusiva.model.enums.TipoDeUsuario;
 
@@ -42,6 +43,10 @@ public class SessionDTO{
 
 
 		public void setUsuario(Aluno aluno) {
+			// TODO Auto-generated method stub
+			
+		}
+		public void setUsuario(Tutor tutor) {
 			// TODO Auto-generated method stub
 			
 		}

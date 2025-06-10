@@ -11,6 +11,7 @@ import java.util.List;
 import com.ifbaiano.educacaoinclusiva.model.Aluno;
 import com.ifbaiano.educacaoinclusiva.model.Curso;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
+import com.ifbaiano.educacaoinclusiva.model.VideoAula;
 
 public class AlunoDAO {
 	
@@ -88,25 +89,24 @@ public class AlunoDAO {
 	        return null;
 	    }
 	    
-	 public List<Curso> buscarCursosDoAluno(int idAluno) throws SQLException {
-	        List<Curso> cursos = new ArrayList<>();
-	        String sql = "SELECT c.id, c.titulo, c.area, c.descricao FROM Curso c " +
-	                     "JOIN UsuarioCurso uc ON c.id = uc.id_curso " +
-	                     "WHERE uc.id_usuario = ?";
+	 public List<VideoAula> buscarAulasDoAluno(int idAluno) throws SQLException {
+		 List<VideoAula> videoaula  = new ArrayList<>();
+	        String sql = "SELECT a.id, a.titulo,al.nome FROM VideoAula a " +
+	                     "JOIN Modulo m, Aluno al ON m.id = a.id " +
+	                     "WHERE al.id_usuario = ?";
 
 	        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
 	            stmt.setInt(1, idAluno);
 	            ResultSet rs = stmt.executeQuery();
 	            while (rs.next()) {
-	                Curso curso = new Curso();
-	                curso.setId(rs.getInt("id"));
-	                curso.setTitulo(rs.getString("titulo"));
-	                curso.setArea(rs.getString("area"));
-	                curso.setDescricao(rs.getString("descricao"));
-	                cursos.add(curso);
+	                VideoAula aula = new VideoAula();
+	               aula.setId(rs.getInt("id"));
+	               aula.setTitulo(rs.getString("titulo"));
+	               aula.setUrl("url");
+	               aula.ADD(aula);
 	            }
 	        }
-	        return cursos;
-	    }
+           return videoaula;
 
+}
 }

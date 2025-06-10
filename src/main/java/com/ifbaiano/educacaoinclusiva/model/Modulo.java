@@ -7,7 +7,6 @@ public class Modulo {
 	private int id;
 	private String titulo;
 	private String descricao;
-	private List<VideoAula> videoAulas;
 	private List<VideoAula> videoaulas;
 	private List<Postagem> postagens = new ArrayList<>();
 
@@ -25,8 +24,8 @@ public class Modulo {
 	
 
 	public void adicionarVideoAula(VideoAula videoAula) {
-		videoAula.setIdModulo(this.id);
-		this.videoAulas.add(videoAula);
+		videoAula.setmoduloId(this.id);
+		this.videoaulas.add(videoAula);
 	}
 	public int getId() {
 		return id;
@@ -35,13 +34,7 @@ public class Modulo {
 	public void setId(int id) {
 		this.id= id;
 	}
-	public List<VideoAula> getVideoaulas() {
-		return videoaulas;
-	}
-
-	public void setVideoaulas(List<VideoAula> videoaulas) {
-		this.videoaulas = videoaulas;
-	}
+	
 
 	public void adicionarPostagem(Postagem postagem) {
 		postagem.setModulo(this);
@@ -75,11 +68,11 @@ public class Modulo {
 	
 	
 	public List<VideoAula> getVideoAulas() {
-		return videoAulas;
+		return videoaulas;
 	}
 
 	public void setVideoAulas(List<VideoAula> videoAulas) {
-		this.videoAulas = videoAulas;
+		this.videoaulas = videoAulas;
 	}
 
 	

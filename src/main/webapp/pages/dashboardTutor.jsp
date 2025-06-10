@@ -42,13 +42,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${ctx}/pages/modulo.jsp">
-                        <i class="bi bi-journal-plus me-2"></i> Novo Modulo
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${ctx}/pages/formularioCadastroVideoAula.jsp">
-                        <i class="bi bi-camera-video me-2"></i> Nova Aula
+                    <a class="nav-link" href="${ctx}/pages/cadastroVideos.jsp">
+                        <i class="bi bi-journal-plus me-2"></i> nova aula
                     </a>
                 </li>
                 <li class="nav-item">
@@ -66,7 +61,6 @@
         </div>
     </div>
 
-    <!-- Conteúdo Principal -->
     <div class="container mt-4">
         <!-- Mensagens de Feedback -->
         <c:if test="${not empty sessionScope.mensagem}">
@@ -83,18 +77,6 @@
                 <p class="lead">Gerencie seus cursos e videoaulas</p>
             </div>
         </div>
-
-        <!-- Cards de Ação Rápida -->
-        <div class="row row-cols-1 row-cols-md-3 g-4 mb-4">
-            <div class="col">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body text-center">
-                        <i class="bi bi-journal-plus fs-1 text-primary mb-3"></i>
-                        <h5 class="card-title">Novo MÓDULO</h5>
-                        <p class="card-text">Crie um novo curso para seus alunos</p>
-                        <a href="${ctx}/pages/modulo.jsp" class="btn btn-primary">Criar </a>
-                    </div>
-                </div>
             </div>
             <div class="col">
                 <div class="card h-100 shadow-sm">
@@ -102,7 +84,7 @@
                         <i class="bi bi-camera-video fs-1 text-primary mb-3"></i>
                         <h5 class="card-title">Nova Videoaula</h5>
                         <p class="card-text">Adicione uma nova videoaula aos seus cursos</p>
-                        <a href="${ctx}/pages/formularioCadastroVideoAula.jsp" class="btn btn-primary">Adicionar Aula</a>
+                        <a href="${ctx}/pages/cadastroVideos.jsp" class="btn btn-primary">Adicionar Aula</a>
                     </div>
                 </div>
             </div>
@@ -116,9 +98,7 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Seção de Cursos Recentes -->
         <div class="row">
             <div class="col-md-12">
                 <h3 class="mb-3"><i class="bi bi-journal-bookmark me-2"></i>Meus Cursos</h3>
@@ -147,14 +127,23 @@
                     <c:otherwise>
                         <div class="alert alert-info">
                             Você ainda não criou nenhum curso. 
-                            <a href="${ctx}/pages/modulo.jsp" class="alert-link">Clique aqui para criar seu primeiro curso</a>.
+                            <a href="${ctx}/pages/cadastroVideos.jsp" class="alert-link">Clique aqui para criar seu primeiro curso</a>.
                         </div>
                     </c:otherwise>
                 </c:choose>
             </div>
         </div>
     </div>
-
+<c:forEach items="${videoAulas}" var="aula">
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">${aula.titulo}</h5>
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="${aula.url}" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</c:forEach>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Fechar alertas automaticamente após 5 segundos

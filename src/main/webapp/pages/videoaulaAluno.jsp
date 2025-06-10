@@ -5,7 +5,7 @@
 <%@ page import="java.util.Calendar" %>
 
 <%
-    Aluno aluno = (Aluno) session.getAttribute("usuarioLogado");
+    Aluno aluno = (Aluno) session.getAttribute("aluno");
     if (aluno == null) {
         response.sendRedirect(request.getContextPath() + "/pages/login.jsp");
         return;
@@ -66,22 +66,26 @@
     </div>
 </div>
 
-<div class="container mt-5">
+
 
     <h1 class="mt-4">Menu de visualização de vídeo aulas</h1>
 
+    
     <h2>Seja Bem-vindo, <%= aluno.getRetornaNome() %>!</h2>
     <p>Email: <%= aluno.getEmail() %></p>
 
     <div class="d-grid gap-3 mt-3">
-        <a href="listarvideoaulaAluno.jsp" class="btn btn-primary btn-lg">
-            <i class="bi bi-camera-video"></i> Visualizar todas as vídeo aulas
-        </a>
         <a href="<%= request.getContextPath() %>/controller/Logout" class="btn btn-outline-danger btn-lg">
             <i class="bi bi-box-arrow-right"></i> Sair
         </a>
     </div>
-</div>
+
+    <!-- Seção de listagem de vídeos -->
+    <div class="mt-4">
+        <h3><i class="bi bi-collection-play"></i> Minhas Vídeo Aulas</h3>
+        
+     
+    </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 </body>

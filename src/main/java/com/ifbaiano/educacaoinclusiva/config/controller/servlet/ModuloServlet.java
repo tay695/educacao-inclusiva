@@ -71,7 +71,7 @@ public class ModuloServlet extends HttpServlet {
         try (Connection conexao = DBConfig.criarConexao()) {
             ModuloDAO moduloDAO = new ModuloDAO(conexao);
             
-            List<Modulo> modulos = moduloDAO.listarModulos();
+            List<Modulo> modulos = moduloDAO.listarModulosComVideos();
             request.setAttribute("modulos", modulos);
             
             request.getRequestDispatcher("/pages/modulo.jsp").forward(request, response);
