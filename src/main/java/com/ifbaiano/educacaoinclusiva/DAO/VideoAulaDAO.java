@@ -4,7 +4,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ifbaiano.educacaoinclusiva.model.Modulo;
 import com.ifbaiano.educacaoinclusiva.model.VideoAula;
 
 public class VideoAulaDAO {
@@ -21,7 +20,7 @@ public class VideoAulaDAO {
             throw new IllegalArgumentException("URL da videoaula inválida");
         }
 
-        String sql = "INSERT INTO Videoaula (titulo, url, id_modulo) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO VideoAula (titulo, url, id_modulo) VALUES (?, ?, ?)";
         
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, videoaula.getTitulo());
