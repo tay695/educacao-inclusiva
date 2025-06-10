@@ -6,6 +6,8 @@ import java.util.List;
 public class Tutor extends Usuario {
     private String areaEspecializacao;
     private List<VideoAula> videoaulas;
+    List<Modulo> modulos = new ArrayList<>();
+
 
     public Tutor(String areaEspecializacao, int id, String nome, String email, String senha, String bio,String tipoUsuario) {
     	super(id, nome, email, senha, bio, tipoUsuario);

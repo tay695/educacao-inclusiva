@@ -35,26 +35,26 @@ public class ModuloDAO {
 	public List<Modulo> listarPorTutor(int tutorId) throws SQLException {
 		List<Modulo> modulos = new ArrayList<>();
 		String sql = """
-				 SELECT m.id, m.titulo, m.descricao
-				FROM Modulo m
+				SELECT *
+				FROM Modulo
 				WHERE c.id_tutor = ?
 
 				            """;
-
 		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
 			stmt.setInt(1, tutorId);
 			try (ResultSet rs = stmt.executeQuery()) {
 				while (rs.next()) {
-					Modulo modulo = new Modulo(rs.getInt("id"), rs.getString("titulo"), rs.getString("descricao"));
-					modulos.add(modulo);
+		            Modulo modulo = new Modulo();
+		            modulo.setId(rs.getInt("id"));
+		            modulo.setTitulo(rs.getString("titulo"));
+		            modulo.setDescricao(rs.getString("descricao"));
+		            modulos.add(modulo);
+
 				}
 			}
 		}
 		return modulos;
 	}
-
-	
-
 	public void atualizarModulo(Modulo modulo) throws SQLException {
 		String sql = "UPDATE Modulo SET titulo = ?, descricao = ? WHERE id = ?";
 		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -84,6 +84,8 @@ public class ModuloDAO {
 
 	private List<VideoAula> listarVideoaulasModulo(int idModulo) throws SQLException {
 		List<VideoAula> videoaulas = new ArrayList<>();
+	    List<Modulo> modulos = new ArrayList<>();
+	    
 		String sql = "SELECT m.titulo, a.titulo,a.URL FROM VideoAula  a  JOIN  Modulo on m.id = a.id where m.id = ?";
 		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
 			stmt.setInt(1, idModulo);
@@ -92,6 +94,16 @@ public class ModuloDAO {
 					VideoAula videoaula = new VideoAula(rs.getInt("id"), rs.getString("titulo"), rs.getString("url"),
 							rs.getInt("id_modulo"));
 					videoaulas.add(videoaula);
+					Modulo modulo = new Modulo();
+		            int  moduloId = rs.getInt("id");
+		            modulo.setId( moduloId);
+		            modulo.setTitulo(rs.getString("titulo"));
+		            modulo.setDescricao(rs.getString("descricao"));
+
+		            modulo.setVideoAulas(listarVideoaulasModulo( moduloId));
+
+		            modulos.add(modulo);
+					
 				}
 			}
 		}

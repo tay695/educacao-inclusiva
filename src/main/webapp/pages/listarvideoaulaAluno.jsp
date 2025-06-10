@@ -1,37 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List, java.util.ArrayList, java.util.Map, java.util.HashMap" %>
-<%@ page import="com.ifbaiano.educacaoinclusiva.model.VideoAula" %>
-<%@ page import="com.ifbaiano.educacaoinclusiva.model.Modulo" %>
-<%@ page import="com.ifbaiano.educacaoinclusiva.model.Aluno" %>
-<%@ page import="jakarta.servlet.http.HttpSession" %>
-
-<%
-    HttpSession sessao = request.getSession();
-
-    // Recupera videoAulas
-    @SuppressWarnings("unchecked")
-    List<VideoAula> videoAulas = (List<VideoAula>) request.getAttribute("videoAulas");
-    if (videoAulas == null) {
-        videoAulas = new ArrayList<>();
-    }
-
-    // Monta map de <idModulo → nomeModulo> 
-    Map<Integer, String> modMap = new HashMap<>();
-    @SuppressWarnings("unchecked")
-    List<Modulo> modulos = (List<Modulo>) request.getAttribute("modulos");
-    if (modulos != null) {
-        for (Modulo m : modulos) {
-            modMap.put(m.getId(), m.getTitulo());
-        }
-    }
-
-    // Verificação de login
-    Aluno aluno = (Aluno) sessao.getAttribute("usuarioLogado");
-    if (aluno == null) {
-         response.sendRedirect(request.getContextPath() + "/pages/login.jsp");
-         return;
-    }
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -39,16 +7,11 @@
     <meta charset="UTF-8">
     <title>Vídeo Aulas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Bootstrap CSS e Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- CSS específico desta página -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/listarvideoaulaAluno.css">
 </head>
 <body>
-    <!-- ===== HEADER DO ALUNO ===== -->
     <nav class="navbar navbar-expand-lg custom-navbar">
         <div class="container-fluid">
             <button class="btn btn-outline-light me-2"
@@ -59,8 +22,8 @@
                     aria-label="Abrir menu lateral">
                 <i class="bi bi-list fs-3"></i>
             </button>
-            <a href="${pageContext.request.contextPath}/pages/homeAluno.jsp" class="navbar-brand text-white">
-                <img src="<%= request.getContextPath() %>/static/images/logo.png"
+            <a href="${pageContext.request.contextPath}/homeAluno" class="navbar-brand text-white">
+                <img src="${pageContext.request.contextPath}/static/images/logo.png"
                      alt="Logo da Educação Inclusiva"
                      height="65">
             </a>
@@ -75,74 +38,73 @@
         <div class="offcanvas-body">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="perfilaluno.jsp">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/perfilAluno">
                         <i class="bi bi-person-circle me-2"></i> Meu Perfil
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="listarvideoaulaAluno.jsp">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/listarVideoAulas">
                         <i class="bi bi-camera-video me-2"></i> Ver Vídeo Aulas
                     </a>
                 </li>
                 <li><hr></li>
                 <li class="nav-item">
-                    <a class="nav-link text-danger" href="<%= request.getContextPath() %>/controller/Logout">
+                    <a class="nav-link text-danger" href="${pageContext.request.contextPath}/logout">
                         <i class="bi bi-box-arrow-right me-2"></i> Sair
                     </a>
                 </li>
             </ul>
         </div>
     </div>
-    <!-- ===== FIM HEADER ===== -->
 
     <div class="main-content-wrapper">
         <h1 class="page-title">Vídeo Aulas Disponíveis</h1>
 
-        <% if (videoAulas.isEmpty()) { %>
-            <p class="subtext">Não há vídeo aulas para exibir.</p>
-        <% } else { %>
-            <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead class="table-light">
-                        <tr>
-                            <th scope="col">Título</th>
-                            <th scope="col">Link</th>
-                            <th scope="col">Módulo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% for (VideoAula va : videoAulas) {
-                               String nomeModulo = modMap.getOrDefault(
-                                   va.getIdModulo(),
-                                   "Módulo " + va.getIdModulo()
-                               );
-                        %>
-                        <tr>
-                            <td><strong><%= va.getTitulo() %></strong></td>
-                            <td>
-                                <a href="<%= va.getUrl() %>" target="_blank">
-                                    <i class="bi bi-youtube me-1"></i><%= va.getUrl() %>
-                                </a>
-                            </td>
-                            <td><%= nomeModulo %></td>
-                        </tr>
-                        <% } %>
-                    </tbody>
-                </table>
-            </div>
-        <% } %>
+        <c:choose>
+            <c:when test="${empty videoAulas}">
+                <p class="subtext">Não há vídeo aulas para exibir.</p>
+            </c:when>
+            <c:otherwise>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col">Título</th>
+                                <th scope="col">Link</th>
+                                <th scope="col">Módulo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${videoAulas}" var="va">
+                                <tr>
+                                    <td><strong>${va.titulo}</strong></td>
+                                    <td>
+                                        <a href="${va.url}" target="_blank">
+                                            <i class="bi bi-youtube me-1"></i>${va.url}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <c:forEach items="${modulos}" var="modulo">
+                                            <c:if test="${modulo.id == va.moduloId}">
+                                                ${modulo.titulo}
+                                            </c:if>
+                                        </c:forEach>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </c:otherwise>
+        </c:choose>
 
         <div class="nav-buttons">
-            <a href="${pageContext.request.contextPath}/pages/homeAluno">
+            <a href="${pageContext.request.contextPath}/homeAluno" class="btn btn-primary">
                 <i class="bi bi-arrow-left-circle me-1"></i> Voltar ao Painel
-            </a>
-            <a href="${pageContext.request.contextPath}/pages/perfilaluno.jsp" class="btn btn-secondary">
-                <i class="bi bi-person-circle me-1"></i> Voltar ao Perfil
             </a>
         </div>
     </div>
 
-    <!-- Bootstrap JS (necessário para offcanvas) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

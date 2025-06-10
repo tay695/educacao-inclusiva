@@ -47,9 +47,9 @@ public class VideoAulaDAO {
         }
     }
    
-    public List<VideoAula> listarPorModulo() throws SQLException {
+    public List<VideoAula> listarPorAulas() throws SQLException {
         List<VideoAula> videoaulas = new ArrayList<>();
-        String sql = "SELECT * FROM Modulo ";
+        String sql = "SELECT * FROM VideoAula ";
         
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             try (ResultSet rs = stmt.executeQuery()) {
