@@ -87,43 +87,6 @@
             </a>
         </div>
 
-        <% if (videoAulas != null && !videoAulas.isEmpty()) { %>
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                <% for (VideoAula video : videoAulas) { %>
-                    <div class="col">
-                        <div class="card h-100 video-card">
-                            <div class="card-body">
-                                <h5 class="card-title"><%= video.getTitulo() %></h5>
-                                <div class="ratio ratio-16x9 mb-3">
-                                    <iframe src="<%= video.getUrl().replace("watch?v=", "embed/") %>" 
-                                            ></iframe>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <a href="<%= ctx %>/videoaula?action=edit&id=<%= video.getId() %>" 
-                                       class="btn btn-sm btn-outline-primary">
-                                        <i class="bi bi-pencil"></i> Editar
-                                    </a>
-                                    <a href="<%= ctx %>/videoaula?action=delete&id=<%= video.getId() %>" 
-                                       class="btn btn-sm btn-outline-danger"
-                                       onclick="return confirm('Tem certeza que deseja excluir esta videoaula?')">
-                                        <i class="bi bi-trash"></i> Excluir
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <% } %>
-            </div>
-        <% } else { %>
-            <div class="alert alert-info">
-                Nenhuma videoaula cadastrada ainda. 
-                <a href="<%= ctx %>/pages/formularioCadastroVideoAula.jsp" class="alert-link">
-                    Clique aqui para adicionar sua primeira videoaula.
-                </a>
-            </div>
-        <% } %>
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

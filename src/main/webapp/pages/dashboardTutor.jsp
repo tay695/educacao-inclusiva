@@ -17,6 +17,7 @@
 <link href="${ctx}/static/css/tutor.css" rel="stylesheet">
 </head>
 <body>
+
 	<nav class="navbar navbar-expand-lg custom-navbar">
 		<div class="container-fluid">
 			<button class="btn btn-outline-light me-2" type="button"
@@ -82,7 +83,7 @@
 				<i class="bi bi-camera-video fs-1 text-primary mb-3"></i>
 				<h5 class="card-title">Nova Videoaula</h5>
 				<p class="card-text">Adicione uma nova videoaula aos seus cursos</p>
-				<a href="${ctx}/cadastroModulo" class="btn btn-primary">>Adicionar
+				<a href="${ctx}/pages/cadastroVideos.jsp" class="btn btn-primary">Adicionar
 					Aula</a>
 			</div>
 		</div>
@@ -104,21 +105,20 @@
 			<h3 class="mb-3">
 				<i class="bi bi-journal-bookmark me-2"></i>Meus Cursos
 			</h3>
-
 			<c:choose>
-				<c:when test="${not empty cursos}">
+				<c:when test="${not empty modulos}">
 					<div class="row row-cols-1 row-cols-md-3 g-4">
-						<c:forEach items="${cursos}" var="curso">
+						<c:forEach items="${modulos}" var="modulos">
 							<div class="col">
 								<div class="card h-100">
 									<img src="${ctx}/static/images/course-placeholder.jpg"
-										class="card-img-top img-card" alt="${curso.titulo}">
+										class="card-img-top img-card" alt="${modulo.titulo}">
 									<div class="card-body">
-										<h5 class="card-title">${curso.titulo}</h5>
-										<p class="card-text text-muted">${curso.descricao}</p>
+										<h5 class="card-title">${modulo.titulo}</h5>
+										<p class="card-text text-muted">${modulo.descricao}</p>
 									</div>
 									<div class="card-footer bg-transparent">
-										<a href="${ctx}/modulo?idCurso=${curso.id}"
+										<a href="${ctx}/modulo?moduloId=${modulo.id}"
 											class="btn btn-outline-primary btn-sm"> Gerenciar Módulos
 										</a>
 									</div>
@@ -152,18 +152,12 @@
 
 	<c:if test="${empty modulos}">
 		<p>
-			Você ainda não criou nenhum módulo. <a href="cadastroModulo.jsp">Crie
+			Você ainda não criou nenhum módulo. <a href="cadastroVideos.jsp">Crie
 				seu primeiro módulo</a>.
 		</p>
 	</c:if>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
-	<script>
-		window.setTimeout(function() {
-			$(".alert").fadeTo(500, 0).slideUp(500, function() {
-				$(this).remove();
-			});
-		}, 5000);
-	</script>
+	
 </body>
 </html>

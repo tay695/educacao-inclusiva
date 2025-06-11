@@ -40,7 +40,7 @@ public class ModuloServlet extends HttpServlet {
 	                
 	                moduloDAO.inserirModulo(novoModulo);
 	                session.setAttribute("sucesso", "Módulo criado com sucesso!");
-	                
+	                request.setAttribute("modulos", novoModulo);
 	                if ("videoaula".equals(request.getParameter("redirect"))) {
 	                	response.sendRedirect(request.getContextPath() + "/pages/formularioCadastroVideoAula.jsp?idModulo=" + novoModulo.getId());
 	                }

@@ -78,7 +78,7 @@ if (aluno == null) {
                 <a href="<%= ctx %>/pages/listarvideoaulaTutor.jsp" class="btn btn-outline-info btn-lg">
                     <i class="bi bi-collection-play"></i> Visualizar todas as vídeo aulas
                 </a>
-                <a href="<%= ctx %>/pages/dashboardTutor.jsp" class="btn btn-outline-danger btn-lg">
+                <a href="<%= ctx %>/pages/dashboardAluno.jsp" class="btn btn-outline-danger btn-lg">
                     <i class="bi bi-person-circle"></i> Retornar ao inicio
                 </a>
             </div>

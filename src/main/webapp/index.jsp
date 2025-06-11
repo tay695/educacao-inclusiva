@@ -19,7 +19,9 @@
 				src="${pageContext.request.contextPath}/static/images/logo.png"
 				alt="Logo Capacita++" height="60">
 			</a>
+			
 			<div class="nav-buttons">
+				<a href="#sobre-nos" class="sem-botao">Sobre Nós</a>
 				<a href="${pageContext.request.contextPath}/pages/cadastroAluno.jsp">Entre
 					como estudante</a> <a
 					href="${pageContext.request.contextPath}/pages/cadastroTutor.jsp">Entre
@@ -38,7 +40,10 @@
 			<p>Inclusão começa com conhecimento.</p>
 			<p>Oferecemos capacitação para preparar profissionais para a
 				diversidade e a inclusão no trabalho e na sociedade.</p>
-				
+			<div class="buton-hero">
+				<a href="${pageContext.request.contextPath}/pages/login.jsp">Venha
+					enriquecer seu conhecimento</a>
+			</div>
 		</div>
 	</section>
 	
@@ -99,6 +104,71 @@
 	        </div>
 	</div>
       </section>
+
+	</section> <section class="related-articles">
+		<h2>Entenda sobre A importancia da Inclusão</h2> <div class="course-cards"> <div class="course-card">
+				<img src="${pageContext.request.contextPath}/static/images/educacao inclusiva.jpeg" alt="Ilustração do artigo: Educação Inclusiva">
+				<p>Educação Inclusiva: Entre a História, os Preconceitos, a Escola e a Família</p>
+				<a href="https://www.scielo.br/j/pcp/a/gtPdzXy4yHrX9Lz9txCtQ7c" class="link-no-card">Leia Mais</a>
+			</div>
+
+			<div class="course-card">
+				<img src="${pageContext.request.contextPath}/static/images/incluso.jpeg" alt="Ilustração sobre inclusão como direito">
+				<p>Inclusão: um direito de todos</p>
+				<a href="https://educacaopublica.cecierj.edu.br/artigos/20/29/inclusao-um-direito-de-todos" class="link-no-card">Leia Mais</a>
+			</div>
+
+			<div class="course-card">
+				<img src="${pageContext.request.contextPath}/static/images/promovendo educacao.jpeg" alt="Ilustração sobre suporte teórico em educação inclusiva">
+				<p>A Educação Inclusiva e Seu Suporte Teórico Documental</p>
+				<a href="https://periodicos.furg.br/momento/article/view/15986" class="link-no-card">Leia Mais</a>
+			</div>
+
+			<div class="course-card">
+				<img src="${pageContext.request.contextPath}/static/images/suporteEducacao.jpeg" alt="Ilustração sobre desafios e estratégias em educação inclusiva">
+				<p>Promovendo a Educação Inclusiva: Desafios e Estratégias</p>
+				<a href="https://ojs.focopublicacoes.com.br/foco/article/view/5598" class="link-no-card">Leia Mais</a>
+			</div>
+
+			<div class="course-card">
+				<img src="${pageContext.request.contextPath}/static/images/educacao1.jpeg" alt="Ilustração genérica sobre educação inclusiva">
+				<p>Educação inclusiva</p>
+				<a href="https://brasilescola.uol.com.br/educacao/educacao-inclusiva.htm" class="link-no-card">Leia Mais</a>
+			</div>
+
+		</div>
+	</section>
+
+	<section id="sobre-nos" class="sobre-nos">
+
+	  <section id="sobre-nos" class="sobre-nos">
+		<h2>Sobre Nós</h2>
+		<p>
+			Este sistema foi desenvolvido como parte da disciplina de <strong>Programação Orientada a Objetos (POO)</strong>, com o objetivo de aplicar os conhecimentos adquiridos durante o curso de Análise e Desencvolvimento de Sistemas, focando na criação de uma <strong>plataforma educacional inclusiva</strong>.
+		</p>
+
+		<p>
+		<strong>Integrantes:</strong><br>
+		Farley Souza Silva de Oliveira<br>
+		Geraldo Rafael Lopes Benevides<br>
+		Julia Evelyn Magalhães dos Santos<br>
+		Maíra Ramos Teixeira<br>
+		Tainara do Amaral Oliveira Azevedo
+		</p>
+		<p>
+			<strong>Orientador:</strong><br>
+			Prof. Woquiton Lima Fernandes
+		</p>
+		<p>
+			<strong>Instituição:</strong><br>
+			Intituto Federal de Educação, Ciência e Tecnologia Baiano - Campus Guanambi
+		</p>
+		<p>
+			<strong>Curso:</strong> Análise e Desencvolvimento de Sistemas<br>
+			<strong>Semestre:</strong> 3º semestre de 2025
+		</p><br><br>
+	  </section>
+	  
 			
 			<footer>
 				<p>&copy; 2025 Capacita++. Todos os direitos reservados.</p>

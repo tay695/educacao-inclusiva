@@ -1,0 +1,55 @@
+@charset "UTF-8";
+  body {
+	color: #3465a4;
+}
+
+.btn-outline-secondary {
+	border-color: #e9ecef;
+	color: #e9ecef;
+}
+.custom-navbar {
+	background-color: #084673 !important;
+	color: white !important; 
+}
+
+.btn-custom-width {
+	width: 95%;
+}
+.bnt-card{
+	color: #084673;
+	border-radius:25px;
+}
+
+.img-card {
+    height: 140px;
+    object-fit: cover;
+}
+
+.offcanvas {
+   color:#3465a4 ;
+}
+.modulos-container {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.modulo-list {
+    list-style: none;
+    padding: 0;
+}
+
+.modulo-item {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.modulo-actions a {
+    margin-right: 1rem;
+    color: #007bff;
+    text-decoration: none;
+}	

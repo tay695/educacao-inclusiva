@@ -19,7 +19,7 @@ import com.ifbaiano.educacaoinclusiva.model.Modulo;
 import com.ifbaiano.educacaoinclusiva.model.VideoAula;
 import com.ifbaiano.educacaoinclusiva.model.dto.SessionDTO;
 
-@WebServlet("/dashboardAluno")
+@WebServlet("/Aluno")
 public class AlunoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection conexao;

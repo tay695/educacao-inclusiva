@@ -1,6 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page import="com.ifbaiano.educacaoinclusiva.model.Aluno"%>
 <%@ page import="jakarta.servlet.http.HttpSession"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<c:if test="${empty aulasDisponiveis}">
+	<div class="alert alert-warning">Nenhuma aula disponível no
+		momento.</div>
+</c:if>
 
 <!DOCTYPE html>
 <html>
@@ -19,24 +26,21 @@ body {
 	font-family: "Segoe UI", sans-serif;
 	background: white;
 	color: #1e3c72;
-	padding-top: 70px; /* Espaço para o navbar fixo */
+	padding-top: 70px;
 }
 
-/* Navbar fixo no topo */
 .navbar {
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
-	z-index: 1030; /* Garante que fique acima de outros elementos */
-	background-color: white; /* Cor de fundo para sobrepor conteúdo */
+	z-index: 1030;
+	background-color: white;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	/* Sombra para efeito de elevação */
 }
 
-/* Conteúdo principal */
 .main-content {
-	margin-top: 20px; /* Espaço adicional após o navbar */
+	margin-top: 20px;
 	padding: 15px;
 }
 
@@ -50,15 +54,13 @@ h2 {
 	margin: 25px 0 15px;
 }
 
-/* Ajuste para o offcanvas */
 .offcanvas {
-	top: 56px; /* Altura do navbar */
+	top: 56px;
 	height: calc(100vh - 56px) !important;
 }
 </style>
 </head>
 <body>
-	<!-- Navbar fixo -->
 	<nav class="navbar navbar-expand-lg custom-navbar">
 		<div class="container-fluid">
 			<button class="btn btn-outline-secondary me-2" type="button"
@@ -74,7 +76,6 @@ h2 {
 		</div>
 	</nav>
 
-	<!-- Menu lateral -->
 	<div class="offcanvas offcanvas-start" tabindex="-1" id="menuLateral"
 		aria-labelledby="menuLateralLabel">
 		<div class="offcanvas-header">
@@ -84,18 +85,21 @@ h2 {
 		</div>
 		<div class="offcanvas-body">
 			<ul class="nav flex-column">
+
 				<li class="nav-item"><a class="nav-link"
 					href="${pageContext.request.contextPath}/pages/perfilaluno.jsp">
-						<i class="bi bi-person-circle me-2"></i>Meu Perfil
+						<i class="bi bi-camera-video me-2"></i>Perfil
 				</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="${pageContext.request.contextPath}/pages/videoaulaAluno.jsp">
+					href="${pageContext.request.contextPath}/pages/listarvideoaulaAluno.jsp">
 						<i class="bi bi-camera-video me-2"></i>Minhas aulas
 				</a></li>
+
 				<li class="nav-item"><a class="nav-link"
 					href="${pageContext.request.contextPath}/pages/listarvideoaulaAluno.jsp">
 						<i class="bi bi-folder-plus me-2"></i>Cursos inscritos
 				</a></li>
+				
 				<li><hr /></li>
 				<li class="nav-item"><a class="nav-link text-danger"
 					href="${pageContext.request.contextPath}/index.jsp"> <i
@@ -103,52 +107,42 @@ h2 {
 				</a></li>
 			</ul>
 		</div>
-
 	</div>
-
-	<!-- Conteúdo principal -->
 	<div class="container main-content">
-		<div class="menu2">
-			<h2>O que você deseja fazer?</h2>
-			<div class="d-grid gap-2">
-				<a href="#" class="btn btn-outline-primary">Explorar cursos
-					disponíveis</a> <a href="#" class="btn btn-outline-secondary">Enviar
-					mensagem para tutor</a> <a href="#" class="btn btn-outline-success">Deixa
-					sua opinião com um comentário</a>
-			</div>
-		</div>
-		<c:forEach var="curso" items="${cursosDisponiveis}">
-			<div class="card mb-3">
-				<div class="card-body">
-					<h5 class="card-title">${curso.titulo}</h5>
-					<p class="card-text">${curso.descricao}</p>
-					<form method="post"
-						action="${pageContext.request.contextPath}/inscricao">
-						<input type="hidden" name="idCurso" value="${curso.id}" />
-						<button type="submit" class="btn btn-primary">Inscrever-se</button>
-					</form>
-				</div>
-			</div>
-		</c:forEach>
-		<c:forEach var="modulo" items="${modulos}">
-			<h2>${modulo.titulo}</h2>
-			<p>${modulo.descricao}</p>
+		<h1> Disponíveis</h1>
 
-			<c:forEach var="video" items="${modulo.videoAulas}">
-				<div class="card mb-3">
-					<div class="card-body">
-						<h5 class="card-title">${video.titulo}</h5>
-						<div class="embed-responsive embed-responsive-16by9">
-							<iframe src="https://www.youtube.com/embed/CÓDIGO_VIDEO"
-								></iframe>
+		<c:if test="${not empty mensagem}">
+			<div class="alert alert-info">${mensagem}</div>
+		</c:if>
+		<div class="row">
+			<c:forEach var="aulasDisponiveis" items="${aulasDisponiveis}">
+				<div class="col-md-4 mb-4">
+					<div class="card h-100">
+						<div class="card-body">
+							<h5 class="card-title">${aula.titulo}</h5>
+							<c:if test="${not empty aula.url}">
+								<div class="ratio ratio-16x9 mb-3">
+									<iframe
+										src="https://www.youtube.com/embed/${fn:replace(aula.url, 'https://www.youtube.com/watch?v=', '')}"
+										title="${aula.titulo}" allowfullscreen></iframe>
+								</div>
+							</c:if>
+							<form action="${pageContext.request.contextPath}/inscreverAula"
+								method="post">
+								<input type="hidden" name="aulaId" value="${aula.id}" />
+								<button type="submit" class="btn btn-inscrever w-100">
+									<i class="bi bi-bookmark-plus"></i> Inscrever-se
+								</button>
+							</form>
 						</div>
 					</div>
 				</div>
 			</c:forEach>
-		</c:forEach>
+		</div>
+	</div>
+	</div>
 
-
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

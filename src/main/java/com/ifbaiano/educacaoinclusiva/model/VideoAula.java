@@ -15,7 +15,7 @@ public class VideoAula {
 	}
 	public VideoAula(int id, String titulo, String url) {
 		this.id = id;
-		this.titulo = titulo;
+		this.titulo= titulo;
 		setUrl(url);
 	}
 
