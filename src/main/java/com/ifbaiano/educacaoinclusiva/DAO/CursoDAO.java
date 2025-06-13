@@ -37,7 +37,7 @@ public class CursoDAO {
 	}
 
 
-	public List<Curso> getCursos() throws SQLException {
+	public List<Curso> listarCursos() throws SQLException {
 		List<Curso> cursos = new ArrayList<>();
 		String sql = "SELECT * FROM Curso";
 

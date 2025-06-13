@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Modulo {
-    private int id;
+	private int idCurso;
+	private int id;
 	private String titulo;
 	private String descricao;
 	private List<VideoAula> videoaulas;
@@ -21,13 +22,11 @@ public class Modulo {
 		this.setDescricao(descricao);
 	}
 
-	
-
 	public void adicionarVideoAula(VideoAula videoAula) {
 		videoAula.setmoduloId(this.id);
 		this.videoaulas.add(videoAula);
 	}
-	
+
 	public void adicionarPostagem(Postagem postagem) {
 		postagem.setModulo(this);
 		postagens.add(postagem);
@@ -56,6 +55,7 @@ public class Modulo {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+
 	public List<VideoAula> getVideoAulas() {
 		return videoaulas;
 	}
@@ -67,8 +67,17 @@ public class Modulo {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public int getId() {
 		return id;
+	}
+
+
+	public int getIdCurso() {
+		return idCurso;
+	}
+
+	public void setIdCurso(int idCurso) {
+		this.idCurso = idCurso;
 	}
 }

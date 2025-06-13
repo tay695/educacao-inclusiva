@@ -9,154 +9,142 @@ import com.ifbaiano.educacaoinclusiva.model.Modulo;
 import com.ifbaiano.educacaoinclusiva.model.VideoAula;
 
 public class ModuloDAO {
-	private Connection conexao;
+    private Connection conexao;
 
-	public ModuloDAO(Connection conexao) {
-		this.conexao = conexao;
-	}
+    public ModuloDAO(Connection conexao) {
+        this.conexao = conexao;
+    }
 
-	public void inserirModulo(Modulo modulo) throws SQLException {
-		String sql = "INSERT INTO Modulo (titulo, descricao) VALUES (?, ?)";
-		try (Connection conn = DBConfig.criarConexao();
-				PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-			stmt.setString(1, modulo.getTitulo());
-			stmt.setString(2, modulo.getDescricao());
+    public void inserirModulo(Modulo modulo) throws SQLException {
+        String sql = "INSERT INTO Modulo (titulo, descricao, id_curso) VALUES (?, ?, ?)";
+        try (PreparedStatement stmt = this.conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, modulo.getTitulo());
+            stmt.setString(2, modulo.getDescricao());
+            stmt.setInt(3, modulo.getIdCurso());
 
-			stmt.executeUpdate();
+            stmt.executeUpdate();
 
-			try (ResultSet rs = stmt.getGeneratedKeys()) {
-				if (rs.next()) {
-					modulo.setId(rs.getInt(1));
-				}
-			}
-		}
-	}
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    modulo.setId(rs.getInt(1));
+                }
+            }
+        }
+    }
 
-	public List<Modulo> listarPorTutor(int tutorId) throws SQLException {
-		List<Modulo> modulos = new ArrayList<>();
-		String sql = """
-				SELECT *
-				FROM Modulo
-				WHERE c.id_tutor = ?
+    public List<Modulo> listarPorCurso(int idCurso) throws SQLException {
+        List<Modulo> modulos = new ArrayList<>();
+        String sql = "SELECT * FROM Modulo WHERE id_curso = ?";
 
-				            """;
-		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-			stmt.setInt(1, tutorId);
-			try (ResultSet rs = stmt.executeQuery()) {
-				while (rs.next()) {
-		            Modulo modulo = new Modulo();
-		            modulo.setId(rs.getInt("id"));
-		            modulo.setTitulo(rs.getString("titulo"));
-		            modulo.setDescricao(rs.getString("descricao"));
-		            modulos.add(modulo);
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, idCurso);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Modulo modulo = new Modulo();
+                    modulo.setId(rs.getInt("id"));
+                    modulo.setTitulo(rs.getString("titulo"));
+                    modulo.setDescricao(rs.getString("descricao"));
+                    modulo.setIdCurso(rs.getInt("id_curso")); 
+                    modulos.add(modulo);
+                }
+            }
+        }
+        return modulos;
+    }
 
-				}
-			}
-		}
-		return modulos;
-	}
-	public void atualizarModulo(Modulo modulo) throws SQLException {
-		String sql = "UPDATE Modulo SET titulo = ?, descricao = ? WHERE id = ?";
-		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-			stmt.setString(1, modulo.getTitulo());
-			stmt.setString(2, modulo.getDescricao());
-			stmt.setInt(3, modulo.getId());
+    public void atualizarModulo(Modulo modulo) throws SQLException {
+        String sql = "UPDATE Modulo SET titulo = ?, descricao = ?, id_curso = ? WHERE id = ?";
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setString(1, modulo.getTitulo());
+            stmt.setString(2, modulo.getDescricao());
+            stmt.setInt(3, modulo.getIdCurso());
+            stmt.setInt(4, modulo.getId());
 
-			int linhasAfetadas = stmt.executeUpdate();
-			if (linhasAfetadas == 0) {
-				throw new SQLException("Nenhum módulo encontrado com o ID: " + modulo.getId());
-			}
-		}
-	}
+            int linhasAfetadas = stmt.executeUpdate();
+            if (linhasAfetadas == 0) {
+                throw new SQLException("Nenhum módulo encontrado com o ID: " + modulo.getId());
+            }
+        }
+    }
 
-	public Modulo buscarModuloCompleto(int idModulo) throws SQLException {
-		String sql = "SELECT id, titulo, descricao, id_curso FROM Modulo WHERE id = ?";
-		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-			stmt.setInt(1, idModulo);
-			try (ResultSet rs = stmt.executeQuery()) {
-				if (rs.next()) {
-					return new Modulo(rs.getInt("id"), rs.getString("titulo"), rs.getString("descricao"));
-				}
-			}
-		}
-		return null;
-	}
+    public Modulo buscarModuloCompleto(int idModulo) throws SQLException {
+        String sql = "SELECT id, titulo, descricao, id_curso FROM Modulo WHERE id = ?";
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, idModulo);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Modulo modulo = new Modulo();
+                    modulo.setId(rs.getInt("id"));
+                    modulo.setTitulo(rs.getString("titulo"));
+                    modulo.setDescricao(rs.getString("descricao"));
+                    modulo.setIdCurso(rs.getInt("id_curso")); 
+                    return modulo;
+                }
+            }
+        }
+        return null;
+    }
 
-	private List<VideoAula> listarVideoaulasModulo(int idModulo) throws SQLException {
-		List<VideoAula> videoaulas = new ArrayList<>();
-	    List<Modulo> modulos = new ArrayList<>();
-	    
-		String sql = "SELECT m.titulo, a.titulo,a.URL FROM VideoAula  a  JOIN  Modulo on m.id = a.id where m.id = ?";
-		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-			stmt.setInt(1, idModulo);
-			try (ResultSet rs = stmt.executeQuery()) {
-				while (rs.next()) {
-					VideoAula videoaula = new VideoAula(rs.getInt("id"), rs.getString("titulo"), rs.getString("url"),
-							rs.getInt("id_modulo"));
-					videoaulas.add(videoaula);
-					Modulo modulo = new Modulo();
-		            int  moduloId = rs.getInt("id");
-		            modulo.setId( moduloId);
-		            modulo.setTitulo(rs.getString("titulo"));
-		            modulo.setDescricao(rs.getString("descricao"));
+    public void deletarModulo(int idModulo) throws SQLException {
+        String sqlDeleteVideos = "DELETE FROM Videoaula WHERE id_modulo = ?";
+        try (PreparedStatement stmt = conexao.prepareStatement(sqlDeleteVideos)) {
+            stmt.setInt(1, idModulo);
+            stmt.executeUpdate();
+        }
 
-		            modulo.setVideoAulas(listarVideoaulasModulo( moduloId));
+        String sqlDeleteModulo = "DELETE FROM Modulo WHERE id = ?";
+        try (PreparedStatement stmt = conexao.prepareStatement(sqlDeleteModulo)) {
+            stmt.setInt(1, idModulo);
+            int linhasAfetadas = stmt.executeUpdate();
+            if (linhasAfetadas == 0) {
+                throw new SQLException("Módulo não encontrado ou já deletado.");
+            }
+        }
+    }
 
-		            modulos.add(modulo);
-					
-				}
-			}
-		}
-		return videoaulas;
-	}
+    private List<VideoAula> listarVideoaulasModulo(int idModulo) throws SQLException {
+        List<VideoAula> videoaulas = new ArrayList<>();
+        String sql = "SELECT id, titulo, url, id_modulo FROM VideoAula WHERE id_modulo = ?";
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, idModulo);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    VideoAula videoaula = new VideoAula(
+                        rs.getInt("id"),
+                        rs.getString("titulo"),
+                        rs.getString("url"),
+                        rs.getInt("id_modulo")
+                    );
+                    videoaulas.add(videoaula);
+                }
+            }
+        }
+        return videoaulas;
+    }
 
-	public void deletarModulo(int idModulo) throws SQLException {
-		String sqlDeleteVideos = "DELETE FROM Videoaula WHERE id_modulo = ?";
-		try (PreparedStatement stmt = conexao.prepareStatement(sqlDeleteVideos)) {
-			stmt.setInt(1, idModulo);
-			stmt.executeUpdate();
-		}
-		String sqlDeleteModulo = "DELETE FROM Modulo WHERE id = ?";
-		try (PreparedStatement stmt = conexao.prepareStatement(sqlDeleteModulo)) {
-			stmt.setInt(1, idModulo);
-			int linhasAfetadas = stmt.executeUpdate();
-			if (linhasAfetadas == 0) {
-				throw new SQLException("Módulo não encontrado ou já deletado.");
-			}
-		}
-	}
+    public List<Modulo> listarModulosComVideos() {
+        List<Modulo> modulos = new ArrayList<>();
+        String sql = "SELECT id, titulo, descricao, id_curso FROM Modulo";
 
-	public List<Modulo> listarModulosComVideos() {
-	    List<Modulo> modulos = new ArrayList<>();
-	    String sql = "SELECT id, titulo, descricao FROM Modulo";
+        try (PreparedStatement stmt = conexao.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
-	    try (Connection conn = DBConfig.criarConexao();
-	         PreparedStatement stmt = conn.prepareStatement(sql);
-	         ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Modulo modulo = new Modulo();
+                int idModulo = rs.getInt("id");
+                modulo.setId(idModulo);
+                modulo.setTitulo(rs.getString("titulo"));
+                modulo.setDescricao(rs.getString("descricao"));
+                modulo.setIdCurso(rs.getInt("id_curso"));
+                modulo.setVideoAulas(listarVideoaulasModulo(idModulo));
 
-	        while (rs.next()) {
-	            Modulo modulo = new Modulo();
-	            int idModulo = rs.getInt("id");
-	            modulo.setId(idModulo);
-	            modulo.setTitulo(rs.getString("titulo"));
-	            modulo.setDescricao(rs.getString("descricao"));
+                modulos.add(modulo);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao listar módulos com vídeos: " + e.getMessage());
+            e.printStackTrace();
+        }
 
-	            modulo.setVideoAulas(listarVideoaulasModulo(idModulo));
-
-	            modulos.add(modulo);
-	        }
-	    } catch (SQLException e) {
-	        System.err.println("Erro ao listar módulos com vídeos: " + e.getMessage());
-	        e.printStackTrace();
-	    }
-
-	    return modulos;
-	}
-
-	
-
-	
-
+        return modulos;
+    }
 }
-       
-
