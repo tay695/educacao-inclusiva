@@ -22,11 +22,11 @@ public class AlunoDAO {
 	}
 
 	public void inserirAluno(Aluno aluno) throws SQLException {
-		String sql = "INSERT INTO Aluno (id_usuario) VALUES (?)";
-		try(PreparedStatement stmt = conexao.prepareStatement(sql)){
-			stmt.setInt(1, aluno.getId());
-			stmt.executeUpdate();
-		}
+	    String sql = "INSERT INTO Aluno (id_usuario) VALUES (?)";
+	    try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+	        stmt.setInt(1, aluno.getIdUsuario()); 
+	        stmt.executeUpdate();
+	    }
 	}
 	
 	public Aluno buscarPorIdUsuario(int idUsuario) throws SQLException {

@@ -16,14 +16,14 @@ public class TutorDAO {
 	}
 
 	public void inserirTutor(Tutor tutor) throws SQLException {
-		String sql = "INSERT INTO Tutor (area_especializacao, id_usuario) VALUES (?,?)";
-		try(PreparedStatement stmt = conexao.prepareStatement(sql)){
-			stmt.setString(1, tutor.getAreaEspecializacao());
-			stmt.setInt(2,tutor.getId());
-			stmt.executeUpdate();
-		}
-		
+	    String sql = "INSERT INTO Tutor (area_especializacao, id_usuario) VALUES (?, ?)";
+	    try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+	        stmt.setString(1, tutor.getAreaEspecializacao());
+	        stmt.setInt(2, tutor.getIdUsuario()); 
+	        stmt.executeUpdate();
+	    }
 	}
+
 
 	public Tutor buscarPorIdUsuario(int idUsuario) throws SQLException {
         String sql = "SELECT t.area_especializacao, u.nome, u.email, u.senha, u.bio, u.tipo_usuario, u.salt " +

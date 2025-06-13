@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tutor extends Usuario {
+	private int idUsuario;
     private String areaEspecializacao;
     private List<VideoAula> videoaulas;
     List<Modulo> modulos = new ArrayList<>();
@@ -40,4 +41,12 @@ public class Tutor extends Usuario {
     public void setVideoaulas(List<VideoAula> videoaulas){
         this.videoaulas = videoaulas;
     }
+    public void setIdUsuario(int id) {
+        this.idUsuario = id;
+    }
+
+    public int getIdUsuario() {
+        return this.idUsuario;
+    }
+
 }

@@ -115,7 +115,7 @@ h2 {
 			<div class="alert alert-info">${mensagem}</div>
 		</c:if>
 		<div class="row">
-			<c:forEach var="aulasDisponiveis" items="${aulasDisponiveis}">
+			<c:forEach items="${aulasDisponiveis}" var="aula">
 				<div class="col-md-4 mb-4">
 					<div class="card h-100">
 						<div class="card-body">

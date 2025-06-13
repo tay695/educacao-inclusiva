@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Aluno extends Usuario {
+	private int idUsuario;
 	private List<VideoAula> videoaulas;
 	private List<Curso> favoritos = new ArrayList<>();
 
@@ -45,5 +46,13 @@ public class Aluno extends Usuario {
 
 	public void setVideoaulas(List<VideoAula> videoaulas) {
 		this.videoaulas = videoaulas;
+	}
+
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 }

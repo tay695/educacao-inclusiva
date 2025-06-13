@@ -1,6 +1,3 @@
-
-USE Capacita;
-
 -- Tabela Usuario
 CREATE TABLE Usuario (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -57,21 +54,21 @@ CREATE TABLE Postagem (
     id_curso INT NOT NULL,
     FOREIGN KEY (id_curso) REFERENCES Curso(id)
 );
-
-CREATE TABLE Modulo (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    titulo VARCHAR(100) NOT NULL,
-    descricao TEXT
-);
-
-
-CREATE TABLE VideoAula (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    titulo VARCHAR(100) NOT NULL,
-    url TEXT NOT NULL,
-    id_modulo INT NOT NULL,
-    FOREIGN KEY (id_modulo) REFERENCES Modulo(id)
-);
+	
+	CREATE TABLE Modulo (
+	    id INT PRIMARY KEY AUTO_INCREMENT,
+	    titulo VARCHAR(100) NOT NULL,
+	    descricao TEXT
+	);
+	
+	
+	CREATE TABLE VideoAula (
+	    id INT PRIMARY KEY AUTO_INCREMENT,
+	    titulo VARCHAR(100) NOT NULL,
+	    url TEXT NOT NULL,
+	    id_modulo INT NOT NULL,
+	    FOREIGN KEY (id_modulo) REFERENCES Modulo(id)
+	);
 
 -- Tabela Comentario (referencia Aluno e Videoaula)
 CREATE TABLE Comentario (
@@ -83,14 +80,13 @@ CREATE TABLE Comentario (
     FOREIGN KEY (id_Usuario) REFERENCES Aluno(id_usuario),
     FOREIGN KEY (id_videoaula) REFERENCES Videoaula(id)
 );
-
-ALTER TABLE Aluno DROP COLUMN data_nascimento;
-
-ALTER TABLE Usuario ADD COLUMN tipo_usuario VARCHAR(10) NOT NULL;
-
-
-
-SELECT * FROM Aluno WHERE id_usuario = 3;
-ALTER TABLE Usuario DROP COLUMN salt;
-select * from Modulo;
-
+--Inscrição em cursos 
+CREATE TABLE inscricao (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    aluno_id INT NOT NULL,
+    modulo_id INT NOT NULL,
+    data_inscricao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (aluno_id) REFERENCES aluno(id_usuario),
+    FOREIGN KEY (modulo_id) REFERENCES modulo(id),
+    UNIQUE KEY (aluno_id, modulo_id)
+);
