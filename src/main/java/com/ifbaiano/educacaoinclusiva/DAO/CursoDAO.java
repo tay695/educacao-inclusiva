@@ -99,24 +99,23 @@ public class CursoDAO {
 
 		return cursos;
 	}
-	public Curso buscarPorId(int id) throws SQLException {
+	public Curso buscarPorId(int cursoId) throws SQLException {
 	    String sql = "SELECT * FROM Curso WHERE id = ?";
+	    Curso curso = null;
+	    
 	    try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-	        stmt.setInt(1, id);
+	        stmt.setInt(1, cursoId);
 	        try (ResultSet rs = stmt.executeQuery()) {
 	            if (rs.next()) {
-	                return new Curso(
-	                    rs.getInt("id"),
-	                    rs.getString("titulo"),
-	                    rs.getString("descricao"),
-	                    rs.getString("area"),
-	                    null, 
-	                    null  
-	                );
+	                curso = new Curso();
+	                curso.setId(rs.getInt("id"));
+	                curso.setTitulo(rs.getString("titulo"));
+	                curso.setDescricao(rs.getString("descricao"));
+	                curso.setArea(rs.getString("area"));
 	            }
 	        }
 	    }
-	    return null;
+	    return curso;
 	}
 	public List<Curso> listarPorTutor(int tutorId) throws SQLException {
 	    List<Curso> cursos = new ArrayList<>();

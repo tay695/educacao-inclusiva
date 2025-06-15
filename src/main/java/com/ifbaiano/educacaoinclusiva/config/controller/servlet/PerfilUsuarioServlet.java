@@ -48,31 +48,40 @@ public class PerfilUsuarioServlet extends HttpServlet {
         }
 
         String email = sessionDTO.getEmail();
-        TipoDeUsuario tipo = sessionDTO.getTipo();
+        String tipo = sessionDTO.getTipo();
 
-        try {
-            if (tipo == TipoDeUsuario.aluno) {
-                Aluno aluno = alunoDAO.buscarEmail(email);
+      
+                Aluno aluno = null;
+				try {
+					aluno = alunoDAO.buscarEmail(email);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
                 if (aluno != null) {
                     request.setAttribute("usuario", aluno);
                     request.getRequestDispatcher("/pages/perfil/aluno.jsp").forward(request, response);
                     return;
                 }
-            }
-
-            if (tipo == TipoDeUsuario.tutor) {
-                Tutor tutor = tutorDAO.buscarTutorPorEmail(email);
+            
+        
+                Tutor tutor = null;
+				try {
+					tutor = tutorDAO.buscarTutorPorEmail(email);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
                 if (tutor != null) {
                     request.setAttribute("usuario", tutor);
                     request.getRequestDispatcher("/pages/perfil/tutor.jsp").forward(request, response);
                     return;
                 }
-            }
+            
 
             response.sendRedirect("login.jsp");
-
-        } catch (SQLException e) {
-            throw new ServletException("Erro ao buscar perfil do usuário", e);
-        }
+        
     }
 }
+        
+   

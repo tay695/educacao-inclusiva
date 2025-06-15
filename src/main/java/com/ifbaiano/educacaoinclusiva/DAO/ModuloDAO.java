@@ -4,7 +4,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ifbaiano.educacaoinclusiva.config.DBConfig;
 import com.ifbaiano.educacaoinclusiva.model.Modulo;
 import com.ifbaiano.educacaoinclusiva.model.VideoAula;
 
@@ -155,6 +154,26 @@ public class ModuloDAO {
             e.printStackTrace();
         }
 
+        return modulos;
+    }
+    public List<Modulo> listarTodosModulos() throws SQLException {
+        List<Modulo> modulos = new ArrayList<>();
+        String sql = "SELECT * FROM Modulo";
+        
+        try (PreparedStatement stmt = conexao.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            
+            while (rs.next()) {
+                Modulo modulo = new Modulo();
+                modulo.setId(rs.getInt("id"));
+                modulo.setTitulo(rs.getString("titulo"));
+                modulo.setDescricao(rs.getString("descricao"));
+                
+                modulo.setIdCurso(rs.getInt("id_curso"));
+                
+                modulos.add(modulo);
+            }
+        }
         return modulos;
     }
 }

@@ -190,6 +190,7 @@ public class AreaExecucao {
 				System.out.println("4 - Gerenciamento de cursos ");
 				System.out.println("5 - Atualizar video aula ");
 				System.out.println("6 - Sair da minha conta ");
+				System.out.println("\n");
 				option = scanner.nextInt();
 				scanner.nextLine();
 
@@ -215,124 +216,171 @@ public class AreaExecucao {
 						System.out.print("\nQual a área de atuação do curso: ");
 						String areaCurso = scanner.nextLine();
 
-						 SessionDTO session = SessionDTO.getInstance();
-					        Tutor tutorLogado = session.getTutorLogado();
-					        
-					        if (tutorLogado == null) {
-					            System.out.println("Erro: Tutor não autenticado!");
-					            break;
-					        }
-					        System.out.println("ID do tutor (usuario): " + tutorLogado.getIdUsuario());
-					        System.out.println("ID do usuario na sessão: " + session.getId());
-					        Curso novoCurso1 = new Curso();
-					        novoCurso1.setTitulo(tituloCurso);
-					        novoCurso1.setDescricao(descricaoCurso);
-					        novoCurso1.setArea(areaCurso);
-					        
-					        novoCurso1.setTutorId(tutorLogado.getIdUsuario());
-					        Curso cursoCriado = cursoDAO.addCurso(novoCurso1);
-					        
-				        if (cursoCriado == null || cursoCriado.getId() == 0) {
-				            System.out.println("Falha ao criar o curso!");
-				            break;
-				        }
-						System.out.println("Curso criado com sucesso! ID: " + novoCurso1.getId());
+						SessionDTO session = SessionDTO.getInstance();
+						Tutor tutorLogado = session.getTutorLogado();
+
+						if (tutorLogado == null) {
+							System.out.println("Erro: Tutor não autenticado!");
+							break;
+						}
 						
-						//Parte do modulo
-				        System.out.println("\n--- Adicionar primeiro módulo ao curso ---");
-				        System.out.print("\nTítulo do módulo: ");
-				        String tituloModulo = scanner.nextLine();
-				        
-				        System.out.print("\nDescrição do módulo: ");
-				        String descricaoModulo = scanner.nextLine();
+						Curso novoCurso1 = new Curso();
+						novoCurso1.setTitulo(tituloCurso);
+						novoCurso1.setDescricao(descricaoCurso);
+						novoCurso1.setArea(areaCurso);
 
-				        Modulo novoModulo1 = new Modulo();
-				        novoModulo1.setTitulo(tituloModulo);
-				        novoModulo1.setDescricao(descricaoModulo);
-				        novoModulo1.setIdCurso(cursoCriado.getId());  
-				        
-				        moduloDAO.inserirModulo(novoModulo1);
+						novoCurso1.setTutorId(tutorLogado.getIdUsuario());
+						Curso cursoCriado = cursoDAO.addCurso(novoCurso1);
 
-				        System.out.println("Módulo criado com sucesso! ID: " + novoModulo1.getId());
+						if (cursoCriado == null || cursoCriado.getId() == 0) {
+							System.out.println("Falha ao criar o curso!");
+							break;
+						}
+						System.out.println("Curso criado com sucesso!");
 
-					  } catch (Exception e) {
-					        System.err.println("\nErro ao cadastrar curso e módulo: " + e.getMessage());
-					        e.printStackTrace();
-					    }
-					    break;
+						// Parte do modulo
+						System.out.println("\n--- Adicionar primeiro módulo ao curso ---");
+						System.out.print("\nTítulo do módulo: ");
+						String tituloModulo = scanner.nextLine();
+
+						System.out.print("\nDescrição do módulo: ");
+						String descricaoModulo = scanner.nextLine();
+
+						Modulo novoModulo1 = new Modulo();
+						novoModulo1.setTitulo(tituloModulo);
+						novoModulo1.setDescricao(descricaoModulo);
+						novoModulo1.setIdCurso(cursoCriado.getId());
+
+						moduloDAO.inserirModulo(novoModulo1);
+
+						System.out.println("Módulo criado com sucesso! ");
+
+					} catch (Exception e) {
+						System.err.println("\nErro ao cadastrar curso e módulo: " + e.getMessage());
+						e.printStackTrace();
+					}
+					break;
 				case 3:
 					System.out.println("----------------------------------------");
 					System.out.println("<-----> Adicionar video aula  <------>");
 					System.out.println("----------------------------------------");
-
-					System.out.println("Modulos e cursos em andamento");
-					List<Modulo> modulos = moduloDAO.listarModulosComVideos();
-					if (modulos.isEmpty()) {
-						System.out.println("Nenhum módulo cadastrado ainda. Cadastre um curso e módulo primeiro.");
-						break;
-					}
+					 try {
+						 System.out.println("\nMódulos disponíveis:");
+					        List<Modulo> modulos = moduloDAO.listarTodosModulos();
+					        
+					        if (modulos.isEmpty()) {
+					            System.out.println("Nenhum módulo cadastrado ainda. Cadastre um curso e módulo primeiro.");
+					            break;
+					        }
 					for (int i = 0; i < modulos.size(); i++) {
-						Modulo mol = modulos.get(i);
-						System.out.println((i + 1) + " - " + mol.getTitulo());
+						 Modulo modulo = modulos.get(i);
+				         Curso curso = cursoDAO.buscarPorId(modulo.getIdCurso()); 
+				         System.out.println((i + 1) + " - " + modulo.getTitulo());
 						break;
 					}
 
-					System.out.println("Em qual modulo deseja adcionar mais aulas?");
-					int escolhaM = scanner.nextInt();
-					scanner.nextLine();
+					  System.out.print("\nEm qual módulo deseja adicionar aulas? ");
+				        int escolhaM;
+				        
+				            escolhaM = Integer.parseInt(scanner.nextLine());
+				            Modulo moduloEscolhido = modulos.get(escolhaM - 1);
+				        
+				        Curso curso = cursoDAO.buscarPorId(moduloEscolhido.getIdCurso());
+				       
+				        System.out.print("\nTítulo da videoaula: ");
+				        String tituloVideo = scanner.nextLine();
 
-					if (escolhaM < 1 || escolhaM > modulos.size()) {
-						System.out.println("Escolha inválida.");
-						break;
-					}
+				        System.out.print("\nURL do vídeo: ");
+				        String urlVideo = scanner.nextLine();
 
-					Modulo moduloEscolhido = modulos.get(escolhaM - 1);
-					System.out.print("\n Título da videoaula: ");
-					String tituloVideo = scanner.nextLine();
+				        VideoAula novaVideoAula = new VideoAula();
+				        novaVideoAula.setTitulo(tituloVideo);
+				        novaVideoAula.setUrl(urlVideo);
+				        novaVideoAula.setmoduloId(moduloEscolhido.getId());
 
-					System.out.print("\n URL do vídeo (ex: https://...): ");
-					String urlVideo = scanner.nextLine();
-
-					VideoAula novaVideoAula = new VideoAula();
-					novaVideoAula.setTitulo(tituloVideo);
-					novaVideoAula.setUrl(urlVideo);
-					novaVideoAula.setmoduloId(moduloEscolhido.getId());
-
-					try {
-						videoAulaDAO.inserirVideoaula(novaVideoAula);
-						System.out.println("Vídeo aula cadastrada com sucesso no módulo: " + moduloEscolhido.getTitulo()
-								+ moduloEscolhido.getCurso());
-					} catch (SQLException e) {
-						System.err.println("Erro ao cadastrar vídeo aula: " + e.getMessage());
-						e.printStackTrace();
-						menu(scanner);
-					}
-					break;
+				        videoAulaDAO.inserirVideoaula(novaVideoAula);
+				        System.out.println("\n Vídeo aula cadastrada com sucesso!");
+	
+				    } catch (SQLException e) {
+				        e.printStackTrace();
+				    } catch (Exception e) {
+				        e.printStackTrace();
+				    }
+				    break;
 				case 4:
 					System.out.println("------------------------------------------");
 					System.out.println("\n<-----> Painel de Gerenciamento <------>");
-					boolean tutorLogado;
 
-					SessionDTO session = SessionDTO.getInstance();
-					session.setUsuarioLogado(usuario);
+					try {
+						SessionDTO session = SessionDTO.getInstance();
 
-					Tutor tutor = session.getTutorLogado();
-					List<Curso> cursosDoTutor = cursoDAO.listarPorTutor(tutor.getIdUsuario());
+						if (!session.isLoggedIn()) {
+							System.out.println("Usuário não autenticado! Faça login primeiro.");
+							break;
+						}
 
-					for (Curso curso : cursosDoTutor) {
-						System.out.println("\nCurso: " + curso.getTitulo());
+						Tutor tutor = session.getTutorLogado();
+						if (tutor == null) {
+							if ("tutor".equalsIgnoreCase(session.getTipo())) {
+								System.out.println("Dados de tutor não carregados! Tentando recarregar...");
 
-						List<Modulo> modulosDoCurso = moduloDAO.listarPorCurso(curso.getId());
+								TutorDAO tutorDAO = new TutorDAO(conexao);
+								tutor = tutorDAO.buscarPorIdUsuario(session.getId());
 
-						for (Modulo modulo : modulosDoCurso) {
-							System.out.println("   |-- Módulo: " + modulo.getTitulo());
-
-							List<VideoAula> videosDoModulo = videoAulaDAO.buscarPorModulo(modulo.getId());
-
-							for (VideoAula video : videosDoModulo) {
-								System.out.println("       |-- Vídeo: " + video.getTitulo());
+								if (tutor != null) {
+									session.setUsuarioTutor(tutor);
+									System.out.println("Dados do tutor recarregados com sucesso!");
+								} else {
+									System.out.println("Erro: Perfil de tutor não encontrado.");
+									System.out.println("Por favor, complete seu cadastro como tutor.");
+									break;
+								}
+							} else {
+								System.out.println("Acesso restrito a tutores!");
+								break;
 							}
 						}
+
+						System.out.println("Buscando cursos para o tutor ID: " + tutor.getIdUsuario());
+
+						List<Curso> cursosDoTutor = cursoDAO.listarPorTutor(tutor.getIdUsuario());
+
+						if (cursosDoTutor.isEmpty()) {
+							System.out.println("Nenhum curso encontrado para este tutor.");
+							break;
+						}
+
+						for (Curso curso : cursosDoTutor) {
+							System.out.println("\nCurso: " + curso.getTitulo());
+
+							List<Modulo> modulosDoCurso = moduloDAO.listarPorCurso(curso.getId());
+
+							if (modulosDoCurso.isEmpty()) {
+								System.out.println("   |-- Nenhum módulo no curso.");
+								continue;
+							}
+
+							for (Modulo modulo : modulosDoCurso) {
+								System.out.println("   |-- Módulo: " + modulo.getTitulo());
+
+								List<VideoAula> videosDoModulo = videoAulaDAO.buscarPorModulo(modulo.getId());
+
+								if (videosDoModulo.isEmpty()) {
+									System.out.println("       |-- Nenhum vídeo encontrado.");
+									continue;
+								}
+
+								for (VideoAula video : videosDoModulo) {
+									System.out.println("       |-- Vídeo: " + video.getTitulo());
+								}
+							}
+						}
+					} catch (SQLException e) {
+						System.err.println("\nErro ao acessar o banco de dados: " + e.getMessage());
+						e.printStackTrace();
+					} catch (Exception e) {
+						System.err.println("\nErro inesperado: " + e.getMessage());
+						e.printStackTrace();
 					}
 					break;
 				case 5:

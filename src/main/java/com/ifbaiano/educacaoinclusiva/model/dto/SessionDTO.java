@@ -1,19 +1,27 @@
 package com.ifbaiano.educacaoinclusiva.model.dto;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.ifbaiano.educacaoinclusiva.DAO.TutorDAO;
 import com.ifbaiano.educacaoinclusiva.model.Aluno;
 import com.ifbaiano.educacaoinclusiva.model.Tutor;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
 import com.ifbaiano.educacaoinclusiva.model.enums.TipoDeUsuario;
 
 public class SessionDTO {
+	 private Connection conexao;
 	private static SessionDTO instance;
 	private Usuario usuarioLogado;
 	private Aluno alunoLogado;
 	private Tutor tutorLogado;
 
-    private SessionDTO() {}
-
-
+	private SessionDTO() {
+	}
+ public SessionDTO(Connection conexao) {
+	this.conexao = conexao;
+}
 	public static SessionDTO getInstance() {
 		if (instance == null) {
 			instance = new SessionDTO();
@@ -21,37 +29,45 @@ public class SessionDTO {
 		return instance;
 	}
 
-	  public void setUsuarioLogado(Usuario usuario) {
-	        this.usuarioLogado = usuario;
-	        this.alunoLogado = null;
-	        this.tutorLogado = null;
-	    }
+	public void setUsuarioLogado(Usuario usuario) {
+		this.usuarioLogado = usuario;
+		this.alunoLogado = null;
+		this.tutorLogado = null;
+	}
 
+	public void setUsuarioAluno(Aluno aluno) {
+		this.alunoLogado = aluno;
+		this.usuarioLogado = aluno;
+	}
 
-	  public void setUsuarioAluno(Aluno aluno) {
-	        this.alunoLogado = aluno;
-	        this.usuarioLogado = aluno;
-	    }
+	public void setUsuarioTutor(Tutor tutor) {
+		this.tutorLogado = tutor;
+		this.usuarioLogado = tutor;
+		if (tutor != null && usuarioLogado != null) {
+			usuarioLogado.setId(tutor.getIdUsuario());
+		}
+	}
 
-	  public void setUsuarioTutor(Tutor tutor) {
-		    this.tutorLogado = tutor;
-		    this.usuarioLogado = tutor; 
-		    if (tutor != null && usuarioLogado != null) {
-		        usuarioLogado.setId(tutor.getIdUsuario());
-		    }
-	  }
+	public Usuario getUsuarioLogado() {
+		return usuarioLogado;
+	}
 
-	    public Usuario getUsuarioLogado() {
-	        return usuarioLogado;
-	    }
+	public Aluno getAlunoLogado() {
+		return alunoLogado;
+	}
 
-	    public Aluno getAlunoLogado() {
-	        return alunoLogado;
-	    }
+	public Tutor getTutorLogado() {
+		if (tutorLogado == null && usuarioLogado != null && "tutor".equalsIgnoreCase(usuarioLogado.getTipoUsuario())) {
 
-	    public Tutor getTutorLogado() {
-	        return tutorLogado;
-	    }
+	        try  {
+				TutorDAO tutorDAO = new TutorDAO(conexao);
+				tutorLogado = tutorDAO.buscarPorIdUsuario(usuarioLogado.getId());
+			} catch (SQLException e) {
+				System.err.println("Erro ao carregar tutor: " + e.getMessage());
+			}
+		}
+		return tutorLogado;
+	}
 
 	public void logout() {
 		this.usuarioLogado = null;
@@ -83,7 +99,7 @@ public class SessionDTO {
 		return usuarioLogado != null ? usuarioLogado.getEmail() : "";
 	}
 
-	public TipoDeUsuario getTipo() {
-		return usuarioLogado != null ? usuarioLogado.getTipo() : null;
+	public String getTipo() {
+		return usuarioLogado != null ? usuarioLogado.getTipoUsuario() : null;
 	}
 }

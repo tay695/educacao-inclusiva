@@ -8,7 +8,7 @@ public class Modulo {
 	private int id;
 	private String titulo;
 	private String descricao;
-	private Curso curso;
+	
 	private List<VideoAula> videoaulas;
 	private List<Postagem> postagens = new ArrayList<>();
 
@@ -82,11 +82,5 @@ public class Modulo {
 		this.idCurso = idCurso;
 	}
 
-	public Curso getCurso() {
-		return curso;
-	}
-
-	public void setCurso(Curso curso) {
-		this.curso = curso;
-	}
+	
 }
