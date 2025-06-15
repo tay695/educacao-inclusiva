@@ -65,7 +65,7 @@ public class VideoAulaDAO {
         List<VideoAula> videoAulas = new ArrayList<>();
         String sql = """
                 SELECT v.id, v.titulo, v.url, v.id_modulo
-                FROM Videoaula v
+                FROM VideoAula v
                 JOIN Modulo m ON v.id_modulo = m.id
                 JOIN Curso c ON m.id_curso = c.id
                 WHERE c.id_tutor = ?
@@ -86,7 +86,7 @@ public class VideoAulaDAO {
     }
 
     public void atualizarVideoaula(VideoAula videoaula) throws SQLException {
-        String sql = "UPDATE Videoaula SET titulo = ?, url = ? WHERE id = ?";
+        String sql = "UPDATE VideoAula SET titulo = ?, url = ? WHERE id = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, videoaula.getTitulo());
             stmt.setString(2, videoaula.getUrl());
@@ -96,7 +96,7 @@ public class VideoAulaDAO {
     }
 
     public void deletarVideoaula(int id) throws SQLException {
-        String sql = "DELETE FROM Videoaula WHERE id = ?";
+        String sql = "DELETE FROM VideoAula WHERE id = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
@@ -104,7 +104,7 @@ public class VideoAulaDAO {
     }
 
     public VideoAula buscarVideoaula(int id) throws SQLException {
-        String sql = "SELECT * FROM Videoaula WHERE id = ?";
+        String sql = "SELECT * FROM VideoAula WHERE id = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {

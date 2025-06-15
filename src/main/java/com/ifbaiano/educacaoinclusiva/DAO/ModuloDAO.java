@@ -102,11 +102,15 @@ public class ModuloDAO {
         }
     }
 
-    private List<VideoAula> listarVideoaulasModulo(int idModulo) throws SQLException {
+    public List<VideoAula> listarVideoaulasModulo(int idModulo) throws SQLException {
         List<VideoAula> videoaulas = new ArrayList<>();
-        String sql = "SELECT id, titulo, url, id_modulo FROM VideoAula WHERE id_modulo = ?";
+        
+        String sql = "SELECT v.id, v.titulo, v.url, v.id_modulo " +
+                     "FROM VideoAula v " +
+                     "WHERE v.id_modulo = ?";
+        
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, idModulo);
+            stmt.setInt(1, idModulo); 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     VideoAula videoaula = new VideoAula(
@@ -119,8 +123,10 @@ public class ModuloDAO {
                 }
             }
         }
+        
         return videoaulas;
     }
+
 
     public List<Modulo> listarModulosComVideos() {
         List<Modulo> modulos = new ArrayList<>();
@@ -137,8 +143,12 @@ public class ModuloDAO {
                 modulo.setDescricao(rs.getString("descricao"));
                 modulo.setIdCurso(rs.getInt("id_curso"));
                 modulo.setVideoAulas(listarVideoaulasModulo(idModulo));
+                List<VideoAula> videoaulas = listarVideoaulasModulo(modulo.getId());
+                modulo.setVideoAulas(videoaulas);
 
-                modulos.add(modulo);
+                if (!videoaulas.isEmpty()) {
+                    modulos.add(modulo);
+                }
             }
         } catch (SQLException e) {
             System.err.println("Erro ao listar módulos com vídeos: " + e.getMessage());

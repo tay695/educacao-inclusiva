@@ -96,18 +96,26 @@ public class UsuarioDAO {
 	    }
 	}
 
-	public Usuario buscarEmail(String email) throws SQLException {
-		String sql = "SELECT * from Usuario  WHERE email = ?";
-
-		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-			stmt.setString(1, email);
-			ResultSet resul = stmt.executeQuery();
-			if (resul.next()) {
-				Usuario usuario = new Usuario(resul.getInt("id"), resul.getString("nome"), resul.getString("email"),resul.getString("senha"), resul.getString("bio"), resul.getString("tipo_usuario"));
-				return usuario;
-			}
-		}
-		return null;
+	public Usuario buscarEmail(String email) {
+	    String sql = "SELECT id, nome, email, senha, tipo_usuario FROM Usuario WHERE email = ?";
+	    
+	    try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+	        stmt.setString(1, email);
+	        ResultSet rs = stmt.executeQuery();
+	        
+	        if (rs.next()) {
+	            Usuario usuario = new Usuario();
+	            usuario.setId(rs.getInt("id"));
+	            usuario.setNome(rs.getString("nome"));
+	            usuario.setEmail(rs.getString("email"));
+	            usuario.setSenha(rs.getString("senha"));
+	            usuario.setTipoUsuario(rs.getString("tipo_usuario"));
+	            return usuario;
+	        }
+	    } catch (SQLException e) {
+	        System.err.println("Erro ao buscar usuário por email: " + e.getMessage());
+	    }
+	    return null;
 	}
 
 	public Usuario buscarId(int id) throws SQLException {
@@ -116,7 +124,7 @@ public class UsuarioDAO {
 			stmt.setInt(1, id);
 			ResultSet resul = stmt.executeQuery();
 			if (resul.next()) {
-				Usuario usuario = new Usuario(resul.getInt("id"), resul.getString("nome"), resul.getString("email"),resul.getString("senha"), resul.getString("bio"),  resul.getString("tipo_usuario"));
+				Usuario usuario = new Usuario(resul.getString("nome"), resul.getString("email"),resul.getString("senha"), resul.getString("bio"),  resul.getString("tipo_usuario"));
 				return usuario;
 			}
 		}

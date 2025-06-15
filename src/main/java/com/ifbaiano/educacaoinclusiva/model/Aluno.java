@@ -9,7 +9,7 @@ public class Aluno extends Usuario {
 	private List<Curso> favoritos = new ArrayList<>();
 
 	public Aluno(int id, String nome, String email, String senha, String bio, String tipoUsuario) {
-		super(id, nome, email, senha, bio, tipoUsuario);
+		super(nome, email, senha, bio, tipoUsuario);
 	}
 	
 	public Aluno( String nome, String email, String senha, String bio, String tipoUsuario) {

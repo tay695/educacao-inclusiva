@@ -34,12 +34,12 @@ public class AlunoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
         SessionDTO sessionDTO = (SessionDTO) request.getSession().getAttribute("usuarioLogado");
-        if (sessionDTO == null || !(sessionDTO.getUsuario() instanceof Aluno)) {
+        if (sessionDTO == null || !(sessionDTO.getUsuarioLogado() instanceof Aluno)) {
             response.sendRedirect("pages/login.jsp");
             return;
         }
 
-        Aluno aluno = (Aluno) sessionDTO.getUsuario();
+        Aluno aluno = (Aluno) sessionDTO.getUsuarioLogado();
         List<VideoAula> videoaula = null;
 		try {
 			videoaula = alunoDAO.buscarAulasDoAluno(aluno.getId());
@@ -51,7 +51,7 @@ public class AlunoServlet extends HttpServlet {
         }
        
        
-        sessionDTO.setUsuario(aluno);
+        sessionDTO.setUsuarioAluno(aluno);
         request.getSession().setAttribute("usuarioLogado", sessionDTO);
 
         request.setAttribute("aula", videoaula);

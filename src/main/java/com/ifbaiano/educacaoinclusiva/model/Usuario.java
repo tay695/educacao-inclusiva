@@ -16,15 +16,6 @@ public class Usuario {
 	private TipoDeUsuario tipo;
 	
 	
-	public Usuario(int id, String nome, String email, String senha, String bio, String tipoUsuario ) {
-		this.id = id;
-		this.nome = nome;
-		this.email = email;
-		this.senha = senha;
-		this.bio = bio;
-		this.setTipoUsuario(tipoUsuario);
-	}
-
 	public Usuario( String nome, String email, String senha, String bio, String tipoUsuario ) {
 		this.nome = nome;
 		this.email = email;
@@ -33,7 +24,9 @@ public class Usuario {
 		this.setTipoUsuario(tipoUsuario);
 	}
 	
-	
+	public Usuario() {
+		
+	}
 	
 	public int getId() {
 		return id;

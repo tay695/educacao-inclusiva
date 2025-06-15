@@ -70,7 +70,7 @@ public class LoginServlet extends HttpServlet {
 			}
 
 			HttpSession session = request.getSession();
-			session.setAttribute("usuarioLogado", new SessionDTO(usuarioLogado));
+			//session.setAttribute("usuarioLogado", new SessionDTO(usuarioLogado));
 			System.out.println("Sessão criada para: " + usuarioLogado.getEmail() + ", Sessão ID: " + session.getId());
 
 			if (usuarioLogado instanceof Tutor) {

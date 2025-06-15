@@ -30,7 +30,7 @@ public class AlunoDAO {
 	}
 	
 	public Aluno buscarPorIdUsuario(int idUsuario) throws SQLException {
-        String sql = "SELECT  u.nome, u.email, u.senha, u.bio, u.tipo_usuario, u.salt " +
+        String sql = "SELECT  u.nome, u.email, u.senha, u.bio, u.tipo_usuario " +
                      "FROM Aluno a JOIN Usuario u ON a.id_usuario = u.id WHERE a.id_usuario = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, idUsuario);

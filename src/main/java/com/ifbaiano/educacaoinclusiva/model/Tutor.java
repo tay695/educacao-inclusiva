@@ -11,7 +11,7 @@ public class Tutor extends Usuario {
 
 
     public Tutor(String areaEspecializacao, int id, String nome, String email, String senha, String bio,String tipoUsuario) {
-    	super(id, nome, email, senha, bio, tipoUsuario);
+    	super(nome, email, senha, bio, tipoUsuario);
     	this.areaEspecializacao = areaEspecializacao;
     	this.videoaulas = new ArrayList<>();
     }
@@ -20,8 +20,9 @@ public class Tutor extends Usuario {
     	super( nome, email, senha, bio, tipoUsuario);
     	this.areaEspecializacao = areaEspecializacao;
     }
-
-
+public Tutor() {
+	
+}
     public String getAreaEspecializacao() {
         return areaEspecializacao;
     }
@@ -48,5 +49,7 @@ public class Tutor extends Usuario {
     public int getIdUsuario() {
         return this.idUsuario;
     }
-
+    public int getId() {
+        return idUsuario;
+    }
 }

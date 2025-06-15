@@ -37,7 +37,7 @@ public class CadastroAlunoServlet extends HttpServlet {
 
 		try (Connection conexao = DBConfig.criarConexao()){
 
-	        Usuario usuario = new Usuario(0, nome, email, senhaDigitada, bio, TipoDeUsuario.tutor.toString());
+	        Usuario usuario = new Usuario(nome, email, senhaDigitada, bio, TipoDeUsuario.tutor.toString());
 	        UsuarioDAO usuarioDAO = new UsuarioDAO(conexao);
 	        int idUsuario = usuarioDAO.inserir(usuario);
 	        

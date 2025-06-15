@@ -8,6 +8,7 @@ public class Curso {
 	private String titulo;
 	private String descricao;
 	private String area;
+	private int tutorId;
 	private List<Modulo> modulos;
 	private List<Postagem> postagens;
 
@@ -16,7 +17,24 @@ public class Curso {
 		this.postagens = new ArrayList<>();
 	}
 
-	public Curso(int id, String titulo, String descricao, String area, List<Modulo> modulos, List<Postagem> postagens) {
+	public Curso(int id, String titulo, String descricao, int tutorId,String area, List<Modulo> modulos, List<Postagem> postagens) {
+		this.id = id;
+		this.titulo = titulo;
+		this.descricao = descricao;
+		this.tutorId = tutorId;
+		this.area = area;
+		this.setModulos(modulos != null ? modulos : new ArrayList<>());
+		this.postagens = postagens != null ? postagens : new ArrayList<>();
+	}
+	
+    public Curso(String titulo, String descricao, String area, int tutorId) {
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.area = area;
+        this.tutorId = tutorId;
+    }
+    
+    public Curso(int id, String titulo, String descricao,String area, List<Modulo> modulos, List<Postagem> postagens) {
 		this.id = id;
 		this.titulo = titulo;
 		this.descricao = descricao;
@@ -24,7 +42,7 @@ public class Curso {
 		this.setModulos(modulos != null ? modulos : new ArrayList<>());
 		this.postagens = postagens != null ? postagens : new ArrayList<>();
 	}
-
+    
 	public void adicionarModulo(Modulo modulo) {
 		if (modulos == null) {
 			modulos = new ArrayList<>();
@@ -85,5 +103,13 @@ public class Curso {
 
 	public void setModulos(List<Modulo> modulos) {
 		this.modulos = modulos;
+	}
+
+	public int getTutorId() {
+		return tutorId;
+	}
+
+	public void setTutorId(int tutorId) {
+		this.tutorId = tutorId;
 	}
 }

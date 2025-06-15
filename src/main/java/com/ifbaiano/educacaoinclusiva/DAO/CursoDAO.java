@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import com.ifbaiano.educacaoinclusiva.model.Curso;
+
 import java.sql.Statement;
 
 public class CursoDAO {
@@ -18,12 +19,13 @@ public class CursoDAO {
 	}
 
 	public Curso addCurso(Curso curso) throws SQLException {
-	    String sql = "INSERT INTO Curso (titulo, descricao, area) VALUES (?, ?, ?)";
+	    String sql = "INSERT INTO Curso (titulo, descricao, tutor_id, area) VALUES (?, ?, ?, ?)";
 	    
 	    try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 	        stmt.setString(1, curso.getTitulo());
 	        stmt.setString(2, curso.getDescricao());
-	        stmt.setString(3, curso.getArea());
+	        stmt.setInt(3, curso.getTutorId());
+	        stmt.setString(4, curso.getArea());
 	        
 	        stmt.executeUpdate();
 	        
@@ -116,5 +118,24 @@ public class CursoDAO {
 	    }
 	    return null;
 	}
+	public List<Curso> listarPorTutor(int tutorId) throws SQLException {
+	    List<Curso> cursos = new ArrayList<>();
+	    String sql = "SELECT * FROM Curso WHERE tutor_id = ?";
 
+	    try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+	        stmt.setInt(1, tutorId);
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            while (rs.next()) {
+	                Curso curso = new Curso();
+	                curso.setId(rs.getInt("id"));
+	                curso.setTitulo(rs.getString("titulo"));
+	                curso.setDescricao("descricao");
+	                curso.setTutorId(tutorId);
+	                curso.setArea("area");
+	                cursos.add(curso);
+	            }
+	        }
+	    }
+	    return cursos;
+	}
 }
