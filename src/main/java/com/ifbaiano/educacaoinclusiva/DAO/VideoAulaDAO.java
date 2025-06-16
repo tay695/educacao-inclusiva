@@ -114,7 +114,6 @@ public class VideoAulaDAO {
 
 	public List<VideoAula> buscarPorModulo(int idModulo) throws SQLException {
 		List<VideoAula> videos = new ArrayList<>();
-
 		String sql = "SELECT * FROM VideoAula WHERE id_modulo = ?";
 		try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
 			stmt.setInt(1, idModulo);

@@ -1,27 +1,31 @@
 package com.ifbaiano.educacaoinclusiva.model.dto;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.ifbaiano.educacaoinclusiva.DAO.TutorDAO;
 import com.ifbaiano.educacaoinclusiva.model.Aluno;
 import com.ifbaiano.educacaoinclusiva.model.Tutor;
 import com.ifbaiano.educacaoinclusiva.model.Usuario;
-import com.ifbaiano.educacaoinclusiva.model.enums.TipoDeUsuario;
 
 public class SessionDTO {
-	 private Connection conexao;
+
+	private Connection conexao;
+
 	private static SessionDTO instance;
+	private String tipo; 
+
 	private Usuario usuarioLogado;
 	private Aluno alunoLogado;
 	private Tutor tutorLogado;
 
 	private SessionDTO() {
 	}
- public SessionDTO(Connection conexao) {
-	this.conexao = conexao;
-}
+
+	public SessionDTO(Connection conexao) {
+		this.conexao = conexao;
+	}
+
 	public static SessionDTO getInstance() {
 		if (instance == null) {
 			instance = new SessionDTO();
@@ -43,6 +47,7 @@ public class SessionDTO {
 	public void setUsuarioTutor(Tutor tutor) {
 		this.tutorLogado = tutor;
 		this.usuarioLogado = tutor;
+
 		if (tutor != null && usuarioLogado != null) {
 			usuarioLogado.setId(tutor.getIdUsuario());
 		}
@@ -58,8 +63,7 @@ public class SessionDTO {
 
 	public Tutor getTutorLogado() {
 		if (tutorLogado == null && usuarioLogado != null && "tutor".equalsIgnoreCase(usuarioLogado.getTipoUsuario())) {
-
-	        try  {
+			try {
 				TutorDAO tutorDAO = new TutorDAO(conexao);
 				tutorLogado = tutorDAO.buscarPorIdUsuario(usuarioLogado.getId());
 			} catch (SQLException e) {
@@ -100,6 +104,12 @@ public class SessionDTO {
 	}
 
 	public String getTipo() {
-		return usuarioLogado != null ? usuarioLogado.getTipoUsuario() : null;
+		return tipo;
 	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+
 }

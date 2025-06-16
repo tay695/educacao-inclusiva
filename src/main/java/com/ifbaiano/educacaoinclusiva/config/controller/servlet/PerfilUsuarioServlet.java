@@ -69,7 +69,6 @@ public class PerfilUsuarioServlet extends HttpServlet {
 				try {
 					tutor = tutorDAO.buscarTutorPorEmail(email);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
                 if (tutor != null) {

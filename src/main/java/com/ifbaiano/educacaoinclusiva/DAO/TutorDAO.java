@@ -25,22 +25,28 @@ public class TutorDAO {
 	}
 
 
-	public Tutor buscarPorIdUsuario(int usuarioId) throws SQLException {
-	    String sql = "SELECT area_especializacao FROM Tutor WHERE id_usuario = ?";
-	    Tutor tutor = null;
-	    
+	public Tutor buscarPorIdUsuario(int idUsuario) throws SQLException {
+	    String sql = "SELECT u.nome, u.email, t.area_especializacao " +
+	                 "FROM Usuario u JOIN Tutor t ON u.id = t.id_usuario " +
+	                 "WHERE u.id = ?";
+
 	    try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-	        stmt.setInt(1, usuarioId);
-	        ResultSet rs = stmt.executeQuery();
-	        
-	        if (rs.next()) {
-	            tutor = new Tutor();
-	            tutor.setIdUsuario(usuarioId);
-	            tutor.setAreaEspecializacao(rs.getString("area_especializacao"));
+	        stmt.setInt(1, idUsuario);
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            if (rs.next()) {
+	                Tutor tutor = new Tutor();
+	                tutor.setIdUsuario(idUsuario);
+	                tutor.setNome(rs.getString("nome")); 
+	                tutor.setEmail(rs.getString("email"));
+	                tutor.setAreaEspecializacao(rs.getString("area_especializacao"));
+	                return tutor;
+	            }
 	        }
 	    }
-	    return tutor;
+
+	    return null;
 	}
+
 	  public void atualizarTutor(Tutor tutor) throws SQLException {
 	        String sqlUsuario = "UPDATE Usuario SET nome = ?, email = ?, senha = ?, bio = ? WHERE id = ?";
 	        try (PreparedStatement stmt = conexao.prepareStatement(sqlUsuario)) {
